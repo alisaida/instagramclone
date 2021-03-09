@@ -3,16 +3,20 @@ import { View, Text, FlatList } from 'react-native';
 
 const data = [
     {
+        id: '1',
         user: {
             imageUri: 'https://lh3.googleusercontent.com/ogw/ADGmqu82o3DzQCvGZbM0BGcyAtZN_krbjffps4bNS2mq=s83-c-mo',
             name: 'Said'
         },
         imageUri: 'https://i.natgeofe.com/n/5b7c32fc-c08c-4a01-989c-be1ce4e853bb/tpc18-outdoor-gallery-499335-11707281_11.jpg',
-        likesCount: 256,
+        likesCount: 1648256,
         caption: 'you only live once #yolo',
-        postedAt: '4 hours ago'
+        postedAt: '4 hours ago',
+        isLiked: true,
+        isSaved: true
     },
     {
+        id: '2',
         user: {
             imageUri: 'https://lh3.googleusercontent.com/ogw/ADGmqu82o3DzQCvGZbM0BGcyAtZN_krbjffps4bNS2mq=s83-c-mo',
             name: 'Abdilahi'
@@ -20,9 +24,12 @@ const data = [
         imageUri: 'https://i.natgeofe.com/n/5b7c32fc-c08c-4a01-989c-be1ce4e853bb/tpc18-outdoor-gallery-499335-11707281_11.jpg',
         likesCount: 256,
         caption: 'you only live once #yolo',
-        postedAt: '4 hours ago'
+        postedAt: '4 hours ago',
+        isLiked: false,
+        isSaved: false
     },
     {
+        id: '3',
         user: {
             imageUri: 'https://lh3.googleusercontent.com/ogw/ADGmqu82o3DzQCvGZbM0BGcyAtZN_krbjffps4bNS2mq=s83-c-mo',
             name: 'Vardy'
@@ -30,7 +37,9 @@ const data = [
         imageUri: 'https://i.natgeofe.com/n/5b7c32fc-c08c-4a01-989c-be1ce4e853bb/tpc18-outdoor-gallery-499335-11707281_11.jpg',
         likesCount: 256,
         caption: 'you only live once #yolo',
-        postedAt: '4 hours ago'
+        postedAt: '4 hours ago',
+        isLiked: false,
+        isSaved: false
     }
 ]
 
@@ -42,6 +51,7 @@ const Feed = () => {
         <FlatList
             data={data}
             ListHeaderComponent={<Stories />}
+            keyExtractor={({ id }) => id}
             renderItem={({ item }) => <Post post={item} />}
         />
     );

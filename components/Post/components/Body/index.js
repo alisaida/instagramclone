@@ -1,11 +1,29 @@
 import React from 'react';
-import { Text, Image, View } from 'react-native';
+import { Text, Image, View, TouchableWithoutFeedback } from 'react-native';
 import styles from './styles'
 
+let lastPress = 0;
+
 const Body = ({ imageUri }) => {
+
+    onDoubleTap = () => {
+        const time = new Date().getTime();
+        const delta = time - lastPress;
+
+        const DOUBLE_PRESS_DELAY = 400;
+
+        if (delta < DOUBLE_PRESS_DELAY) {
+            console.warn('double pressed!');
+        }
+
+        lastPress = time;
+    }
+
     return (
         <View>
-            <Image source={{ uri: imageUri }} style={styles.image} />
+            <TouchableWithoutFeedback onPress={onDoubleTap} >
+                <Image source={{ uri: imageUri }} style={styles.image} />
+            </TouchableWithoutFeedback>
         </View>
     );
 }

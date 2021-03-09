@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { SafeAreaView, Text, Image, View } from 'react-native';
 
-
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Post from '../../components/Post';
+import logo from '../../assets/images/instagram-logo.png';
 
 const post = {
   user: {
@@ -15,13 +16,13 @@ const post = {
   postedAt: '4 hours ago'
 }
 
-import Feed from '../../components/Feed'
+import Feed from '../../components/Feed';
 
 const HomeScreen = () => {
   return (
-    <>
+    <SafeAreaView>
       <Feed />
-    </>
+    </SafeAreaView >
   );
 }
 

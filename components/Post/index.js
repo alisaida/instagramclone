@@ -14,7 +14,7 @@ const Post = ({ post }) => {
         <View>
             <Header imageUri={post.user.imageUri} name={post.user.name} />
             <Body imageUri={post.imageUri} />
-            <Footer name={post.name} caption={post.caption} likesCount={post.likesCount} postedAt={post.postedAt} />
+            <Footer name={post.name} caption={post.caption} likesCount={post.likesCount} postedAt={post.postedAt} isLiked={post.isLiked} isSaved={post.isSaved} />
         </View>
     );
 }
