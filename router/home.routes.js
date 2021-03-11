@@ -10,6 +10,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from '../screens/HomeScreen';
+import UserStoryPreview from '../screens/UserStoryPreview';
 import logo from '../assets/images/instagram-logo.png'
 
 const HomeStack = createStackNavigator();
@@ -34,9 +35,17 @@ const HomeRoutes = () => {
                         </View>
                     ),
                     headerTitle: () => (
-                        <Image source={logo} style={{ width: 150, resizeMode: 'contain', marginLeft: 5 }} />
+                        <Image source={logo} style={{ width: 150, height: 100, resizeMode: 'contain', marginLeft: 5 }} />
                     )
                 }}
+            />
+            <HomeStack.Screen
+                name='Story'
+                component={UserStoryPreview}
+                options={{
+                    headerShown: false
+                }}
+
             />
         </HomeStack.Navigator >
     )
