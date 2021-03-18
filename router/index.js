@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import bottomHomeNavigator from './bottomHomeNavigator.routes'
-
+import StoryScreen from '../screens/StoryScreen';
 const RootStack = createStackNavigator();
 
 const Router = () => {
@@ -13,6 +13,14 @@ const Router = () => {
                 options={{
                     headerShown: false
                 }}
+            />
+            <RootStack.Screen
+                name='Story'
+                component={StoryScreen}
+                options={{
+                    headerShown: false
+                }}
+
             />
         </RootStack.Navigator>
     )

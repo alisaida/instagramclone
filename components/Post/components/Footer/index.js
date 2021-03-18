@@ -50,7 +50,7 @@ const Footer = ({ caption, likesCount: likesCountProp, postedAt, isLiked: isLike
                     </TouchableWithoutFeedback>
                 </View>
             </View>
-            <Text style={styles.likes} >{likesCount} Likes</Text>
+            <Text style={styles.likes} >{likesCount.toLocaleString()} Likes</Text>
             <Text style={styles.caption} >{caption}</Text>
             <Text style={styles.postedAt} >{postedAt}</Text>
         </View >

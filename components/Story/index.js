@@ -6,17 +6,27 @@ import ProfilePicture from "../ProfilePicture";
 import styles from "../Story/styles";
 
 
-const Story = ({ imageUri, name }) => {
+const Story = (props) => {
+
+  const {
+    story: {
+      user: {
+        id,
+        imageUri,
+        name
+      }
+    }
+  } = props;
 
   const navigation = useNavigation();
 
   const onPress = () => {
-    navigation.navigate("Story");
+    navigation.navigate("Story", { userId: id });
   }
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <ProfilePicture imageUri={imageUri} />
+      <ProfilePicture uri={imageUri} />
       <Text style={styles.name}>{name}</Text>
     </TouchableOpacity>
   )
