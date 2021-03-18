@@ -66,7 +66,7 @@ const StoryScreen = () => {
     }
 
     const exit = () => {
-        navigation.
+
     }
 
     const activeStory = userStories.stories[activeStoryIndex];
