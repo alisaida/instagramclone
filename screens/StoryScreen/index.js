@@ -1,4 +1,4 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, NavigationAction } from '@react-navigation/native';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { View, Text, SafeAreaView, ImageBackground, ActivityIndicator, TouchableWithoutFeedback, Dimensions, TextInput } from 'react-native';
@@ -65,8 +65,11 @@ const StoryScreen = () => {
         )
     }
 
-    const exit = () => {
-
+    const exitStories = () => {
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Home' }]
+        })
     }
 
     const activeStory = userStories.stories[activeStoryIndex];
@@ -83,7 +86,7 @@ const StoryScreen = () => {
                         </View>
                         <View style={styles.headerRight}>
                             <MCIcons name='dots-horizontal' size={25} color={'white'} />
-                            <Feather name='x' size={33} color={'white'} onPress={exit} />
+                            <Feather name='x' size={33} color={'white'} onPress={exitStories} />
                         </View>
                     </View>
                 </ImageBackground>
