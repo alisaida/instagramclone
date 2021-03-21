@@ -11,9 +11,9 @@ import styles from './styles';
 import postsData from '../../../../data/photos'
 import Feed from '../../../Feed';
 
-const Profile = () => {
+const Profile = ({ userId }) => {
     const numColumns = 3;
-    const userId = '1';
+    //const userId = '1';
     const [userPosts, setUserPosts] = useState(null);
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const Profile = () => {
             <MyHeader />
             <View style={styles.container}>
                 <View>
-                    <ProfilePicture uri={userPosts.user.imageUri} size={100} />
+                    <ProfilePicture uri={userPosts.user.uri} size={100} />
                 </View>
                 <View style={styles.stats}>
                     <Stat statName='Posts' statCount='40.9 k' />
@@ -45,6 +45,7 @@ const Profile = () => {
                 </View>
             </View>
             <Text style={styles.profileName}>Said Ali</Text>
+
         </View >
     )
 }

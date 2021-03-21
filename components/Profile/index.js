@@ -34,10 +34,10 @@ const Profile = () => {
         <View >
             <FlatList
                 data={userPosts.posts}
-                // keyExtractor={({ userPosts.posts.postId }) => id}
+                keyExtractor={({ postId }) => postId}
                 renderItem={({ item }) => <Feed post={item} />}
                 numColumns={numColumns}
-                ListHeaderComponent={Details}
+                ListHeaderComponent={<Details userId={userId} />}
             />
         </View >
     )
