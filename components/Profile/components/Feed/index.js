@@ -3,7 +3,7 @@ import { Image, FlatList, Dimensions, Text } from 'react-native';
 
 const numColumns = 3;
 
-const Content = ({ post }) => {
+const Feed = ({ post }) => {
 
     return (
         <Image
@@ -13,4 +13,4 @@ const Content = ({ post }) => {
     );
 };
 
-export default Content;
+export default Feed;

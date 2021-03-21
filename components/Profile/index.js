@@ -5,11 +5,12 @@ import { Text, View, SafeAreaView, ActivityIndicator, FlatList } from 'react-nat
 import ProfilePicture from '../ProfilePicture';
 import MyHeader from './components/MyHeader';
 import Stat from './components/Stat';
-import GridFeed from './components/GridFeed';
+import Details from './components/Details'
+
 import styles from './styles';
 
 import postsData from '../../data/photos'
-import Content from './components/GridFeed/component/Content';
+import Feed from './components/Feed';
 
 const Profile = () => {
     const numColumns = 3;
@@ -19,7 +20,6 @@ const Profile = () => {
     useEffect(() => {
         const userPosts = postsData.find(postData => postData.user.id === userId);
         setUserPosts(userPosts);
-
     });
 
     if (!userPosts) {
@@ -32,25 +32,12 @@ const Profile = () => {
 
     return (
         <View >
-            {/* myheader or header */}
-            <MyHeader />
-            <View style={styles.container}>
-                <View>
-                    <ProfilePicture uri={userPosts.user.imageUri} size={100} />
-                </View>
-                <View style={styles.stats}>
-                    <Stat statName='Posts' statCount='40.9 k' />
-                    <Stat statName='Followers' statCount='8.7 M' />
-                    <Stat statName='Following' statCount='1,751' />
-                </View>
-            </View>
-            <Text style={styles.profileName}>Said Ali</Text>
-
             <FlatList
                 data={userPosts.posts}
                 // keyExtractor={({ userPosts.posts.postId }) => id}
-                renderItem={({ item }) => <Content post={item} />}
+                renderItem={({ item }) => <Feed post={item} />}
                 numColumns={numColumns}
+                ListHeaderComponent={Details}
             />
         </View >
     )
