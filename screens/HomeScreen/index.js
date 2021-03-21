@@ -3,7 +3,6 @@ import { SafeAreaView, Text, Image, View } from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Post from '../../components/Post';
-import logo from '../../assets/images/instagram-logo.png';
 
 const post = {
   user: {

@@ -1,12 +1,13 @@
 import React from 'react';
+import { View, Text, SafeAreaView } from 'react-native';
 
-import { View, Text } from 'react-native';
+import Profile from '../../components/Profile'
 
 const ProfileScreen = () => {
     return (
-        <View style={{ height: 1500 }} >
-            <Text style={{ marginTop: 300, fontSize: 30, textAlign: 'center', fontWeight: 'bold' }}>Profile</Text>
-        </View >
+        <SafeAreaView>
+            <Profile />
+        </SafeAreaView>
     );
 }
 

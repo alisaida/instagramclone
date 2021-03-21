@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexDirection: 'column',
         marginBottom: 20,
+        marginHorizontal: 5
 
     },
     storyHeader: {

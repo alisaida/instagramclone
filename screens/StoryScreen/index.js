@@ -1,7 +1,7 @@
 import { useNavigation, useRoute, NavigationAction } from '@react-navigation/native';
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { View, Text, SafeAreaView, ImageBackground, ActivityIndicator, TouchableWithoutFeedback, Dimensions, TextInput } from 'react-native';
+import { View, Text, SafeAreaView, ImageBackground, ActivityIndicator, TouchableWithoutFeedback, Dimensions, TextInput, StatusBar } from 'react-native';
 import storiesData from '../../data/stories'
 import styles from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -73,11 +73,18 @@ const StoryScreen = () => {
     }
 
     const activeStory = userStories.stories[activeStoryIndex];
-    console.log(`image: ${userStories.user.imageUri}`);
+    // console.log(`image: ${userStories.user.imageUri}`);
     return (
         <SafeAreaView style={styles.container}>
+            <StatusBar
+                barStyle='light-content'
+            />
             <TouchableWithoutFeedback onPress={handleStoryNav} >
-                <ImageBackground source={{ uri: activeStory.imageUri }} style={styles.image} >
+                <ImageBackground
+                    source={{ uri: activeStory.imageUri }}
+                    style={styles.image}
+                    imageStyle={{ borderRadius: 10 }}
+                >
                     <View style={styles.storyHeader}>
                         <View style={styles.headerLeft}>
                             <ProfilePicture uri={userStories.user.imageUri} size={40} />
