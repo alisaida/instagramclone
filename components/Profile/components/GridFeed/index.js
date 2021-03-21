@@ -13,7 +13,7 @@ const GridFeed = () => {
         <View>
             <FlatList
                 data={data}
-                renderItem={({ item }) => <Content content={'https://drive.google.com/thumbnail?id=13Q1jk2JMAXkEdqbhivEBwCiKfln7neKB'} />}
+                renderItem={({ item }) => <Content content={item} />}
                 numColumns={numColumns}
             />
         </View>

@@ -1,19 +1,14 @@
 import React from 'react';
-import { Image, FlatList, Dimensions } from 'react-native';
+import { Image, FlatList, Dimensions, Text } from 'react-native';
 
 const numColumns = 3;
 
-const Content = ({ content }) => {
-    console.log(content)
-    return (
-        // <Image
-        //     source={{ uri: content.imageUri }}
-        //     style={{ aspectRatio: 1, flex: 1 / numColumns }}
-        // />
+const Content = ({ post }) => {
 
+    return (
         <Image
-            source={{ uri: content.imageUri }}
-            width={120} height={120}
+            source={{ uri: post.imageUri }}
+            style={{ aspectRatio: 1, flex: 1 / numColumns }}
         />
     );
 };
