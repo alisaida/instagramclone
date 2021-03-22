@@ -12,9 +12,9 @@ const post = {
 const Post = ({ post }) => {
     return (
         <View>
-            <Header imageUri={post.user.imageUri} name={post.user.name} />
-            <Body imageUri={post.imageUri} />
-            <Footer name={post.name} caption={post.caption} likesCount={post.likesCount} postedAt={post.postedAt} isLiked={post.isLiked} isSaved={post.isSaved} />
+            <Header imageUri={post.user.image} name={post.user.name} />
+            <Body imageUri={post.image} />
+            <Footer name={post.name} caption={post.caption} likesCount={post.likes} postedAt={post.createdAt} isLiked={post.isLiked} isSaved={post.isSaved} />
         </View>
     );
 }

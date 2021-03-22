@@ -1,26 +1,38 @@
 import { useNavigation, useRoute, NavigationAction } from '@react-navigation/native';
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, SafeAreaView, ImageBackground, ActivityIndicator, TouchableWithoutFeedback, Dimensions, TextInput, StatusBar } from 'react-native';
-import storiesData from '../../data/stories'
-import styles from './styles';
+import { API, graphqlOperation } from 'aws-amplify';
+import moment from 'moment';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
-import MCIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import MCIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { listStorys } from '../../graphql/queries';
+import styles from './styles';
 import ProfilePicture from '../../components/ProfilePicture/index';
+import storiesData from '../../data/stories'
 
 const StoryScreen = () => {
 
     const route = useRoute();
     const navigation = useNavigation();
     const userId = route.params.userId;
-    const [userStories, setUserStories] = useState(null);
     const [activeStoryIndex, setActiveStoryIndex] = useState(null);
 
+    const [stories, setStories] = useState([]);
+
+    const fetchStories = async () => {
+        try {
+            const userStoriesData = await API.graphql(graphqlOperation(listStorys));
+            setStories(userStoriesData.data.listStorys.items);
+        } catch (err) {
+            console.log('error fetching stories');
+        }
+    }
+
     useEffect(() => {
-        const userStories = storiesData.find(storyData => storyData.user.id === userId);
-        setUserStories(userStories);
+        fetchStories();
         setActiveStoryIndex(0);
     }, []);
 
@@ -41,7 +53,7 @@ const StoryScreen = () => {
     }
 
     const renderNextStory = () => {
-        if (activeStoryIndex >= userStories.stories.length - 1) {
+        if (activeStoryIndex >= stories.length - 1) {
             navigateToNextUser();
             return;
         }
@@ -56,8 +68,9 @@ const StoryScreen = () => {
             renderPrevStory();
         }
     }
+    const activeStory = stories[activeStoryIndex];
 
-    if (!userStories || userStories.stories.length === 0) {
+    if (!activeStory || stories.length === 0) {
         return (
             <SafeAreaView>
                 <ActivityIndicator />
@@ -72,8 +85,7 @@ const StoryScreen = () => {
         })
     }
 
-    const activeStory = userStories.stories[activeStoryIndex];
-    // console.log(`image: ${userStories.user.imageUri}`);
+
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar
@@ -81,15 +93,15 @@ const StoryScreen = () => {
             />
             <TouchableWithoutFeedback onPress={handleStoryNav} >
                 <ImageBackground
-                    source={{ uri: activeStory.imageUri }}
+                    source={{ uri: activeStory.image }}
                     style={styles.image}
                     imageStyle={{ borderRadius: 10 }}
                 >
                     <View style={styles.storyHeader}>
                         <View style={styles.headerLeft}>
-                            <ProfilePicture uri={userStories.user.imageUri} size={40} />
-                            <Text style={styles.name}>{userStories.user.name}</Text>
-                            <Text style={styles.time}>{activeStory.postedAt}</Text>
+                            <ProfilePicture uri={activeStory.user.image} size={40} />
+                            <Text style={styles.name}>{activeStory.user.username}</Text>
+                            <Text style={styles.time}>{moment(activeStory.createdAt).fromNow()}</Text>
                         </View>
                         <View style={styles.headerRight}>
                             <MCIcons name='dots-horizontal' size={25} color={'white'} />

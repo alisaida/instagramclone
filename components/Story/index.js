@@ -12,8 +12,8 @@ const Story = (props) => {
     story: {
       user: {
         id,
-        imageUri,
-        name
+        image,
+        username
       }
     }
   } = props;
@@ -26,8 +26,8 @@ const Story = (props) => {
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <ProfilePicture uri={imageUri} />
-      <Text style={styles.name}>{name}</Text>
+      <ProfilePicture uri={image} />
+      <Text style={styles.name}>{username}</Text>
     </TouchableOpacity>
   )
 }
