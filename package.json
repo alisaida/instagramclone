@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "postinstall": "cd ios && pod install"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
@@ -18,6 +19,7 @@
     "amazon-cognito-identity-js": "^4.6.0",
     "aws-amplify": "^3.3.25",
     "aws-amplify-react-native": "^4.3.2",
+    "axios": "^0.21.1",
     "moment": "^2.29.1",
     "react": "16.13.1",
     "react-native": "^0.63.4",
@@ -25,7 +27,9 @@
     "react-native-reanimated": "^2.0.0",
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.18.1",
+    "react-native-sensitive-info": "^5.5.8",
     "react-native-vector-icons": "^8.1.0",
+    "validator": "^13.6.0",
     "yarn": "^1.22.10"
   },
   "devDependencies": {
