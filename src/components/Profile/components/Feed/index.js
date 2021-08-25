@@ -7,7 +7,7 @@ const Feed = ({ post }) => {
 
     return (
         <Image
-            source={{ uri: post.uri }}
+            source={{ uri: post.imageUri }}
             style={{ aspectRatio: 1, flex: 1 / numColumns }}
         />
     );

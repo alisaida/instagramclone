@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import { API, graphqlOperation } from 'aws-amplify';
 
-import { listStorys } from '../../graphql/queries';
+// import { listStorys } from '../../graphql/queries';
 
 import Story from "../Story";
 import styles from './styles'
@@ -21,7 +21,7 @@ const Stories = () => {
   }
 
   useEffect(() => {
-    fetchStories();
+    // fetchStories();
   }, [])
 
   return (

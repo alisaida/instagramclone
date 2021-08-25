@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList } from 'react-native';
-import { API, graphqlOperation } from 'aws-amplify';
+// import { API, graphqlOperation } from 'aws-amplify';
 
 import { listPosts } from '../../graphql/queries';
 
@@ -54,7 +54,7 @@ const Feed = () => {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        fetchPosts();
+        // fetchPosts();
     }, []);
 
     const fetchPosts = async () => {

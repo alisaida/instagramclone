@@ -32,8 +32,8 @@ const StoryScreen = () => {
     }
 
     useEffect(() => {
-        fetchStories();
-        setActiveStoryIndex(0);
+        // fetchStories();
+        // setActiveStoryIndex(0);
     }, []);
 
     const navigateToPrevUser = () => {

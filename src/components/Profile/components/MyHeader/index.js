@@ -9,11 +9,11 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 import styles from './styles'
 
-const MyHeader = () => {
+const MyHeader = ({ username }) => {
     return (
         <View style={styles.container}>
             <View style={styles.profileName}>
-                <Text style={styles.name}>si3iid</Text>
+                <Text style={styles.name}>{username}</Text>
                 <MaterialIcons name='verified' color='#2b82c4' size={16} />
             </View>
             <View style={styles.iconsRight}>

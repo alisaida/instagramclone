@@ -11,13 +11,13 @@ import styles from './styles';
 import postsData from '../../../../data/photos'
 import Feed from '../../../Feed';
 
-const Profile = ({ userId }) => {
+const Profile = ({ profile }) => {
     const numColumns = 3;
     //const userId = '1';
     const [userPosts, setUserPosts] = useState(null);
 
     useEffect(() => {
-        const userPosts = postsData.find(postData => postData.user.id === userId);
+        const userPosts = postsData.find(postData => postData.user.id === "1");
         setUserPosts(userPosts);
 
     });
@@ -30,13 +30,16 @@ const Profile = ({ userId }) => {
         )
     }
 
+    if (!profile)
+        return null;
+
     return (
         <View >
             {/* myheader or header */}
-            <MyHeader />
+            <MyHeader username={profile.username} />
             <View style={styles.container}>
                 <View>
-                    <ProfilePicture uri={userPosts.user.uri} size={100} />
+                    <ProfilePicture uri={profile.profilePicture} size={100} />
                 </View>
                 <View style={styles.stats}>
                     <Stat statName='Posts' statCount='40.9 k' />
@@ -44,7 +47,7 @@ const Profile = ({ userId }) => {
                     <Stat statName='Following' statCount='1,751' />
                 </View>
             </View>
-            <Text style={styles.profileName}>Said Ali</Text>
+            <Text style={styles.profileName}>{profile.name}</Text>
 
         </View >
     )
