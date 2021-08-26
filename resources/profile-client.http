@@ -1,0 +1,50 @@
+### login via the auth service for access and refresh token pairs
+POST  http://localhost:5000/api/auth/login
+content-type: application/json
+
+{
+    "email": "said.ali10@outlook.com",
+    "password": "pass"
+}
+
+### homepage
+GET http://localhost:5000
+content-type: application/json
+
+### create profile
+POST  http://localhost:5000/api/profiles/new
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk1NTQ0MTgsImV4cCI6MTYyOTcyNzIxOCwiYXVkIjoiNjExZDIxMzhhOTcyYzA3NDFiNzRlNTdjIiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.2Gv3oEX4N2mIvJ_MpuKqjAC2c9plK2dTJbLtcbD9CuA
+
+{
+    "username":"si3iid",
+    "name":"said",
+    "profilePicture":"http://google.com/p/si3iid",
+    "bio":""
+}
+
+### fetch profile data by userId
+GET  http://localhost:5000/api/profiles/users/611d2138a972c0741b74e57c
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk1NTQ0MTgsImV4cCI6MTYyOTcyNzIxOCwiYXVkIjoiNjExZDIxMzhhOTcyYzA3NDFiNzRlNTdjIiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.2Gv3oEX4N2mIvJ_MpuKqjAC2c9plK2dTJbLtcbD9CuA
+
+### fetch profile data by username
+GET  http://localhost:5000/api/profiles/user?username=si3iid
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk1NTQ0MTgsImV4cCI6MTYyOTcyNzIxOCwiYXVkIjoiNjExZDIxMzhhOTcyYzA3NDFiNzRlNTdjIiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.2Gv3oEX4N2mIvJ_MpuKqjAC2c9plK2dTJbLtcbD9CuA
+
+### fetch profile data by name
+GET  http://localhost:5000/api/profiles/user?name=said
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk1NTQ0MTgsImV4cCI6MTYyOTcyNzIxOCwiYXVkIjoiNjExZDIxMzhhOTcyYzA3NDFiNzRlNTdjIiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.2Gv3oEX4N2mIvJ_MpuKqjAC2c9plK2dTJbLtcbD9CuA
+
+### update profile
+PATCH  http://localhost:5000/api/profiles/update
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk1NTQ0MTgsImV4cCI6MTYyOTcyNzIxOCwiYXVkIjoiNjExZDIxMzhhOTcyYzA3NDFiNzRlNTdjIiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.2Gv3oEX4N2mIvJ_MpuKqjAC2c9plK2dTJbLtcbD9CuA
+
+{
+    "username":"sayid",
+    "name":"Said",
+    "profilePicture":"https://yt3.ggpht.com/yti/ANoDKi585jBh0-kAY3piX6ZiulL6_HbqQESafmkbnNnU-Q=s108-c-k-c0x00ffffff-no-rj"
+}
