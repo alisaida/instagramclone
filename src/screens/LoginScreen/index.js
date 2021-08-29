@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import validator from 'validator';
 import { storeAccessToken, storeRefreshToken } from '../../utils/SecureStore';
 import axios from 'axios';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Alert, Button } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Alert, Button, KeyboardAvoidingView, Platform } from 'react-native';
 import logo from '../../assets/images/instagram-logo.png';
 import { AuthContext } from '../../contexts/AuthContext';
 
@@ -17,6 +17,10 @@ const LoginScreen = ({ navigation }) => {
     const [errorMessage, setErrorMessage] = useState(' ');
     const [isLoading, setIsLoading] = useState(false);
 
+    useEffect(() => {
+        return () => { }
+    })
+
     const validate = async () => {
         if (!email) {
             setErrorMessage('email field is mandatory');
@@ -25,14 +29,10 @@ const LoginScreen = ({ navigation }) => {
         } else if (!validator.isEmail(email)) {
             setErrorMessage('please enter valid email');
         } else {
-            console.log('logging in user:');
-            console.log(`email: ${email}`);
-            const response = await login(email, password);
-
-            if (response && response.status === 200) {
-                setErrorMessage(' ');
-            } else {
-                setErrorMessage(response.message);
+            const responseError = await login(email, password);
+            if (responseError) {
+                console.log(responseError.message);
+                setErrorMessage(responseError.message);
             }
         }
 
@@ -40,54 +40,60 @@ const LoginScreen = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.outerContainer}>
+            <View style={styles.container}>
 
-            <Image source={logo} style={styles.logo} />
-            {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
+                <Image source={logo} style={styles.logo} />
+                {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
 
-            <View style={styles.inputView} >
-                <TextInput
-                    style={styles.inputText}
-                    placeholder="email..."
-                    placeholderTextColor="#808080"
-                    color='#808080'
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                    keyboardType='email-address'
-                    onChangeText={text => setEmail(text)}
-                />
-            </View>
-            <View style={styles.inputView} >
-                <TextInput
-                    style={styles.inputText}
-                    placeholder="password..."
-                    placeholderTextColor="#808080"
-                    color='#808080'
-                    secureTextEntry={true}
-                    onChangeText={text => setPassword(text)}
-                />
-            </View>
-            <TouchableOpacity style={[styles.loginBtn]} onPress={() => {
-                setIsLoading(true);
-                validate()
-            }}>
-                <Text style={styles.loginText}>log in</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('PassordReset')}>
-                <Text style={styles.link}>Forgot Password?</Text>
-            </TouchableOpacity>
-            <Text>or</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                <Text style={styles.link}>Sign up</Text>
-            </TouchableOpacity>
-            {isLoading && <Loading isLoading={true} />}
-        </View >
+                <View style={styles.inputView} >
+                    <TextInput
+                        style={styles.inputText}
+                        placeholder="email..."
+                        placeholderTextColor="#808080"
+                        color='#808080'
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        keyboardType='email-address'
+                        onChangeText={text => setEmail(text)}
+                    />
+                </View>
+                <View style={styles.inputView} >
+                    <TextInput
+                        style={styles.inputText}
+                        placeholder="password..."
+                        placeholderTextColor="#808080"
+                        color='#808080'
+                        secureTextEntry={true}
+                        onChangeText={text => setPassword(text)}
+                    />
+                </View>
+                <TouchableOpacity style={[styles.loginBtn]} onPress={() => {
+                    setIsLoading(true);
+                    validate()
+                }}>
+                    <Text style={styles.loginText}>log in</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('PassordReset')}>
+                    <Text style={styles.link}>Forgot Password?</Text>
+                </TouchableOpacity>
+                <Text>or</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                    <Text style={styles.link}>Sign up</Text>
+                </TouchableOpacity>
+                {isLoading && <Loading isLoading={true} />}
+            </View >
+        </KeyboardAvoidingView>
     );
 }
 
 export default LoginScreen;
 
 const styles = StyleSheet.create({
+    outerContainer: {
+        flex: 1
+    },
     container: {
         flex: 1,
         backgroundColor: '#fff',

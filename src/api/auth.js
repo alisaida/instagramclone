@@ -1,11 +1,35 @@
 import axios from 'axios';
 import { fetchAccessToken, removeAccessToken, storeAccessToken, fetchRefreshToken, removeRefreshToken, storeRefreshToken } from '../utils/SecureStore';
 
+import { BASE_URL } from 'react-native-dotenv';
+
+export const currentAuthUser = async () => {
+
+    const accessToken = await fetchAccessToken();
+    try {
+        const response = await axios({
+            method: 'get',
+            url: `${BASE_URL}:5000/api/profiles/auth/me/`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            mode: 'cors'
+        })
+
+        return profile.data;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
 export const loginUser = async (email, password) => {
     try {
         const response = await axios({
             method: 'post',
-            url: `http://localhost:5000/api/auth/login/`,
+            url: `${BASE_URL}:5000/api/auth/login/`,
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -23,6 +47,7 @@ export const loginUser = async (email, password) => {
         }
         return response;
     } catch (error) {
+        console.log(error);
         return error;
     }
 
@@ -32,7 +57,7 @@ export const registerUser = async (email, name, username, password) => {
     try {
         const response = await axios({
             method: 'post',
-            url: `http://localhost:5000/api/auth/register/`,
+            url: `${BASE_URL}:5000/api/auth/register/`,
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -40,8 +65,7 @@ export const registerUser = async (email, name, username, password) => {
             data: {
                 email: email,
                 name: name,
-                mobile: '0412378955',
-                // username: username,
+                username: username,
                 password: password
             }
         })
@@ -51,11 +75,9 @@ export const registerUser = async (email, name, username, password) => {
             storeAccessToken(response.data.accessToken);
             storeRefreshToken(response.data.accessToken);
         }
-
         return response;
     } catch (error) {
-        console.log(error.response.data)
-        console.log(password)
+        console.log(error);
         return error;
     }
 
@@ -65,7 +87,7 @@ export const logoutUser = () => {
     const refreshToken = fetchRefreshToken();
     axios({
         method: 'post',
-        url: `http://localhost:5000/api/auth/logout`,
+        url: `${BASE_URL}:5000/api/auth/logout`,
         headers: {
             'Content-Type': 'application/json'
         },
@@ -88,7 +110,7 @@ export const logoutUser = () => {
 export const register = (name, email, mobile, password) => {
     axios({
         method: 'post',
-        url: `http://localhost:5000/api/auth/register/`,
+        url: `${BASE_URL}:5000/api/auth/register/`,
         headers: {
             'Content-Type': 'application/json'
         },
@@ -113,7 +135,7 @@ export const refreshToken = () => {
     const refreshToken = fetchRefreshToken();
     axios({
         method: 'post',
-        url: `http://localhost:5000/api/auth/refresh-token/`,
+        url: `${BASE_URL}:5000/api/auth/refresh-token/`,
         headers: {
             'Content-Type': 'application/json'
         },

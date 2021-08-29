@@ -22,7 +22,7 @@ const Body = ({ imageUri }) => {
     return (
         <View>
             <TouchableWithoutFeedback onPress={onDoubleTap} >
-                <Image source={{ uri: imageUri }} style={styles.image} />
+                <Image source={{ uri: `${imageUri}` }} style={styles.image} />
             </TouchableWithoutFeedback>
         </View>
     );

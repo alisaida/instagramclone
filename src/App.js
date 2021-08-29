@@ -16,6 +16,9 @@ import {
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
+
+
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import PasswordResetScreen from './screens/PasswordResetScreen';
@@ -26,20 +29,26 @@ import { AuthContext } from './contexts/AuthContext';
 
 import { loginUser, registerUser } from './api/auth';
 
+
+
+
 const App: () => React$Node = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    return () => { }
+  })
+  useEffect(() => {
     isUserLoggedin();
   }, [])
 
   const isUserLoggedin = async () => {
-    // const accessToken = await fetchAccessToken();
-    // const refreshToken = await fetchRefreshToken();
+    const accessToken = await fetchAccessToken();
+    const refreshToken = await fetchRefreshToken();
 
-    const accessToken = '';
-    const refreshToken = '';
+    // const accessToken = '';
+    // const refreshToken = '';
 
     if (accessToken && refreshToken) {
       setIsLoggedIn(true);
@@ -51,14 +60,22 @@ const App: () => React$Node = () => {
 
   const auth = useMemo(() => ({
     login: async (email, password) => {
-      const response = loginUser(email, password);
-      if (response && response.status === 200) {
-        //setErrorMessage('');
-      } else {
-        //setErrorMessage(response.message);
+      const response = await loginUser(email, password);
+      if (response) {
+        if (response.status === 200) {
+          setIsLoggedIn(true);
+        } else {
+          //destructure axios repsonse error
+          const { error } = response.response.data;
+          if (error && error.status === 401) {
+            return new Error('Invalid username or password');
+          } else {
+            return new Error(response.toString());
+          }
+        }
       }
 
-      return response;
+      return null;
     },
 
     logout: () => {
@@ -66,11 +83,19 @@ const App: () => React$Node = () => {
     },
 
     register: async (email, name, username, password) => {
-      const response = registerUser(email, name, username, password);
+      const response = await registerUser(email, name, username, password);
       if (response && response.status === 201) {
-        //setErrorMessage('');
+        setIsLoggedIn(true);
       } else {
-        //setErrorMessage(response.message);
+
+
+        //destructure axios repsonse error
+        const { error } = response.response.data;
+        if (error && error.status === 409) {
+          return new Error(error.message);
+        } else {
+          return new Error(response.toString());
+        }
       }
 
       return response;
@@ -92,27 +117,27 @@ const App: () => React$Node = () => {
 
     <AuthContext.Provider value={auth}>
 
-      {/* isLoggedIn ?
+      {isLoggedIn ?
 
-      <NavigationContainer>
-        <StatusBar barStyle="dark-content" />
-        <Router />
-      </NavigationContainer>
-      : */}
-      <>
         <NavigationContainer>
-          <AuthStack.Navigator
-            mode={'modal'}
-            screenOptions={{
-              headerShown: false
-            }}
-          >
-            <AuthStack.Screen name='Login' component={LoginScreen} />
-            <AuthStack.Screen name='Register' component={RegisterScreen} />
-            <AuthStack.Screen name='PassordReset' component={PasswordResetScreen} />
-          </AuthStack.Navigator>
+          <StatusBar barStyle="dark-content" />
+          <Router />
         </NavigationContainer>
-      </>
+        :
+        <>
+          <NavigationContainer>
+            <AuthStack.Navigator
+              mode={'modal'}
+              screenOptions={{
+                headerShown: false
+              }}
+            >
+              <AuthStack.Screen name='Login' component={LoginScreen} />
+              <AuthStack.Screen name='Register' component={RegisterScreen} />
+              <AuthStack.Screen name='PassordReset' component={PasswordResetScreen} />
+            </AuthStack.Navigator>
+          </NavigationContainer>
+        </>}
     </AuthContext.Provider>
   );
 };
