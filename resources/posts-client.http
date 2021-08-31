@@ -1,40 +1,40 @@
 ### login via the auth service for access and refresh token pairs
-POST  http://localhost:5000/api/auth/login
+POST  http://192.168.0.3:5000/api/auth/login
 content-type: application/json
 
 {
-    "email": "john.barnes1983@outlook.com",
+    "email": "saidali@live.com.au",
     "password": "pass"
 }
 
 ### create post
 POST  http://localhost:5000/api/posts/new
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk1NTQ0MTgsImV4cCI6MTYyOTcyNzIxOCwiYXVkIjoiNjExZDIxMzhhOTcyYzA3NDFiNzRlNTdjIiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.2Gv3oEX4N2mIvJ_MpuKqjAC2c9plK2dTJbLtcbD9CuA
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzA0MTYwMDMsImV4cCI6MTYzMDU4ODgwMywiYXVkIjoiNjEyYTY0NDliNGY2NzEwMDQxY2QwY2Q3IiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.mAJNoNctnVvgF5pjU5tVFfjpwX7HJMbbl4ShYwk_a3c
 
 {
-    "content": "", 
-    "imageUri": "https://drive.google.com/thumbnail?id=1JLZFgI4aipro3DDx3LCdVjmsE71_l-Le"
+    "caption":"Schools out, recess is over. Your boy don't play",
+    "imageUri": "https://lh3.googleusercontent.com/d/1zspP2ddFL70KHhRhfmf4XyG_R988gzdJ"
 }
 
-### create post
-PATCH  http://localhost:5000/api/posts/611d19f4810a7ab8981c74ac
+### patch post
+PATCH  http://localhost:5000/api/posts/612a656a2aabc400414059de
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk1NTQ0MTgsImV4cCI6MTYyOTcyNzIxOCwiYXVkIjoiNjExZDIxMzhhOTcyYzA3NDFiNzRlNTdjIiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.2Gv3oEX4N2mIvJ_MpuKqjAC2c9plK2dTJbLtcbD9CuA
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzA0MTYwMDMsImV4cCI6MTYzMDU4ODgwMywiYXVkIjoiNjEyYTY0NDliNGY2NzEwMDQxY2QwY2Q3IiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.mAJNoNctnVvgF5pjU5tVFfjpwX7HJMbbl4ShYwk_a3c
 
 {
-    "content": "hit 'em up"
+    "imageUri": "https://lh3.googleusercontent.com/d/1KFsW9mMglQpJT85Vn1MTCtDdprK_TAEj"
 }
 
 ### fetch post data by id
 GET  http://localhost:5000/api/posts/612109ceb96e740039045c59
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk1NTQ0MTgsImV4cCI6MTYyOTcyNzIxOCwiYXVkIjoiNjExZDIxMzhhOTcyYzA3NDFiNzRlNTdjIiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.2Gv3oEX4N2mIvJ_MpuKqjAC2c9plK2dTJbLtcbD9CuA
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzAxNzI2ODMsImV4cCI6MTYzMDM0NTQ4MywiYXVkIjoiNjEyYTY0NDliNGY2NzEwMDQxY2QwY2Q3IiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.cHoYm97yMZUePZ04jjqysMiJDNJ8iUXJItn3N_Yv3Js
 
 ### create comment on a post by id
 POST  http://localhost:5000/api/posts/611d19f4810a7ab8981c74ac/comment/new
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk1NTQ0MTgsImV4cCI6MTYyOTcyNzIxOCwiYXVkIjoiNjExZDIxMzhhOTcyYzA3NDFiNzRlNTdjIiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.2Gv3oEX4N2mIvJ_MpuKqjAC2c9plK2dTJbLtcbD9CuA
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzAxNzI2ODMsImV4cCI6MTYzMDM0NTQ4MywiYXVkIjoiNjEyYTY0NDliNGY2NzEwMDQxY2QwY2Q3IiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.cHoYm97yMZUePZ04jjqysMiJDNJ8iUXJItn3N_Yv3Js
 
 {
     "comment":"yooooo!"
@@ -43,31 +43,35 @@ authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk1NTQ0M
 ### fetch posts comments
 GET  http://localhost:5000/api/posts/611d19f4810a7ab8981c74ac/comments
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk1NTQ0MTgsImV4cCI6MTYyOTcyNzIxOCwiYXVkIjoiNjExZDIxMzhhOTcyYzA3NDFiNzRlNTdjIiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.2Gv3oEX4N2mIvJ_MpuKqjAC2c9plK2dTJbLtcbD9CuA
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzAxNzI2ODMsImV4cCI6MTYzMDM0NTQ4MywiYXVkIjoiNjEyYTY0NDliNGY2NzEwMDQxY2QwY2Q3IiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.cHoYm97yMZUePZ04jjqysMiJDNJ8iUXJItn3N_Yv3Js
 
 ### fetch user posts
 GET  http://localhost:5000/api/posts/users/611d2138a972c0741b74e57c/fetchPosts
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk1NTQ0MTgsImV4cCI6MTYyOTcyNzIxOCwiYXVkIjoiNjExZDIxMzhhOTcyYzA3NDFiNzRlNTdjIiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.2Gv3oEX4N2mIvJ_MpuKqjAC2c9plK2dTJbLtcbD9CuA
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzAxNzI2ODMsImV4cCI6MTYzMDM0NTQ4MywiYXVkIjoiNjEyYTY0NDliNGY2NzEwMDQxY2QwY2Q3IiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.cHoYm97yMZUePZ04jjqysMiJDNJ8iUXJItn3N_Yv3Js
 
 
 ### fetch posts liked by user
 GET  http://localhost:5000/api/posts/users/611d1765a972c0741b74e578/fetchLikedPosts
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk1NTQ0MTgsImV4cCI6MTYyOTcyNzIxOCwiYXVkIjoiNjExZDIxMzhhOTcyYzA3NDFiNzRlNTdjIiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.2Gv3oEX4N2mIvJ_MpuKqjAC2c9plK2dTJbLtcbD9CuA
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzAxNzI2ODMsImV4cCI6MTYzMDM0NTQ4MywiYXVkIjoiNjEyYTY0NDliNGY2NzEwMDQxY2QwY2Q3IiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.cHoYm97yMZUePZ04jjqysMiJDNJ8iUXJItn3N_Yv3Js
 
 ### fetch likes for post
 GET  http://localhost:5000/api/posts/611d19f4810a7ab8981c74ac/likes
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk1NTQ0MTgsImV4cCI6MTYyOTcyNzIxOCwiYXVkIjoiNjExZDIxMzhhOTcyYzA3NDFiNzRlNTdjIiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.2Gv3oEX4N2mIvJ_MpuKqjAC2c9plK2dTJbLtcbD9CuA
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzAxNzI2ODMsImV4cCI6MTYzMDM0NTQ4MywiYXVkIjoiNjEyYTY0NDliNGY2NzEwMDQxY2QwY2Q3IiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.cHoYm97yMZUePZ04jjqysMiJDNJ8iUXJItn3N_Yv3Js
 
 ### like a post by id
 POST  http://localhost:5000/api/posts/611d19f4810a7ab8981c74ac/like
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk1NTQ0MTgsImV4cCI6MTYyOTcyNzIxOCwiYXVkIjoiNjExZDIxMzhhOTcyYzA3NDFiNzRlNTdjIiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.2Gv3oEX4N2mIvJ_MpuKqjAC2c9plK2dTJbLtcbD9CuA
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzAxNzI2ODMsImV4cCI6MTYzMDM0NTQ4MywiYXVkIjoiNjEyYTY0NDliNGY2NzEwMDQxY2QwY2Q3IiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.cHoYm97yMZUePZ04jjqysMiJDNJ8iUXJItn3N_Yv3Js
 
 ### unlike a post by id
 DELETE  http://localhost:5000/api/posts/611d19f4810a7ab8981c74ac/unlike
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk1NTQ0MTgsImV4cCI6MTYyOTcyNzIxOCwiYXVkIjoiNjExZDIxMzhhOTcyYzA3NDFiNzRlNTdjIiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.2Gv3oEX4N2mIvJ_MpuKqjAC2c9plK2dTJbLtcbD9CuA
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzAxNzI2ODMsImV4cCI6MTYzMDM0NTQ4MywiYXVkIjoiNjEyYTY0NDliNGY2NzEwMDQxY2QwY2Q3IiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.cHoYm97yMZUePZ04jjqysMiJDNJ8iUXJItn3N_Yv3Js
 
+### fetch feed
+GET  http://localhost:5000/api/posts/feed/all
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzAxNzI2ODMsImV4cCI6MTYzMDM0NTQ4MywiYXVkIjoiNjEyYTY0NDliNGY2NzEwMDQxY2QwY2Q3IiwiaXNzIjoiaHR0cHM6Ly93d3cubXl3ZWJzaXRlLmNvbSJ9.cHoYm97yMZUePZ04jjqysMiJDNJ8iUXJItn3N_Yv3Js

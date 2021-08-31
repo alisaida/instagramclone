@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* instacloneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* instacloneTests.m */; };
+		00E356F31AD99517003FC87E /* InstagramTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* InstagramTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2DCD954D1E0B4F2C00145EB5 /* instacloneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* instacloneTests.m */; };
-		2F5CD17A29564D1FEABB5178 /* libPods-instaclone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F8446071B9233A4BC209822 /* libPods-instaclone.a */; };
+		2DCD954D1E0B4F2C00145EB5 /* InstagramTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* InstagramTests.m */; };
+		2F5CD17A29564D1FEABB5178 /* libPods-Instagram.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F8446071B9233A4BC209822 /* libPods-Instagram.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		8AE5DCEAF03B1F829035C603 /* libPods-instaclone-instacloneTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B5BAEF171C92A2004DDC4AE /* libPods-instaclone-instacloneTests.a */; };
-		98F819047009B2E323F8C47C /* libPods-instaclone-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B91B0610E28C66729D42AA4 /* libPods-instaclone-tvOSTests.a */; };
-		E2D00AD38239998D763C8044 /* libPods-instaclone-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92AF6F69E546B1BC1C874F8B /* libPods-instaclone-tvOS.a */; };
+		8AE5DCEAF03B1F829035C603 /* libPods-Instagram-InstagramTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B5BAEF171C92A2004DDC4AE /* libPods-Instagram-InstagramTests.a */; };
+		98F819047009B2E323F8C47C /* libPods-Instagram-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B91B0610E28C66729D42AA4 /* libPods-Instagram-tvOSTests.a */; };
+		E2D00AD38239998D763C8044 /* libPods-Instagram-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92AF6F69E546B1BC1C874F8B /* libPods-Instagram-tvOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,43 +28,43 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = instaclone;
+			remoteInfo = Instagram;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "instaclone-tvOS";
+			remoteInfo = "Instagram-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* instacloneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = instacloneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* InstagramTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstagramTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* instacloneTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = instacloneTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* instaclone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = instaclone.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = instaclone/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = instaclone/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = instaclone/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = instaclone/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = instaclone/main.m; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* instaclone-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "instaclone-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* instaclone-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "instaclone-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B91B0610E28C66729D42AA4 /* libPods-instaclone-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-instaclone-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F8446071B9233A4BC209822 /* libPods-instaclone.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-instaclone.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		494EEC1389672272E369FE8F /* Pods-instaclone-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instaclone-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-instaclone-tvOSTests/Pods-instaclone-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		54117E01997D644FE7A37685 /* Pods-instaclone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instaclone.debug.xcconfig"; path = "Target Support Files/Pods-instaclone/Pods-instaclone.debug.xcconfig"; sourceTree = "<group>"; };
-		72C6A4872B4A59C317C76A66 /* Pods-instaclone-instacloneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instaclone-instacloneTests.debug.xcconfig"; path = "Target Support Files/Pods-instaclone-instacloneTests/Pods-instaclone-instacloneTests.debug.xcconfig"; sourceTree = "<group>"; };
-		78B7292A3B8B4FE9BB237A86 /* Pods-instaclone-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instaclone-tvOS.release.xcconfig"; path = "Target Support Files/Pods-instaclone-tvOS/Pods-instaclone-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = instaclone/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8260D0233CB94E0164D75592 /* Pods-instaclone-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instaclone-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-instaclone-tvOSTests/Pods-instaclone-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		8B5BAEF171C92A2004DDC4AE /* libPods-instaclone-instacloneTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-instaclone-instacloneTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		92AF6F69E546B1BC1C874F8B /* libPods-instaclone-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-instaclone-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		954A3CA179BDA7C6F890EE11 /* Pods-instaclone-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instaclone-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-instaclone-tvOS/Pods-instaclone-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		9B46332E7242E13E2014F106 /* Pods-instaclone-instacloneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instaclone-instacloneTests.release.xcconfig"; path = "Target Support Files/Pods-instaclone-instacloneTests/Pods-instaclone-instacloneTests.release.xcconfig"; sourceTree = "<group>"; };
-		C60B1D145A724C2EF3701900 /* Pods-instaclone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instaclone.release.xcconfig"; path = "Target Support Files/Pods-instaclone/Pods-instaclone.release.xcconfig"; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* InstagramTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstagramTests.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Instagram/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Instagram/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Instagram/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Instagram/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Instagram/main.m; sourceTree = "<group>"; };
+		2D02E47B1E0B4A5D006451C7 /* Instagram-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Instagram-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* Instagram-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Instagram-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B91B0610E28C66729D42AA4 /* libPods-Instagram-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Instagram-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F8446071B9233A4BC209822 /* libPods-Instagram.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Instagram.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		494EEC1389672272E369FE8F /* Pods-Instagram-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Instagram-tvOSTests/Pods-Instagram-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		54117E01997D644FE7A37685 /* Pods-Instagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram.debug.xcconfig"; path = "Target Support Files/Pods-Instagram/Pods-Instagram.debug.xcconfig"; sourceTree = "<group>"; };
+		72C6A4872B4A59C317C76A66 /* Pods-Instagram-InstagramTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram-InstagramTests.debug.xcconfig"; path = "Target Support Files/Pods-Instagram-InstagramTests/Pods-Instagram-InstagramTests.debug.xcconfig"; sourceTree = "<group>"; };
+		78B7292A3B8B4FE9BB237A86 /* Pods-Instagram-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Instagram-tvOS/Pods-Instagram-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Instagram/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8260D0233CB94E0164D75592 /* Pods-Instagram-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Instagram-tvOSTests/Pods-Instagram-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		8B5BAEF171C92A2004DDC4AE /* libPods-Instagram-InstagramTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Instagram-InstagramTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		92AF6F69E546B1BC1C874F8B /* libPods-Instagram-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Instagram-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		954A3CA179BDA7C6F890EE11 /* Pods-Instagram-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Instagram-tvOS/Pods-Instagram-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		9B46332E7242E13E2014F106 /* Pods-Instagram-InstagramTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram-InstagramTests.release.xcconfig"; path = "Target Support Files/Pods-Instagram-InstagramTests/Pods-Instagram-InstagramTests.release.xcconfig"; sourceTree = "<group>"; };
+		C60B1D145A724C2EF3701900 /* Pods-Instagram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram.release.xcconfig"; path = "Target Support Files/Pods-Instagram/Pods-Instagram.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -74,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8AE5DCEAF03B1F829035C603 /* libPods-instaclone-instacloneTests.a in Frameworks */,
+				8AE5DCEAF03B1F829035C603 /* libPods-Instagram-InstagramTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F5CD17A29564D1FEABB5178 /* libPods-instaclone.a in Frameworks */,
+				2F5CD17A29564D1FEABB5178 /* libPods-Instagram.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2D00AD38239998D763C8044 /* libPods-instaclone-tvOS.a in Frameworks */,
+				E2D00AD38239998D763C8044 /* libPods-Instagram-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,20 +98,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98F819047009B2E323F8C47C /* libPods-instaclone-tvOSTests.a in Frameworks */,
+				98F819047009B2E323F8C47C /* libPods-Instagram-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* instacloneTests */ = {
+		00E356EF1AD99517003FC87E /* InstagramTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* instacloneTests.m */,
+				00E356F21AD99517003FC87E /* InstagramTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = instacloneTests;
+			path = InstagramTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -122,7 +122,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* instaclone */ = {
+		13B07FAE1A68108700A75B9A /* Instagram */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -133,7 +133,7 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = instaclone;
+			name = Instagram;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -141,10 +141,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				3F8446071B9233A4BC209822 /* libPods-instaclone.a */,
-				8B5BAEF171C92A2004DDC4AE /* libPods-instaclone-instacloneTests.a */,
-				92AF6F69E546B1BC1C874F8B /* libPods-instaclone-tvOS.a */,
-				3B91B0610E28C66729D42AA4 /* libPods-instaclone-tvOSTests.a */,
+				3F8446071B9233A4BC209822 /* libPods-Instagram.a */,
+				8B5BAEF171C92A2004DDC4AE /* libPods-Instagram-InstagramTests.a */,
+				92AF6F69E546B1BC1C874F8B /* libPods-Instagram-tvOS.a */,
+				3B91B0610E28C66729D42AA4 /* libPods-Instagram-tvOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -159,9 +159,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* instaclone */,
+				13B07FAE1A68108700A75B9A /* Instagram */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* instacloneTests */,
+				00E356EF1AD99517003FC87E /* InstagramTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				F524B8D4F4473BD320CE1C19 /* Pods */,
@@ -174,10 +174,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* instaclone.app */,
-				00E356EE1AD99517003FC87E /* instacloneTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* instaclone-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* instaclone-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* Instagram.app */,
+				00E356EE1AD99517003FC87E /* InstagramTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* Instagram-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* Instagram-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -185,14 +185,14 @@
 		F524B8D4F4473BD320CE1C19 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				54117E01997D644FE7A37685 /* Pods-instaclone.debug.xcconfig */,
-				C60B1D145A724C2EF3701900 /* Pods-instaclone.release.xcconfig */,
-				72C6A4872B4A59C317C76A66 /* Pods-instaclone-instacloneTests.debug.xcconfig */,
-				9B46332E7242E13E2014F106 /* Pods-instaclone-instacloneTests.release.xcconfig */,
-				954A3CA179BDA7C6F890EE11 /* Pods-instaclone-tvOS.debug.xcconfig */,
-				78B7292A3B8B4FE9BB237A86 /* Pods-instaclone-tvOS.release.xcconfig */,
-				494EEC1389672272E369FE8F /* Pods-instaclone-tvOSTests.debug.xcconfig */,
-				8260D0233CB94E0164D75592 /* Pods-instaclone-tvOSTests.release.xcconfig */,
+				54117E01997D644FE7A37685 /* Pods-Instagram.debug.xcconfig */,
+				C60B1D145A724C2EF3701900 /* Pods-Instagram.release.xcconfig */,
+				72C6A4872B4A59C317C76A66 /* Pods-Instagram-InstagramTests.debug.xcconfig */,
+				9B46332E7242E13E2014F106 /* Pods-Instagram-InstagramTests.release.xcconfig */,
+				954A3CA179BDA7C6F890EE11 /* Pods-Instagram-tvOS.debug.xcconfig */,
+				78B7292A3B8B4FE9BB237A86 /* Pods-Instagram-tvOS.release.xcconfig */,
+				494EEC1389672272E369FE8F /* Pods-Instagram-tvOSTests.debug.xcconfig */,
+				8260D0233CB94E0164D75592 /* Pods-Instagram-tvOSTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -200,9 +200,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* instacloneTests */ = {
+		00E356ED1AD99517003FC87E /* InstagramTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "instacloneTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "InstagramTests" */;
 			buildPhases = (
 				702B58D804F725979F1C3346 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -215,14 +215,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = instacloneTests;
-			productName = instacloneTests;
-			productReference = 00E356EE1AD99517003FC87E /* instacloneTests.xctest */;
+			name = InstagramTests;
+			productName = InstagramTests;
+			productReference = 00E356EE1AD99517003FC87E /* InstagramTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* instaclone */ = {
+		13B07F861A680F5B00A75B9A /* Instagram */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "instaclone" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Instagram" */;
 			buildPhases = (
 				B837315E7864E667F313E165 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -236,14 +236,14 @@
 			);
 			dependencies = (
 			);
-			name = instaclone;
-			productName = instaclone;
-			productReference = 13B07F961A680F5B00A75B9A /* instaclone.app */;
+			name = Instagram;
+			productName = Instagram;
+			productReference = 13B07F961A680F5B00A75B9A /* Instagram.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* instaclone-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* Instagram-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "instaclone-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Instagram-tvOS" */;
 			buildPhases = (
 				C4F9EFED354E2B61ABBDA4D7 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
@@ -256,14 +256,14 @@
 			);
 			dependencies = (
 			);
-			name = "instaclone-tvOS";
-			productName = "instaclone-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* instaclone-tvOS.app */;
+			name = "Instagram-tvOS";
+			productName = "Instagram-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* Instagram-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* instaclone-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* Instagram-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "instaclone-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Instagram-tvOSTests" */;
 			buildPhases = (
 				28C2A0BDBFF8FE37EFD56FD2 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
@@ -275,9 +275,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "instaclone-tvOSTests";
-			productName = "instaclone-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* instaclone-tvOSTests.xctest */;
+			name = "Instagram-tvOSTests";
+			productName = "Instagram-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* Instagram-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -307,7 +307,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "instaclone" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Instagram" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -320,10 +320,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* instaclone */,
-				00E356ED1AD99517003FC87E /* instacloneTests */,
-				2D02E47A1E0B4A5D006451C7 /* instaclone-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* instaclone-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* Instagram */,
+				00E356ED1AD99517003FC87E /* InstagramTests */,
+				2D02E47A1E0B4A5D006451C7 /* Instagram-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* Instagram-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -392,7 +392,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-instaclone-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Instagram-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -428,7 +428,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-instaclone-instacloneTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Instagram-InstagramTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -441,7 +441,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-instaclone/Pods-instaclone-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Instagram/Pods-Instagram-resources.sh",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -482,7 +482,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-instaclone/Pods-instaclone-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Instagram/Pods-Instagram-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B837315E7864E667F313E165 /* [CP] Check Pods Manifest.lock */ = {
@@ -500,7 +500,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-instaclone-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Instagram-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -522,7 +522,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-instaclone-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Instagram-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -535,7 +535,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-instaclone-instacloneTests/Pods-instaclone-instacloneTests-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Instagram-InstagramTests/Pods-Instagram-InstagramTests-resources.sh",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -576,7 +576,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-instaclone-instacloneTests/Pods-instaclone-instacloneTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Instagram-InstagramTests/Pods-Instagram-InstagramTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -624,7 +624,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* instacloneTests.m in Sources */,
+				00E356F31AD99517003FC87E /* InstagramTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,7 +650,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* instacloneTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* InstagramTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -659,12 +659,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* instaclone */;
+			target = 13B07F861A680F5B00A75B9A /* Instagram */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* instaclone-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* Instagram-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -672,7 +672,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72C6A4872B4A59C317C76A66 /* Pods-instaclone-instacloneTests.debug.xcconfig */;
+			baseConfigurationReference = 72C6A4872B4A59C317C76A66 /* Pods-Instagram-InstagramTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -680,7 +680,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = instacloneTests/Info.plist;
+				INFOPLIST_FILE = InstagramTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -690,18 +690,18 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/instaclone.app/instaclone";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Instagram.app/Instagram";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9B46332E7242E13E2014F106 /* Pods-instaclone-instacloneTests.release.xcconfig */;
+			baseConfigurationReference = 9B46332E7242E13E2014F106 /* Pods-Instagram-InstagramTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = instacloneTests/Info.plist;
+				INFOPLIST_FILE = InstagramTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -711,28 +711,28 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/instaclone.app/instaclone";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Instagram.app/Instagram";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 54117E01997D644FE7A37685 /* Pods-instaclone.debug.xcconfig */;
+			baseConfigurationReference = 54117E01997D644FE7A37685 /* Pods-Instagram.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4AFR6SK3T3;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = instaclone/Info.plist;
+				INFOPLIST_FILE = Instagram/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = alisaid.instaclone;
-				PRODUCT_NAME = instaclone;
+				PRODUCT_BUNDLE_IDENTIFIER = alisaid.Instagram;
+				PRODUCT_NAME = Instagram;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -741,21 +741,21 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C60B1D145A724C2EF3701900 /* Pods-instaclone.release.xcconfig */;
+			baseConfigurationReference = C60B1D145A724C2EF3701900 /* Pods-Instagram.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4AFR6SK3T3;
-				INFOPLIST_FILE = instaclone/Info.plist;
+				INFOPLIST_FILE = Instagram/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = alisaid.instaclone;
-				PRODUCT_NAME = instaclone;
+				PRODUCT_BUNDLE_IDENTIFIER = alisaid.Instagram;
+				PRODUCT_NAME = Instagram;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -763,7 +763,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 954A3CA179BDA7C6F890EE11 /* Pods-instaclone-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 954A3CA179BDA7C6F890EE11 /* Pods-Instagram-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -774,14 +774,14 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "instaclone-tvOS/Info.plist";
+				INFOPLIST_FILE = "Instagram-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.instaclone-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.Instagram-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -791,7 +791,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 78B7292A3B8B4FE9BB237A86 /* Pods-instaclone-tvOS.release.xcconfig */;
+			baseConfigurationReference = 78B7292A3B8B4FE9BB237A86 /* Pods-Instagram-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -802,14 +802,14 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "instaclone-tvOS/Info.plist";
+				INFOPLIST_FILE = "Instagram-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.instaclone-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.Instagram-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -819,7 +819,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 494EEC1389672272E369FE8F /* Pods-instaclone-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 494EEC1389672272E369FE8F /* Pods-Instagram-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -829,24 +829,24 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "instaclone-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "Instagram-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.instaclone-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.Instagram-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/instaclone-tvOS.app/instaclone-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Instagram-tvOS.app/Instagram-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8260D0233CB94E0164D75592 /* Pods-instaclone-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 8260D0233CB94E0164D75592 /* Pods-Instagram-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -856,17 +856,17 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "instaclone-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "Instagram-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.instaclone-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.Instagram-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/instaclone-tvOS.app/instaclone-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Instagram-tvOS.app/Instagram-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
@@ -989,7 +989,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "instacloneTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "InstagramTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -998,7 +998,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "instaclone" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Instagram" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1007,7 +1007,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "instaclone-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Instagram-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -1016,7 +1016,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "instaclone-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Instagram-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -1025,7 +1025,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "instaclone" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Instagram" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

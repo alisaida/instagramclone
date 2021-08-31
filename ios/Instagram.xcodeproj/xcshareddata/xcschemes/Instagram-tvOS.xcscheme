@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "instaclone-tvOS.app"
-               BlueprintName = "instaclone-tvOS"
-               ReferencedContainer = "container:instaclone.xcodeproj">
+               BuildableName = "Instagram-tvOS.app"
+               BlueprintName = "Instagram-tvOS"
+               ReferencedContainer = "container:Instagram.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "instaclone-tvOSTests.xctest"
-               BlueprintName = "instaclone-tvOSTests"
-               ReferencedContainer = "container:instaclone.xcodeproj">
+               BuildableName = "Instagram-tvOSTests.xctest"
+               BlueprintName = "Instagram-tvOSTests"
+               ReferencedContainer = "container:Instagram.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "instaclone-tvOS.app"
-            BlueprintName = "instaclone-tvOS"
-            ReferencedContainer = "container:instaclone.xcodeproj">
+            BuildableName = "Instagram-tvOS.app"
+            BlueprintName = "Instagram-tvOS"
+            ReferencedContainer = "container:Instagram.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "instaclone-tvOS.app"
-            BlueprintName = "instaclone-tvOS"
-            ReferencedContainer = "container:instaclone.xcodeproj">
+            BuildableName = "Instagram-tvOS.app"
+            BlueprintName = "Instagram-tvOS"
+            ReferencedContainer = "container:Instagram.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
