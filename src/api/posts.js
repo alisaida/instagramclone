@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { fetchAccessToken, removeAccessToken, storeAccessToken, fetchRefreshToken, removeRefreshToken, storeRefreshToken } from '../utils/SecureStore';
 
-import { BASE_URL } from 'react-native-dotenv';
+import { BASE_URL } from '@env';
 
 export const retrievePosts = async () => {
 
