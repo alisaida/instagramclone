@@ -37,6 +37,13 @@ const Profile = () => {
         setPosts(postData);
     }
 
+    useEffect(() => {
+        // Side-effect logic...
+        return () => {
+            // Side-effect cleanup
+        };
+    }, []);
+
     return (
         <View >
             <FlatList

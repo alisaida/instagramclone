@@ -9,7 +9,7 @@ export const currentAuthUser = async () => {
     try {
         const response = await axios({
             method: 'get',
-            url: `${BASE_URL}:5000/api/profiles/auth/me/`,
+            url: `${BASE_URL}/api/profiles/auth/me/`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
@@ -26,10 +26,11 @@ export const currentAuthUser = async () => {
 }
 
 export const loginUser = async (email, password) => {
+    console.log(BASE_URL);
     try {
         const response = await axios({
             method: 'post',
-            url: `${BASE_URL}:5000/api/auth/login/`,
+            url: `${BASE_URL}/api/auth/login/`,
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -57,7 +58,7 @@ export const registerUser = async (email, name, username, password) => {
     try {
         const response = await axios({
             method: 'post',
-            url: `${BASE_URL}:5000/api/auth/register/`,
+            url: `${BASE_URL}/api/auth/register/`,
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -87,7 +88,7 @@ export const logoutUser = () => {
     const refreshToken = fetchRefreshToken();
     axios({
         method: 'post',
-        url: `${BASE_URL}:5000/api/auth/logout`,
+        url: `${BASE_URL}/api/auth/logout`,
         headers: {
             'Content-Type': 'application/json'
         },
@@ -110,7 +111,7 @@ export const logoutUser = () => {
 export const register = (name, email, mobile, password) => {
     axios({
         method: 'post',
-        url: `${BASE_URL}:5000/api/auth/register/`,
+        url: `${BASE_URL}/api/auth/register/`,
         headers: {
             'Content-Type': 'application/json'
         },
@@ -135,7 +136,7 @@ export const refreshToken = () => {
     const refreshToken = fetchRefreshToken();
     axios({
         method: 'post',
-        url: `${BASE_URL}:5000/api/auth/refresh-token/`,
+        url: `${BASE_URL}/api/auth/refresh-token/`,
         headers: {
             'Content-Type': 'application/json'
         },

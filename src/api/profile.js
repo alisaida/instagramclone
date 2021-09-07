@@ -9,7 +9,7 @@ export const currentAuthProfile = async () => {
     try {
         const response = await axios({
             method: 'get',
-            url: `${BASE_URL}:5000/api/profiles/me/`,
+            url: `${BASE_URL}/api/profiles/me/`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
@@ -33,7 +33,7 @@ export const fetchProfileById = async (userId) => {
     try {
         const response = await axios({
             method: 'get',
-            url: `${BASE_URL}:5000/api/profiles/users/${userId}`,
+            url: `${BASE_URL}/api/profiles/users/${userId}`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
@@ -56,7 +56,7 @@ export const createProfile = async (username, name, profilePicture, bio) => {
     try {
         const response = await axios({
             method: 'post',
-            url: `${BASE_URL}:5000/api/profiles/new`,
+            url: `${BASE_URL}/api/profiles/new`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`

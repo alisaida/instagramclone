@@ -10,7 +10,7 @@ export const retrievePosts = async () => {
     try {
         const response = await axios({
             method: 'get',
-            url: `${BASE_URL}:5000/api/posts/feed/all`,
+            url: `${BASE_URL}/api/posts/feed/all`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`

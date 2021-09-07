@@ -50,6 +50,13 @@ const RegisterScreen = ({ navigation }) => {
         }
     }
 
+    useEffect(() => {
+        // Side-effect logic...
+        return () => {
+            // Side-effect cleanup
+        };
+    }, []);
+
     return (
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.outerContainer}>
