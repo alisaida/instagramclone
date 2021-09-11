@@ -24,7 +24,7 @@ import RegisterScreen from './screens/RegisterScreen';
 import PasswordResetScreen from './screens/PasswordResetScreen';
 import { fetchAccessToken, fetchRefreshToken } from './utils/SecureStore';
 
-import Router from './router'
+import MainNav from './navigation/MainNav'
 import { AuthContext } from './contexts/AuthContext';
 
 import { loginUser, registerUser } from './api/auth';
@@ -121,13 +121,13 @@ const App: () => React$Node = () => {
 
         <NavigationContainer>
           <StatusBar barStyle="dark-content" />
-          <Router />
+          <MainNav />
         </NavigationContainer>
         :
         <>
           <NavigationContainer>
             <AuthStack.Navigator
-              mode={'modal'}
+              presentation={'modal'}
               screenOptions={{
                 headerShown: false
               }}

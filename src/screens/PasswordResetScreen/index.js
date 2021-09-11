@@ -4,7 +4,7 @@ import { storeAccessToken, storeRefreshToken } from '../../utils/SecureStore';
 import axios from 'axios';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Alert, Button } from 'react-native';
 import logo from '../../assets/images/instagram-logo.png';
-import HomeRoutes from '../../router/home.routes';
+// import HomeRoutes from '../../router/home.routes';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 

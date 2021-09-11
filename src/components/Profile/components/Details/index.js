@@ -11,23 +11,20 @@ import styles from './styles';
 import postsData from '../../../../data/photos'
 import Feed from '../../../Feed';
 
-const Profile = ({ profile }) => {
+const Profile = ({ profile, navigation }) => {
     const numColumns = 3;
     //const userId = '1';
     const [userPosts, setUserPosts] = useState(null);
 
+    //dummy profile stats
     useEffect(() => {
         const userPosts = postsData.find(postData => postData.user.id === "1");
         setUserPosts(userPosts);
 
-    });
+    }, []);
 
     if (!userPosts) {
-        return (
-            <SafeAreaView>
-                <ActivityIndicator />
-            </SafeAreaView >
-        )
+        return null
     }
 
     if (!profile)
@@ -36,7 +33,7 @@ const Profile = ({ profile }) => {
     return (
         <View >
             {/* myheader or header */}
-            <MyHeader username={profile.username} />
+            <MyHeader username={profile.username} navigation={navigation} />
             <View style={styles.container}>
                 <View>
                     <ProfilePicture uri={profile.profilePicture} size={100} />

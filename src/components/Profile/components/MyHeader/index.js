@@ -5,11 +5,15 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
+import { DrawerActions } from '@react-navigation/native';
+
+
 
 
 import styles from './styles'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const MyHeader = ({ username }) => {
+const MyHeader = ({ username, navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.profileName}>
@@ -18,7 +22,9 @@ const MyHeader = ({ username }) => {
             </View>
             <View style={styles.iconsRight}>
                 <FontAwesome name='plus-square-o' size={25} style={styles.icon} />
-                <Ionicons name='ios-reorder-three-outline' size={30} />
+                <TouchableOpacity onPress={() => { navigation.dispatch(DrawerActions.toggleDrawer()); }}>
+                    <Ionicons name='ios-reorder-three-outline' size={30} />
+                </TouchableOpacity>
             </View>
         </View>
     )

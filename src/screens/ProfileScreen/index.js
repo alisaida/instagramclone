@@ -3,10 +3,10 @@ import { View, Text, SafeAreaView } from 'react-native';
 
 import Profile from '../../components/Profile'
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
     return (
         <SafeAreaView>
-            <Profile />
+            <Profile navigation={navigation} />
         </SafeAreaView>
     );
 }

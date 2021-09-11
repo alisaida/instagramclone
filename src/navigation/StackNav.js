@@ -1,5 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
+
 import {
     StatusBar,
     SafeAreaView,
@@ -7,19 +10,26 @@ import {
     View
 } from 'react-native';
 
+
+import {
+    DrawerContentScrollView,
+    DrawerItemList,
+    DrawerItem
+} from '@react-navigation/drawer';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from '../screens/HomeScreen';
-
+import PostScreen from '../screens/PostScreen';
 import logo from '../assets/images/instagram-logo.png'
 
 const HomeStack = createStackNavigator();
 
-const HomeRoutes = () => {
+const StackNav = () => {
     return (
-        <HomeStack.Navigator >
+        <HomeStack.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />}>
             <HomeStack.Screen
-                name="Home"
+                name="HomeScreen"
                 component={HomeScreen}
                 options={{
                     title: 'Instagram',
@@ -28,7 +38,7 @@ const HomeRoutes = () => {
                         marginRight: 20,
                     },
                     headerRight: () => (
-                        <View style={{ flexDirection: 'row', width: 130, justifyContent: 'space-between', alignItems: 'center' }}>
+                        <View style={{ flexDirection: 'row', marginRight: 20, width: 130, justifyContent: 'space-between', alignItems: 'center' }}>
                             <Ionicons name='ios-camera-outline' size={26} color={'black'} />
                             <Ionicons name='heart-outline' size={26} color={'#000'} />
                             <Ionicons name='chatbubble-ellipses-outline' size={25} color={'#000'} />
@@ -39,9 +49,8 @@ const HomeRoutes = () => {
                     )
                 }}
             />
-
         </HomeStack.Navigator >
     )
 }
 
-export default HomeRoutes;
+export default StackNav;

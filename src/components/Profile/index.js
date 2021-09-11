@@ -4,7 +4,7 @@ import axios from 'axios';
 
 
 import ProfilePicture from '../ProfilePicture';
-import MyHeader from './components/MyHeader';
+// import MyHeader from './components/MyHeader';
 import Stat from './components/Stat';
 import Details from './components/Details'
 
@@ -16,7 +16,7 @@ import Feed from './components/Feed';
 import { currentAuthProfile } from '../../api/profile';
 import { retrievePosts } from '../../api/posts';
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
     const numColumns = 3;
 
     const [profile, setProfile] = useState(null);
@@ -51,7 +51,7 @@ const Profile = () => {
                 keyExtractor={({ _id }) => _id}
                 renderItem={({ item }) => <Feed post={item} />}
                 numColumns={numColumns}
-                ListHeaderComponent={<Details profile={profile} />}
+                ListHeaderComponent={<Details profile={profile} navigation={navigation} />}
             />
         </View >
     )

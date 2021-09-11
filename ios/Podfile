@@ -8,6 +8,8 @@ target 'Instagram' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   target 'InstagramTests' do
     inherit! :complete
     # Pods for testing
