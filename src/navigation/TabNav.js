@@ -19,7 +19,7 @@ import StackNav from './StackNav';
 import HomeScreen from '../screens/HomeScreen';
 import SearchScreen from '../screens/SearchScreen';
 import PostScreen from '../screens/PostScreen';
-// import ProfileScreen from '../screens/ProfileScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import ShoppingScreen from '../screens/ShoppingScreen';
 import ProfileNav from './ProfileNav';
 
@@ -68,6 +68,12 @@ const TabNav = () => {
             <Tab.Screen name="Home" component={StackNav} />
             <Tab.Screen name="Search" component={SearchScreen} />
             {/* <Tab.Screen name="Post" component={PostScreen} /> */}
+            <Tab.Screen
+                name='ProfileScreen'
+                component={ProfileScreen}
+                options={{
+                    headerShown: false
+                }} />
             <Tab.Screen name="Shop" component={ShoppingScreen} />
             <Tab.Screen name="Profile" component={ProfileNav} />
         </Tab.Navigator>

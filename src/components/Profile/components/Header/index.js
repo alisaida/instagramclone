@@ -8,12 +8,12 @@ import MCIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import styles from './styles'
 
-const Header = () => {
+const Header = ({ profile, navigation }) => {
     return (
         <View style={styles.container}>
             <MaterialIcons name='arrow-back-ios' size={25} />
             <View style={styles.profileName}>
-                <Text style={styles.name}>Said Ali</Text>
+                <Text style={styles.name}>{profile.name}</Text>
                 <MaterialIcons name='verified' color='#2b82c4' size={16} />
             </View>
             <MCIcons name='dots-horizontal' size={20} />

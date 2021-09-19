@@ -1,0 +1,13 @@
+export const AUTH_LOGIN_REQUEST = 'auth_login_request';
+export const AUTH_LOGIN_SUCCESS = 'auth_login_success';
+export const AUTH_LOGIN_FAIL = 'auth_login_fail';
+export const AUTH_LOGOUT_REQUEST = 'auth_logout_request';
+export const AUTH_LOGOUT_SUCCESS = 'auth_logout_success';
+export const AUTH_LOGOUT_FAIL = 'auth_logout_fail';
+export const AUTH_REGISTER_REQUEST = 'auth_register_request'
+export const AUTH_REGISTER_SUCCESS = 'auth_register_success';
+export const AUTH_REGISTER_FAIL = 'auth_register_fail';
+export const AUTH_PROFILE_REQUEST = 'auth_profile_request'
+export const AUTH_PROFILE_SUCCESS = "auth_profile_success";
+export const AUTH_PROFILE_FAIL = 'auth_profile_fail';
+export const AUTH_CLEAR_ERRORS = 'auth_clear_errors';

@@ -1,18 +1,18 @@
 import axios from 'axios';
-import { fetchAccessToken, removeAccessToken, storeAccessToken, fetchRefreshToken, removeRefreshToken, storeRefreshToken } from '../utils/SecureStore';
+import SecureStorage from 'react-native-secure-storage';
 
 import { BASE_URL } from '@env';
 
 export const currentAuthProfile = async () => {
-
-    const accessToken = await fetchAccessToken();
+    const authTokens = await SecureStorage.getItem('authTokens').catch(() => null);
+    const jwt = JSON.parse(authTokens);
     try {
         const response = await axios({
             method: 'get',
             url: `${BASE_URL}/api/profiles/me/`,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${jwt.accessToken}`
             },
             mode: 'cors'
         })
@@ -28,15 +28,15 @@ export const currentAuthProfile = async () => {
 }
 
 export const fetchProfileById = async (userId) => {
-
-    const accessToken = await fetchAccessToken();
+    const authTokens = await SecureStorage.getItem('authTokens').catch(() => null);
+    const jwt = JSON.parse(authTokens);
     try {
         const response = await axios({
             method: 'get',
             url: `${BASE_URL}/api/profiles/users/${userId}`,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${jwt.accessToken}`
             },
             mode: 'cors'
         })
@@ -51,15 +51,15 @@ export const fetchProfileById = async (userId) => {
 }
 
 export const createProfile = async (username, name, profilePicture, bio) => {
-
-    const accessToken = await fetchAccessToken();
+    const authTokens = await SecureStorage.getItem('authTokens').catch(() => null);
+    const jwt = JSON.parse(authTokens);
     try {
         const response = await axios({
             method: 'post',
             url: `${BASE_URL}/api/profiles/new`,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${jwt.accessToken}`
             },
             mode: 'cors',
             data: {

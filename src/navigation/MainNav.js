@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import TabNav from './TabNav'
 import StoryScreen from '../screens/StoryScreen';
-import LoginScreen from '../screens/LoginScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 const RootStack = createStackNavigator();
 
 const MainNav = () => {
@@ -22,6 +22,12 @@ const MainNav = () => {
                     options={{
                         headerShown: false
                     }} />
+                {/* <RootStack.Screen
+                    name='Profile2'
+                    component={ProfileScreen}
+                    options={{
+                        headerShown: false
+                    }} /> */}
             </RootStack.Navigator>
         </>
     )

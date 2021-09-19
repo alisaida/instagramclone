@@ -10,6 +10,8 @@ target 'Instagram' do
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
+  pod 'RNSecureStorage', :path => '../node_modules/react-native-secure-storage'
+
   target 'InstagramTests' do
     inherit! :complete
     # Pods for testing

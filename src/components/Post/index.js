@@ -28,9 +28,11 @@ const Post = ({ post }) => {
         return <View></View>
     }
 
+    // console.log(profile)
+
     return (
         <View>
-            <Header imageUri={profile.profilePicture} name={profile.name} />
+            <Header profile={profile} />
             <Body imageUri={post.imageUri} />
             <Footer name={profile.name} caption={post.content} likesCount={3} postedAt={post.createdAt} isLiked={false} isSaved={false} />
         </View>

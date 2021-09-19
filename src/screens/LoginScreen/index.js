@@ -1,25 +1,45 @@
 import React, { useState, useEffect, useContext } from 'react';
 import validator from 'validator';
-import { storeAccessToken, storeRefreshToken } from '../../utils/SecureStore';
 import axios from 'axios';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Alert, Button, KeyboardAvoidingView, Platform } from 'react-native';
 import logo from '../../assets/images/instagram-logo.png';
-import { AuthContext } from '../../contexts/AuthContext';
 
 import Loading from '../../components/Loading';
 
+import { login } from '../../redux/actions/authActions';
+
+import { useDispatch, useSelector } from "react-redux";
+import { AUTH_CLEAR_ERRORS } from '../../redux/constants/actionTypes';
+
 const LoginScreen = ({ navigation }) => {
 
-    const { login } = useContext(AuthContext);
+    useEffect(() => {
+        return () => { }
+    })
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState(' ');
     const [isLoading, setIsLoading] = useState(false);
 
+    const { auth } = useSelector((state) => state);
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        return () => { }
-    })
+        updateState();
+    }, [auth]);
+
+    const updateState = () => {
+        if (auth) {
+            if (auth.error) {
+                setErrorMessage(auth.error.toString());
+            } else {
+                setErrorMessage(' ');
+            }
+            setIsLoading(auth.isLoading);
+            // console.log(auth)
+        }
+    }
 
     const validate = async () => {
         if (!email) {
@@ -29,14 +49,8 @@ const LoginScreen = ({ navigation }) => {
         } else if (!validator.isEmail(email)) {
             setErrorMessage('please enter valid email');
         } else {
-            const responseError = await login(email, password);
-            if (responseError) {
-                console.log(responseError.message);
-                setErrorMessage(responseError.message);
-            }
+            dispatch(login(email, password));
         }
-
-        setIsLoading(false);
     }
 
     return (
@@ -70,16 +84,21 @@ const LoginScreen = ({ navigation }) => {
                     />
                 </View>
                 <TouchableOpacity style={[styles.loginBtn]} onPress={() => {
-                    setIsLoading(true);
-                    validate()
+                    validate();
                 }}>
                     <Text style={styles.loginText}>log in</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('PassordReset')}>
+                <TouchableOpacity onPress={() => {
+                    dispatch({ type: AUTH_CLEAR_ERRORS });
+                    navigation.navigate('PassordReset');
+                }}>
                     <Text style={styles.link}>Forgot Password?</Text>
                 </TouchableOpacity>
                 <Text>or</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                <TouchableOpacity onPress={() => {
+                    dispatch({ type: AUTH_CLEAR_ERRORS });
+                    navigation.navigate('Register');
+                }}>
                     <Text style={styles.link}>Sign up</Text>
                 </TouchableOpacity>
                 {isLoading && <Loading isLoading={true} />}

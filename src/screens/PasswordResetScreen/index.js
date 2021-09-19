@@ -1,18 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import validator from 'validator';
-import { storeAccessToken, storeRefreshToken } from '../../utils/SecureStore';
-import axios from 'axios';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Alert, Button } from 'react-native';
 import logo from '../../assets/images/instagram-logo.png';
-// import HomeRoutes from '../../router/home.routes';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { AuthContext } from '../../contexts/AuthContext';
-
 const PasswordResetScreen = ({ navigation }) => {
-    const { forgotPassword } = useContext(AuthContext);
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState(' ');
@@ -25,12 +18,12 @@ const PasswordResetScreen = ({ navigation }) => {
         } else {
             //const response = await login(email, password);
 
-            if (response && response.status === 200) {
-                //updateIsLoggedIn(true);
-                setErrorMessage('');
-            } else {
-                setErrorMessage(response.message);
-            }
+            // if (response && response.status === 200) {
+            //     //updateIsLoggedIn(true);
+            //     setErrorMessage('');
+            // } else {
+            //     setErrorMessage(response.message);
+            // }
         }
     }
 

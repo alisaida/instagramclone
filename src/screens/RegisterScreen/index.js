@@ -2,20 +2,21 @@ import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Alert, Button, KeyboardAvoidingView, Platform } from 'react-native';
 
 import validator from 'validator';
-import axios from 'axios';
 
+import { useDispatch, useSelector } from "react-redux";
 import logo from '../../assets/images/instagram-logo.png';
 
-import { storeAccessToken, storeRefreshToken } from '../../utils/SecureStore';
-import { login } from '../../api/auth';
-import { AuthContext } from '../../contexts/AuthContext';
+import { register } from '../../redux/actions/authActions'
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Loading from '../../components/Loading';
+import { AUTH_CLEAR_ERRORS } from '../../redux/constants/actionTypes';
 
 const RegisterScreen = ({ navigation }) => {
 
-    const { register } = useContext(AuthContext);
+    // useEffect(() => {
+    //     return () => { }
+    // })
 
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
@@ -24,9 +25,24 @@ const RegisterScreen = ({ navigation }) => {
     const [errorMessage, setErrorMessage] = useState(' ');
     const [isLoading, setIsLoading] = useState(false);
 
+    const { auth } = useSelector((state) => state);
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        return () => { }
-    })
+        updateState();
+    }, [auth]);
+
+    const updateState = () => {
+        if (auth) {
+            if (auth.error) {
+                setErrorMessage(auth.error.toString());
+            } else {
+                setErrorMessage(' ');
+            }
+            setIsLoading(auth.isLoading);
+            // console.log(auth)
+        }
+    }
 
     const validate = async () => {
         if (!email) {
@@ -40,28 +56,18 @@ const RegisterScreen = ({ navigation }) => {
         } else if (!validator.isEmail(email)) {
             setErrorMessage('please enter valid email');
         } else {
-            const responseError = await register(email, name, username, password);
-
-            if (responseError) {
-                console.log(responseError.message);
-                setErrorMessage(responseError.message);
-            }
-            setIsLoading(false);
+            dispatch(register(email, name, username, password));
         }
     }
-
-    useEffect(() => {
-        // Side-effect logic...
-        return () => {
-            // Side-effect cleanup
-        };
-    }, []);
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.outerContainer}>
             <View style={styles.container}>
-                <TouchableOpacity style={styles.closeIcon} onPress={() => navigation.pop()}>
+                <TouchableOpacity style={styles.closeIcon} onPress={() => {
+                    dispatch({ type: AUTH_CLEAR_ERRORS });
+                    navigation.pop();
+                }}>
                     <Ionicons name='close-outline' size={35} />
                 </TouchableOpacity>
                 <Image source={logo} style={styles.logo} />

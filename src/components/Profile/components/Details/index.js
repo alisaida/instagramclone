@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, SafeAreaView, ActivityIndicator, FlatList } from 'react-native';
 
-
 import ProfilePicture from '../../../ProfilePicture';
 import MyHeader from '../MyHeader';
 import Stat from '../Stat';
@@ -10,20 +9,27 @@ import styles from './styles';
 
 import postsData from '../../../../data/photos'
 import Feed from '../../../Feed';
+import Header from '../Header';
 
-const Profile = ({ profile, navigation }) => {
-    const numColumns = 3;
-    //const userId = '1';
-    const [userPosts, setUserPosts] = useState(null);
+
+const Profile = ({ profile, isAuthProfile, navigation }) => {
+
+    useEffect(() => {
+        // Side-effect logic...
+        return () => {
+            // Side-effect cleanup
+        };
+    }, []);
+
+    const [userStats, setUserStats] = useState(null);
 
     //dummy profile stats
     useEffect(() => {
-        const userPosts = postsData.find(postData => postData.user.id === "1");
-        setUserPosts(userPosts);
-
+        const userStats = postsData.find(postData => postData.user.id === "1");
+        setUserStats(userStats);
     }, []);
 
-    if (!userPosts) {
+    if (!userStats) {
         return null
     }
 
@@ -32,15 +38,19 @@ const Profile = ({ profile, navigation }) => {
 
     return (
         <View >
-            {/* myheader or header */}
-            <MyHeader username={profile.username} navigation={navigation} />
+            {
+                // myheader or their header 
+                isAuthProfile ?
+                    (<MyHeader username={profile.username} navigation={navigation} />) :
+                    (<Header profile={profile} navigation={navigation} />)
+            }
             <View style={styles.container}>
                 <View>
                     <ProfilePicture uri={profile.profilePicture} size={100} />
                 </View>
                 <View style={styles.stats}>
                     <Stat statName='Posts' statCount='40.9 k' />
-                    <Stat statName='Followers' statCount='8.7 M' />
+                    <Stat statName='Followers' statCount='347' />
                     <Stat statName='Following' statCount='1,751' />
                 </View>
             </View>
