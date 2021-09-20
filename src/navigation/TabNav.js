@@ -75,15 +75,11 @@ const TabNav = ({ route, options }) => {
                 component={StackNav}
                 listeners={({ navigation, route }) => ({
                     tabPress: e => {
-                        //check current tab is profile
-                        const state = navigation.getState();
-                        if (!state || !state.index || state.index !== 4)
-                            return;
-
                         //check if already at the top level
                         const parentState = navigation.getParent().getState();
+
                         if (parentState && parentState.index && parentState.index == 1) {
-                            navigation.popToTop();
+                            navigation.dispatch(navigation.popToTop());
                         }
                     },
                 })}
