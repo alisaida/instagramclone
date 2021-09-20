@@ -1,13 +1,11 @@
 import React from 'react';
-import {
-    StatusBar, SafeAreaView, Image, View
-} from 'react-native';
+import { StatusBar, SafeAreaView, Image, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import {
-    createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem
-} from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
+import { useDispatch } from 'react-redux'
 
 import ProfileScreen from '../screens/ProfileScreen';
+import { logout } from '../redux/actions/authActions';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -34,6 +32,8 @@ const ProfileNav = () => {
 }
 
 function CustomDrawerContent(props) {
+    const dispatch = useDispatch();
+
     return (
         <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
@@ -47,7 +47,7 @@ function CustomDrawerContent(props) {
             />
             <DrawerItem
                 label="Sign out"
-                onPress={() => Linking.openURL('https://mywebsite.com/help')}
+                onPress={() => dispatch(logout())}
             />
         </DrawerContentScrollView>
     );
