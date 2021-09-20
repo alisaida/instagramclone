@@ -22,11 +22,11 @@ const ProfileScreen = ({ route, navigation }) => {
         }
     }
 
-    // if (!authProfile.userId) {
-    //     <View></View>
-    // }
+    if (!(authProfile && authProfile.userId)) {
+        return null;
+    }
 
-    // console.log(authProfile)
+
 
     return (
         <SafeAreaView>

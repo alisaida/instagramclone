@@ -9,7 +9,7 @@ export const retrievePostsByUserId = async (userId) => {
     try {
         const response = await axios({
             method: 'get',
-            url: `${BASE_URL}/api/posts/users/${userId}/fetchPost`,
+            url: `${BASE_URL}/api/posts/users/${userId}/fetchPosts/`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${jwt.accessToken}`

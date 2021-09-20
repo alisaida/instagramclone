@@ -9,10 +9,10 @@ import Details from './components/Details'
 
 import styles from './styles';
 
-import postsData from '../../data/photos'
+// import postsData from '../../data/photos'
 import Feed from './components/Feed';
 
-import { retrievePosts, retrievePostsByUserId } from '../../api/posts';
+import { retrievePostsByUserId } from '../../api/posts';
 
 const Profile = ({ profile, isAuthProfile, navigation }) => {
 
@@ -21,28 +21,18 @@ const Profile = ({ profile, isAuthProfile, navigation }) => {
         return () => { };
     }, []);
 
-
-
     const numColumns = 3;
     const [posts, setPosts] = useState(null);
 
     useEffect(() => {
-        if (isAuthProfile) {
-            fetchPostMyData();
-            console.log(profile)
-        }
-        else {
-            fetchPostAllData();
+        if (profile.userId) {
+            fetchPostData();
         }
     }, []);
 
-    const fetchPostMyData = async () => {
-        const postData = await retrievePosts();
-        setPosts(postData);
-    }
 
-    const fetchPostAllData = async () => {
-        const postData = await retrievePosts();
+    const fetchPostData = async () => {
+        const postData = await retrievePostsByUserId(profile.userId)
         setPosts(postData);
     }
 
@@ -58,4 +48,5 @@ const Profile = ({ profile, isAuthProfile, navigation }) => {
         </View >
     )
 }
+
 export default Profile;
