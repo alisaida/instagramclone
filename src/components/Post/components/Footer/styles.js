@@ -27,7 +27,19 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         margin: 3,
     },
+    postUser: {
+        fontWeight: 'bold',
+        margin: 3,
+    },
     caption: {
+        margin: 3,
+    },
+    postDetails: {
+        flexDirection: 'row',
+
+    },
+    comments: {
+        color: '#595857',
         margin: 3,
     },
     postedAt: {

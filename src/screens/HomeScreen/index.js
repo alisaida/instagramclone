@@ -3,7 +3,7 @@ import { SafeAreaView, Text, Image, View } from 'react-native';
 
 import Feed from '../../components/Feed';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
 
 
   // Side-effect cleanup
@@ -13,7 +13,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView>
-      <Feed />
+      <Feed navigation={navigation} />
     </SafeAreaView >
   );
 }

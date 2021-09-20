@@ -8,7 +8,7 @@ import { retrievePosts } from '../../api/posts';
 import Post from '../Post';
 import Stories from "../../components/Stories";
 
-const Feed = () => {
+const Feed = ({ navigation }) => {
 
     const [posts, setPosts] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
@@ -33,7 +33,7 @@ const Feed = () => {
             data={posts}
             ListHeaderComponent={<Stories />}
             keyExtractor={({ _id }) => _id}
-            renderItem={({ item }) => <Post post={item} />}
+            renderItem={({ item }) => <Post post={item} navigation={navigation} />}
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         />
     );

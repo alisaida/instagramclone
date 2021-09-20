@@ -4,6 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import TabNav from './TabNav'
 import StoryScreen from '../screens/StoryScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import CommentsScreen from '../screens/CommentsScreen';
+import LikesScreen from '../screens/LikesScreen';
 const RootStack = createStackNavigator();
 
 const MainNav = () => {
@@ -25,6 +27,18 @@ const MainNav = () => {
                 <RootStack.Screen
                     name='ProfileScreen'
                     component={ProfileScreen}
+                    options={{
+                        headerShown: false
+                    }} />
+                <RootStack.Screen
+                    name='Like'
+                    component={LikesScreen}
+                    options={{
+                        headerShown: false
+                    }} />
+                <RootStack.Screen
+                    name='Comments'
+                    component={CommentsScreen}
                     options={{
                         headerShown: false
                     }} />
