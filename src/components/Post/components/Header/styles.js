@@ -4,10 +4,13 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        alignContent: 'center',
     },
     leftHeader: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center',
+        alignContent: 'center',
     },
     rightHeader: {
         marginRight: 15

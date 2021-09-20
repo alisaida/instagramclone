@@ -26,6 +26,8 @@ const ProfileScreen = ({ route, navigation }) => {
     //     <View></View>
     // }
 
+    // console.log(authProfile)
+
     return (
         <SafeAreaView>
             {(otherProfile && authProfile && authProfile.userId !== otherProfile.userId) ?

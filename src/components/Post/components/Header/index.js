@@ -10,17 +10,26 @@ const Header = ({ profile }) => {
 
     const navigation = useNavigation();
 
-    const onPress = () => {
-        // navigation.navigate("Story");
+    const gotToStories = () => {
+        navigation.navigate("Story");
+    }
+
+    const navigateToProfileScreen = () => {
         navigation.push('Root', { screen: 'ProfileScreen', params: { otherProfile: profile, isAuthProfile: false } });
     }
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.leftHeader} onPress={onPress}>
-                <ProfilePicture uri={profile.imageUri} size={40} />
-                <Text style={styles.name}>{profile.name}</Text>
-            </TouchableOpacity>
+            <View style={styles.leftHeader} >
+
+                <TouchableOpacity onPress={gotToStories}>
+                    <ProfilePicture uri={profile.imageUri} size={40} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={navigateToProfileScreen}>
+
+                    <Text style={styles.name}>{profile.name}</Text>
+                </TouchableOpacity>
+            </View>
             <View style={styles.rightHeader} >
                 <DotIcon name='dots-three-horizontal' size={18} style={styles.actionIcon} />
             </View>

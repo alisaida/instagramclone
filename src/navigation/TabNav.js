@@ -12,7 +12,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCI from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-//import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 
 import StackNav from './StackNav';
@@ -25,7 +24,7 @@ import ProfileNav from './ProfileNav';
 
 const Tab = createBottomTabNavigator();
 
-const TabNav = () => {
+const TabNav = ({ route, options }) => {
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -58,24 +57,46 @@ const TabNav = () => {
                         return <MaterialCI name={iconName} size={size} color={color} />;
                     }
                 },
-
+                tabBarButton: [
+                    "ProfileScreen",
+                ].includes(route.name)
+                    ? () => {
+                        return null;
+                    }
+                    : undefined,
                 tabBarActiveTintColor: 'black',
                 tabBarInactiveTintColor: 'gray',
                 tabBarShowLabel: false,
                 headerShown: false
             })}
         >
-            <Tab.Screen name="Home" component={StackNav} />
+            <Tab.Screen
+                name="Home"
+                component={StackNav}
+                listeners={({ navigation, route }) => ({
+                    tabPress: e => {
+                        //check current tab is profile
+                        const state = navigation.getState();
+                        if (!state || !state.index || state.index !== 4)
+                            return;
+
+                        //check if already at the top level
+                        const parentState = navigation.getParent().getState();
+                        if (parentState && parentState.index && parentState.index == 1) {
+                            navigation.popToTop();
+                        }
+                    },
+                })}
+            />
             <Tab.Screen name="Search" component={SearchScreen} />
-            {/* <Tab.Screen name="Post" component={PostScreen} /> */}
+            <Tab.Screen name="Shop" component={ShoppingScreen} />
+            <Tab.Screen name="Profile" component={ProfileNav} />
             <Tab.Screen
                 name='ProfileScreen'
                 component={ProfileScreen}
                 options={{
                     headerShown: false
                 }} />
-            <Tab.Screen name="Shop" component={ShoppingScreen} />
-            <Tab.Screen name="Profile" component={ProfileNav} />
         </Tab.Navigator>
     )
 }

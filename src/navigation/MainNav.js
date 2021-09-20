@@ -22,12 +22,12 @@ const MainNav = () => {
                     options={{
                         headerShown: false
                     }} />
-                {/* <RootStack.Screen
-                    name='Profile2'
+                <RootStack.Screen
+                    name='ProfileScreen'
                     component={ProfileScreen}
                     options={{
                         headerShown: false
-                    }} /> */}
+                    }} />
             </RootStack.Navigator>
         </>
     )

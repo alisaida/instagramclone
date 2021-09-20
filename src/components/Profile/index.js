@@ -12,15 +12,13 @@ import styles from './styles';
 import postsData from '../../data/photos'
 import Feed from './components/Feed';
 
-import { retrievePosts } from '../../api/posts';
+import { retrievePosts, retrievePostsByUserId } from '../../api/posts';
 
 const Profile = ({ profile, isAuthProfile, navigation }) => {
 
+    // Side-effect cleanup
     useEffect(() => {
-        // Side-effect logic...
-        return () => {
-            // Side-effect cleanup
-        };
+        return () => { };
     }, []);
 
 
@@ -29,10 +27,21 @@ const Profile = ({ profile, isAuthProfile, navigation }) => {
     const [posts, setPosts] = useState(null);
 
     useEffect(() => {
-        fetchPostsData();
+        if (isAuthProfile) {
+            fetchPostMyData();
+            console.log(profile)
+        }
+        else {
+            fetchPostAllData();
+        }
     }, []);
 
-    const fetchPostsData = async () => {
+    const fetchPostMyData = async () => {
+        const postData = await retrievePosts();
+        setPosts(postData);
+    }
+
+    const fetchPostAllData = async () => {
         const postData = await retrievePosts();
         setPosts(postData);
     }

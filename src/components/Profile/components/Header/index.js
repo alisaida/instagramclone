@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -11,7 +11,9 @@ import styles from './styles'
 const Header = ({ profile, navigation }) => {
     return (
         <View style={styles.container}>
-            <MaterialIcons name='arrow-back-ios' size={25} />
+            <TouchableOpacity onPress={() => navigation.pop()}>
+                <MaterialIcons name='arrow-back-ios' size={25} />
+            </TouchableOpacity>
             <View style={styles.profileName}>
                 <Text style={styles.name}>{profile.name}</Text>
                 <MaterialIcons name='verified' color='#2b82c4' size={16} />
