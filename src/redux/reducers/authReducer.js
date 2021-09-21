@@ -10,9 +10,12 @@ import {
 const initialState = {
     isLoading: false,
     error: undefined,
-    authTokens: SecureStorage.getItem('authTokens').catch(() => null),
-    authProfile: SecureStorage.getItem('authProfile').catch(() => null)
+    accessToken: SecureStorage.getItem('accessToken').catch(() => null),
+    refreshToken: SecureStorage.getItem('refreshToken').catch(() => null),
+    userId: SecureStorage.getItem('userId').catch(() => null)
 };
+
+
 
 export default authReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -21,106 +24,103 @@ export default authReducer = (state = initialState, action) => {
                 ...state,
                 isLoading: true,
                 error: undefined,
-                authTokens: undefined,
+                accessToken: undefined,
+                refreshToken: undefined
             }
         case AUTH_LOGIN_SUCCESS:
-            SecureStorage.setItem('authTokens', JSON.stringify({
-                accessToken: action.payload.data.accessToken,
-                refreshToken: action.payload.data.refreshToken
-            }));
-
+            SecureStorage.setItem('accessToken', action.payload.data.accessToken);
+            SecureStorage.setItem('refreshToken', action.payload.data.refreshToken);
             return {
                 ...state,
                 isLoading: false,
                 error: undefined,
-                authTokens: action.payload.data
+                accessToken: action.payload.data.accessToken,
+                refreshToken: action.payload.data.refreshToken
             }
         case AUTH_LOGIN_FAIL:
-            SecureStorage.removeItem('authTokens');
-            SecureStorage.removeItem('authProfile');
+            SecureStorage.removeItem('accessToken');
+            SecureStorage.removeItem('refreshToken');
+            SecureStorage.removeItem('userId');
             return {
                 ...state,
                 isLoading: false,
                 error: action.payload.data.error.message,
-                authTokens: null,
-                authProfile: null
+                accessToken: undefined,
+                refreshToken: undefined,
+                userId: undefined
             }
         case AUTH_LOGOUT_REQUEST:
             return {
                 ...state,
                 isLoading: true,
                 error: undefined,
+                accessToken: undefined,
+                refreshToken: undefined,
+                userId: undefined
             }
         case AUTH_LOGOUT_SUCCESS:
         case AUTH_LOGOUT_FAIL:
-            SecureStorage.removeItem('authTokens');
-            SecureStorage.removeItem('authProfile');
+            SecureStorage.removeItem('accessToken');
+            SecureStorage.removeItem('refreshToken');
+            SecureStorage.removeItem('userId');
             return {
                 ...state,
                 isLoading: false,
                 error: undefined,
-                authTokens: undefined,
+                accessToken: undefined,
+                refreshToken: undefined,
+                userId: undefined
             }
         case AUTH_REGISTER_REQUEST:
             return {
                 ...state,
                 isLoading: true,
                 error: undefined,
-                authTokens: undefined,
+                accessToken: undefined,
+                refreshToken: undefined,
+                userId: undefined
             }
         case AUTH_REGISTER_SUCCESS:
-            SecureStorage.setItem('authTokens', JSON.stringify({
-                accessToken: action.payload.data.accessToken,
-                refreshToken: action.payload.data.refreshToken
-            }));
+            SecureStorage.setItem('accessToken', action.payload.data.accessToken);
+            SecureStorage.setItem('refreshToken', action.payload.data.refreshToken);
 
             return {
                 ...state,
                 isLoading: false,
                 error: undefined,
-                authTokens: JSON.stringify({
-                    accessToken: action.payload.data.accessToken,
-                    refreshToken: action.payload.data.refreshToken
-                })
+                accessToken: action.payload.data.accessToken,
+                refreshToken: action.payload.data.refreshToken
             }
         case AUTH_REGISTER_FAIL:
-            SecureStorage.removeItem('authTokens');
             return {
                 ...state,
                 isLoading: false,
                 error: action.payload.data.error.message,
-                authTokens: null,
+                accessToken: undefined,
+                refreshToken: undefined
             }
         case AUTH_PROFILE_REQUEST:
             return {
                 ...state,
                 isLoading: true,
                 error: undefined,
-                authProfile: undefined
+                userId: undefined
             }
         case AUTH_PROFILE_SUCCESS:
-            SecureStorage.setItem('authProfile', JSON.stringify({
-                userId: action.payload.data.profile.userId,
-                username: action.payload.data.profile.username,
-                name: action.payload.data.profile.name
-            }));
+            SecureStorage.setItem('userId', action.payload.data.profile.userId);
 
             return {
                 ...state,
                 isLoading: false,
                 error: false,
-                authProfile: JSON.stringify({
-                    userId: action.payload.data.profile.userId,
-                    username: action.payload.data.profile.username,
-                    name: action.payload.data.profile.name
-                })
+                userId: action.payload.data.profile.userId
             }
         case AUTH_PROFILE_FAIL:
             return {
                 ...state,
                 isLoading: false,
                 error: action.payload,
-                authProfile: undefined
+                userId: undefined
             }
         case AUTH_CLEAR_ERRORS:
             return {

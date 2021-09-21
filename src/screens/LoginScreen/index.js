@@ -37,7 +37,7 @@ const LoginScreen = ({ navigation }) => {
                 setErrorMessage(' ');
             }
             setIsLoading(auth.isLoading);
-            // console.log(auth)
+            // console.log(auth.userId)
         }
     }
 
@@ -45,7 +45,7 @@ const LoginScreen = ({ navigation }) => {
         if (!email) {
             setErrorMessage('email field is mandatory');
         } else if (!password) {
-            setErrorMessage('email field is password');
+            setErrorMessage('password field is mandatory');
         } else if (!validator.isEmail(email)) {
             setErrorMessage('please enter valid email');
         } else {

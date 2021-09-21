@@ -24,11 +24,12 @@ const Post = ({ post, navigation }) => {
     }, [])
 
     const loadAuthProfile = async () => {
-        const auth = await SecureStorage.getItem('authProfile');
+        const userId = await SecureStorage.getItem('userId');
         try {
-            setAuthProfile(JSON.parse(auth));
+            const authProfile = await fetchProfileById(userId);
+            setAuthProfile(authProfile);
         } catch (e) {
-            console.log('failed')
+            console.log(`Post: Failed to load authProfile for userId ${auth.userId}`, e)
         }
     }
 

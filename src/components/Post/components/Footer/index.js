@@ -52,9 +52,9 @@ const Footer = ({ navigation, authProfile, profile, post, isSaved: isSavedProp }
                 setIsLiked(checkLikes(data.likes));
                 setCommentsCount(data.comments.length)
             }
-            if (post._id === "6134cf334e323d00283af07a") {
-                // console.log(data.comments.length)
-            }
+            // if (post._id === "6134cf334e323d00283af07a") {
+            //     console.log(data.comments.length)
+            // }
         } catch (e) {
             console.log(e)
         }

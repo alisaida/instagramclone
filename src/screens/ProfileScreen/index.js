@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, SafeAreaView } from 'react-native';
 import SecureStorage from 'react-native-secure-storage';
-import Profile from '../../components/Profile'
-
+import Profile from '../../components/Profile';
+import { fetchProfileById } from '../../api/profile';
 const ProfileScreen = ({ route, navigation }) => {
     const [authProfile, setAuthProfile] = useState(null);
     const [otherProfile, setOtherProfile] = useState(null);
@@ -14,19 +14,19 @@ const ProfileScreen = ({ route, navigation }) => {
     }, []);
 
     const loadAuthProfile = async () => {
-        const auth = await SecureStorage.getItem('authProfile');
+
+        const userId = await SecureStorage.getItem('userId').catch(() => null);
         try {
-            setAuthProfile(JSON.parse(auth));
+            const authProfile = await fetchProfileById(userId);
+            setAuthProfile(authProfile);
         } catch (e) {
-            console.log('failed')
+            console.log(`ProfileScreen: Failed to load authProfile for userId ${auth.userId}`, e)
         }
     }
 
     if (!(authProfile && authProfile.userId)) {
         return null;
     }
-
-
 
     return (
         <SafeAreaView>

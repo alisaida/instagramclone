@@ -7,7 +7,7 @@ import { retrievePosts } from '../../api/posts';
 
 import Post from '../Post';
 import Stories from "../../components/Stories";
-
+import SecureStorage from 'react-native-secure-storage'
 const Feed = ({ navigation }) => {
 
     const [posts, setPosts] = useState([]);
@@ -18,8 +18,15 @@ const Feed = ({ navigation }) => {
     }, []);
 
     const fetchPosts = async () => {
-        const postData = await retrievePosts();
-        setPosts(postData);
+        try {
+            const postData = await retrievePosts();
+            if (postData)
+                setPosts(postData);
+        } catch (error) {
+
+
+            console.log('failed');
+        }
     }
 
     const onRefresh = useCallback(async () => {

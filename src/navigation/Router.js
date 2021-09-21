@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
 import MainNav from './MainNav';
@@ -12,15 +12,31 @@ import { useSelector } from 'react-redux';
 const Router = () => {
 
     const { auth } = useSelector((state) => state);
+    const [authUser, setAuthUser] = useState(null);
+
+    useEffect(() => {
+        checkUser();
+    }, [auth])
+
+    const checkUser = async () => {
+        const userId = await auth.userId;
+        if (userId) {
+            setAuthUser(userId);
+            console.log('user logged in')
+        } else {
+            console.log('user logged out')
+        }
+    }
 
     return (
         <NavigationContainer>
 
-            {(auth && auth.authProfile && auth.authTokens) ?
+            {(authUser) ?
                 (
                     <MainNav />
                 ) : <AuthNav />
             }
+
         </NavigationContainer>
     )
 }

@@ -4,15 +4,15 @@ import SecureStorage from 'react-native-secure-storage';
 import { BASE_URL } from '@env';
 
 export const currentAuthUser = async () => {
-    const authTokens = await SecureStorage.getItem('authTokens').catch(() => null);
-    const jwt = JSON.parse(authTokens);
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
     try {
         const response = await axios({
             method: 'get',
             url: `${BASE_URL}/api/profiles/auth/me/`,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${jwt.accessToken}`
+                'Authorization': `Bearer ${accessToken}`
             },
             mode: 'cors'
         })
