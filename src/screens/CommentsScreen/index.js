@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { StyleSheet, Text, View, SafeAreaView, FlatList, RefreshControl } from 'react-native';
 
-import PostComment from '../../components/PostComment';
-import CommentItem from '../../components/PostComment/components/CommentItem';
+import PostCommentList from '../../components/Post/components/PostCommentList';
+import CommentItem from '../../components/Post/components/PostCommentItem';
 
 import { retrievePostById } from '../../api/posts';
 
@@ -31,19 +31,7 @@ const CommentScreen = ({ navigation, route }) => {
         setRefreshing(true);
         fetchPostData();
         setRefreshing(false);
-    }, [refreshing])
-
-    const separator = () => {
-        return (
-            <View
-                style={{
-                    height: 1,
-                    backgroundColor: "#CED0CE",
-                    marginHorizontal: "3%"
-                }}
-            />
-        )
-    }
+    }, [refreshing]);
 
     if (!postData || !postData.comments || !postData.post)
         return null;
@@ -60,8 +48,7 @@ const CommentScreen = ({ navigation, route }) => {
                         />
                     }
                     keyExtractor={({ _id }) => _id}
-                    renderItem={({ item }) => <PostComment postComment={item} navigation={navigation} />}
-                    // ItemSeparatorComponent={separator}
+                    renderItem={({ item }) => <PostCommentList postComment={item} navigation={navigation} />}
                     contentContainerStyle={{ flexGrow: 1 }}
                     refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                 />

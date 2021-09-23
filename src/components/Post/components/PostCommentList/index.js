@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import moment from 'moment'
-import CommentItem from './components/CommentItem';
+import CommentItem from '../PostCommentItem';
 
-import { fetchProfileById } from '../../api/profile';
+import { fetchProfileById } from '../../../../api/profile';
 
-const PostComment = ({ postComment, navigation }) => {
+const PostCommentList = ({ postComment, navigation }) => {
 
 
 
@@ -41,4 +41,4 @@ const PostComment = ({ postComment, navigation }) => {
     )
 }
 
-export default PostComment
+export default PostCommentList

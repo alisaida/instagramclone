@@ -110,3 +110,25 @@ export const unlikePostById = async (id) => {
         return error;
     }
 }
+
+export const retrievePostLikesById = async (id) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axios({
+            method: 'get',
+            url: `${BASE_URL}/api/posts/${id}/likes/`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            mode: 'cors'
+        })
+
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}

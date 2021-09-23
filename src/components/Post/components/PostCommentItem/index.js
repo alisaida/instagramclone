@@ -8,7 +8,7 @@ import ProfilePicture from '../../../ProfilePicture';
 
 const CommentItem = ({ name, imageUri, comment, createdAt }) => {
 
-    moment.locale('en-mobile', {
+    moment.updateLocale('en-mobile', {
         parentLocale: 'en',
         relativeTime: {
             future: "in %s",
@@ -29,8 +29,6 @@ const CommentItem = ({ name, imageUri, comment, createdAt }) => {
 
     return (
         <View>
-
-
             <View style={styles.container}>
                 <ProfilePicture uri={imageUri} size={40} />
                 <View style={styles.commentContainer}>

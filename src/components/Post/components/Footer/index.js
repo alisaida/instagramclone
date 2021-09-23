@@ -67,7 +67,7 @@ const Footer = ({ navigation, authProfile, profile, post, isSaved: isSavedProp }
     }
 
     const navigateToLikeScreen = () => {
-        navigation.push('Root', { screen: 'Likes' });
+        navigation.push('Root', { screen: 'Likes', params: { post: post } });
     }
 
     return (
