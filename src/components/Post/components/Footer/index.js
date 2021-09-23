@@ -52,9 +52,6 @@ const Footer = ({ navigation, authProfile, profile, post, isSaved: isSavedProp }
                 setIsLiked(checkLikes(data.likes));
                 setCommentsCount(data.comments.length)
             }
-            // if (post._id === "6134cf334e323d00283af07a") {
-            //     console.log(data.comments.length)
-            // }
         } catch (e) {
             console.log(e)
         }
@@ -66,13 +63,11 @@ const Footer = ({ navigation, authProfile, profile, post, isSaved: isSavedProp }
     }
 
     const navigateToCommentsScreen = () => {
-        navigation.push('Comments');
-        console.log('nav to comments');
+        navigation.push('Root', { screen: 'Comments', params: { post: post, postComments: postData.comments, postId: post._id, profile: profile } });
     }
 
     const navigateToLikeScreen = () => {
-        navigation.push('Comments');
-        console.log('nav to likes');
+        navigation.push('Root', { screen: 'Likes' });
     }
 
     return (
@@ -113,7 +108,7 @@ const Footer = ({ navigation, authProfile, profile, post, isSaved: isSavedProp }
                         (<Text style={styles.comments} >View all {commentsCount} comments</Text>))}
                 </View>
             </TouchableWithoutFeedback>
-            <Text style={styles.postedAt} >{moment(post.postedAt).format("MMMM Do YYYY")}</Text>
+            <Text style={styles.postedAt} >{moment(post.createdAt).format("MMMM Do YYYY")}</Text>
         </View >
     );
 }

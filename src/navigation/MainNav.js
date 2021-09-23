@@ -24,13 +24,13 @@ const MainNav = () => {
                     options={{
                         headerShown: false
                     }} />
-                <RootStack.Screen
+                {/* <RootStack.Screen
                     name='ProfileScreen'
                     component={ProfileScreen}
                     options={{
                         headerShown: false
-                    }} />
-                <RootStack.Screen
+                    }} /> */}
+                {/* <RootStack.Screen
                     name='Like'
                     component={LikesScreen}
                     options={{
@@ -41,7 +41,7 @@ const MainNav = () => {
                     component={CommentsScreen}
                     options={{
                         headerShown: false
-                    }} />
+                    }} /> */}
             </RootStack.Navigator>
         </>
     )

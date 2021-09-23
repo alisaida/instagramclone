@@ -3,7 +3,9 @@ import {
     StatusBar,
     SafeAreaView,
     Image,
-    View
+    View,
+    Text,
+    StyleSheet
 } from 'react-native';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -11,6 +13,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCI from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 
@@ -20,7 +23,10 @@ import SearchScreen from '../screens/SearchScreen';
 import PostScreen from '../screens/PostScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ShoppingScreen from '../screens/ShoppingScreen';
+import CommentsScreen from '../screens/CommentsScreen';
+import LikesScreen from '../screens/LikesScreen';
 import ProfileNav from './ProfileNav';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Tab = createBottomTabNavigator();
 
@@ -59,6 +65,8 @@ const TabNav = ({ route, options }) => {
                 },
                 tabBarButton: [
                     "ProfileScreen",
+                    "Likes",
+                    "Comments",
                 ].includes(route.name)
                     ? () => {
                         return null;
@@ -77,7 +85,6 @@ const TabNav = ({ route, options }) => {
                     tabPress: e => {
                         //check if already at the top level
                         const parentState = navigation.getParent().getState();
-
                         if (parentState && parentState.index && parentState.index == 1) {
                             navigation.dispatch(navigation.popToTop());
                         }
@@ -93,8 +100,40 @@ const TabNav = ({ route, options }) => {
                 options={{
                     headerShown: false
                 }} />
-        </Tab.Navigator>
+            <Tab.Screen
+                name='Likes'
+                component={LikesScreen}
+                options={({ navigation }) => ({
+                    headerShown: true,
+                    title: 'Likes',
+                    headerLeft: () => (
+                        < TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
+                            <MaterialIcons name='arrow-back-ios' size={25} />
+                        </TouchableOpacity>
+                    )
+                })}
+            />
+            <Tab.Screen
+                name='Comments'
+                component={CommentsScreen}
+                options={({ navigation }) => ({
+                    headerShown: true,
+                    title: 'Comments',
+                    headerLeft: () => (
+                        < TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
+                            <MaterialIcons name='arrow-back-ios' size={25} />
+                        </TouchableOpacity>
+                    )
+                })}
+            />
+        </Tab.Navigator >
     )
 }
 
 export default TabNav;
+
+const styles = StyleSheet.create({
+    leftHeader: {
+        marginLeft: 15
+    },
+});

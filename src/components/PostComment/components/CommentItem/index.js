@@ -1,0 +1,91 @@
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native';
+
+import moment from 'moment';
+
+
+import ProfilePicture from '../../../ProfilePicture';
+
+const CommentItem = ({ name, imageUri, comment, createdAt }) => {
+
+    moment.locale('en-mobile', {
+        parentLocale: 'en',
+        relativeTime: {
+            future: "in %s",
+            past: "%s ",
+            s: "ssssssssssss",
+            m: "m",
+            mm: "%d m",
+            h: "h",
+            hh: "%d h",
+            d: "d",
+            dd: "%d d",
+            M: "a mth",
+            MM: "%d mths",
+            y: "y",
+            yy: "%d y"
+        }
+    });
+
+    return (
+        <View>
+
+
+            <View style={styles.container}>
+                <ProfilePicture uri={imageUri} size={40} />
+                <View style={styles.commentContainer}>
+                    <View style={styles.commentDetails}>
+                        <Text style={{ flexShrink: 1 }}>
+                            {/* profile name */}
+                            <Text style={styles.postBy}>{name}</Text>
+                            {/* space */}
+                            <Text> </Text>
+                            {/* comment */}
+                            <Text style={styles.comment}>{comment}</Text>
+                        </Text>
+                    </View>
+                    <Text style={styles.postedAt}>{moment(createdAt).fromNow()}</Text>
+                </View>
+            </View>
+            <View
+                style={{
+                    height: 1,
+                    backgroundColor: "#CED0CE",
+                    marginHorizontal: "3%"
+                }}
+            />
+        </View>
+    )
+}
+
+export default CommentItem
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        marginLeft: 5,
+        marginRight: 5,
+        marginVertical: 10,
+        alignItems: 'center',
+        width: "80%"
+    },
+    commentContainer: {
+        marginTop: 6,
+        marginLeft: 3
+    },
+    commentDetails: {
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        marginBottom: 2
+    },
+    postBy: {
+        fontWeight: 'bold',
+    },
+    comment: {
+        fontSize: 14,
+    },
+    postedAt: {
+        fontSize: 14,
+        color: '#8d8f91',
+    }
+})
