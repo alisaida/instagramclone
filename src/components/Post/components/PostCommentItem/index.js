@@ -1,13 +1,16 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native';
 
 import moment from 'moment';
 
 
 import ProfilePicture from '../../../ProfilePicture';
 
-const CommentItem = ({ name, imageUri, comment, createdAt }) => {
+const CommentItem = ({ profile, imageUri, comment, createdAt }) => {
 
+
+    const navigation = useNavigation();
     moment.updateLocale('en-mobile', {
         parentLocale: 'en',
         relativeTime: {
@@ -27,15 +30,27 @@ const CommentItem = ({ name, imageUri, comment, createdAt }) => {
         }
     });
 
+    if (!profile)
+        return null;
+
+    const goToProfile = () => {
+        navigation.push('Root', { screen: 'ProfileScreen', params: { otherProfile: profile, isAuthProfile: false } });
+    }
+
     return (
         <View>
             <View style={styles.container}>
-                <ProfilePicture uri={imageUri} size={40} />
+                <TouchableWithoutFeedback onPress={goToProfile} >
+                    <ProfilePicture uri={imageUri} size={40} />
+                </TouchableWithoutFeedback>
                 <View style={styles.commentContainer}>
                     <View style={styles.commentDetails}>
                         <Text style={{ flexShrink: 1 }}>
                             {/* profile name */}
-                            <Text style={styles.postBy}>{name}</Text>
+                            <TouchableWithoutFeedback onPress={goToProfile}>
+
+                                <Text style={styles.postBy}>{profile.name}</Text>
+                            </TouchableWithoutFeedback>
                             {/* space */}
                             <Text> </Text>
                             {/* comment */}

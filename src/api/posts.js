@@ -132,3 +132,28 @@ export const retrievePostLikesById = async (id) => {
         return error;
     }
 }
+
+export const createCommentByPostId = async (id, comment) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axios({
+            method: 'post',
+            url: `${BASE_URL}/api/posts/${id}/comment/new/`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            mode: 'cors',
+            data: {
+                comment: comment
+            }
+        })
+
+        return response.data;
+    }
+    catch (error) {
+        console.log(error.response);
+        return error;
+    }
+}

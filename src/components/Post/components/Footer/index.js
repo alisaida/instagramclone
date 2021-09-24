@@ -63,7 +63,7 @@ const Footer = ({ navigation, authProfile, profile, post, isSaved: isSavedProp }
     }
 
     const navigateToCommentsScreen = () => {
-        navigation.push('Root', { screen: 'Comments', params: { post: post, postComments: postData.comments, postId: post._id, profile: profile } });
+        navigation.push('Comments', { post: post, postComments: postData.comments, postId: post._id, profile: profile });
     }
 
     const navigateToLikeScreen = () => {

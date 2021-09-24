@@ -85,7 +85,8 @@ const TabNav = ({ route, options }) => {
                     tabPress: e => {
                         //check if already at the top level
                         const parentState = navigation.getParent().getState();
-                        if (parentState && parentState.index && parentState.index == 1) {
+                        // console.log(parentState)
+                        if (parentState && parentState.index && (parentState.index == 1 || parentState.index == 2)) {
                             navigation.dispatch(navigation.popToTop());
                         }
                     },
@@ -113,7 +114,7 @@ const TabNav = ({ route, options }) => {
                     )
                 })}
             />
-            <Tab.Screen
+            {/* <Tab.Screen
                 name='Comments'
                 component={CommentsScreen}
                 options={({ navigation }) => ({
@@ -125,7 +126,7 @@ const TabNav = ({ route, options }) => {
                         </TouchableOpacity>
                     )
                 })}
-            />
+            /> */}
         </Tab.Navigator >
     )
 }

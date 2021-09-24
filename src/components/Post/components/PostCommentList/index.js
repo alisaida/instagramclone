@@ -25,13 +25,14 @@ const PostCommentList = ({ postComment, navigation }) => {
         }
     }
 
-    if (!profile || !profile.name)
+    if (!profile)
         return null;
 
-
+    // console.log(postComment)
 
     return (
         <CommentItem
+            profile={profile}
             name={profile.name}
             imageUri={'place.holder'}
             comment={postComment.comment}
