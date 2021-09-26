@@ -132,8 +132,8 @@ export const register = (name, email, mobile, password) => {
     })
 }
 
-export const refreshToken = () => {
-    const refreshToken = fetchRefreshToken();
+export const refreshToken = (refreshToken) => {
+
     axios({
         method: 'post',
         url: `${BASE_URL}/api/auth/refresh-token/`,

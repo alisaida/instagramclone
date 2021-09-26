@@ -20,11 +20,13 @@ const Router = () => {
 
     const checkUser = async () => {
         const userId = await auth.userId;
+
         if (userId) {
+            console.log('user logged in');
             setAuthUser(userId);
-            console.log('user logged in')
         } else {
-            console.log('user logged out')
+            console.log('user logged out');
+            setAuthUser(null);
         }
     }
 

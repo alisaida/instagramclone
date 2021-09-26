@@ -9,6 +9,11 @@ const PostLikeList = ({ postLike, navigation }) => {
 
     const [profile, setProfile] = useState(null);
 
+    // Side-effect cleanup
+    useEffect(() => {
+        return () => { };
+    }, []);
+
     useEffect(() => {
         fetchProfile()
     }, []);

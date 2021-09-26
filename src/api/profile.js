@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { axiosInstance } from '../utils/axiosIntance';
 import SecureStorage from 'react-native-secure-storage';
 
 import { BASE_URL } from '@env';
@@ -7,14 +7,13 @@ export const currentAuthProfile = async () => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
     try {
-        const response = await axios({
+        const response = await axiosInstance({
             method: 'get',
-            url: `${BASE_URL}/api/profiles/me/`,
+            url: `/api/profiles/me/`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
-            },
-            mode: 'cors'
+            }
         })
 
         const { profile } = response.data;
@@ -31,22 +30,20 @@ export const fetchProfileById = async (userId) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
     try {
-        const response = await axios({
+        const response = await axiosInstance({
             method: 'get',
-            url: `${BASE_URL}/api/profiles/users/${userId}`,
+            url: `/api/profiles/users/${userId}`,
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
-            },
-            mode: 'cors'
+            }
         })
 
         const { profile } = response.data;
         return profile;
     }
     catch (error) {
-        console.log(error.request._url);
-        // return error;
+        console.log(error);
+        return error;
     }
 }
 
@@ -54,14 +51,12 @@ export const createProfile = async (username, name, profilePicture, bio) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
     try {
-        const response = await axios({
+        const response = await axiosInstance({
             method: 'post',
-            url: `${BASE_URL}/api/profiles/new`,
+            url: `/api/profiles/new`,
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
             },
-            mode: 'cors',
             data: {
                 username: username,
                 name: name,
@@ -74,7 +69,7 @@ export const createProfile = async (username, name, profilePicture, bio) => {
         return profile;
     }
     catch (error) {
-        console.log(error.request._url);
-        // return error;
+        console.log(error);
+        return error;
     }
 }

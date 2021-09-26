@@ -1,4 +1,5 @@
-import axios from 'axios';
+import { axiosInstance } from '../utils/axiosIntance';
+
 import SecureStorage from 'react-native-secure-storage';
 
 import { BASE_URL } from '@env';
@@ -7,14 +8,12 @@ export const retrievePostsByUserId = async (userId) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
     try {
-        const response = await axios({
+        const response = await axiosInstance({
             method: 'get',
-            url: `${BASE_URL}/api/posts/users/${userId}/fetchPosts/`,
+            url: `/api/posts/users/${userId}/fetchPosts/`,
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
-            },
-            mode: 'cors'
+            }
         })
 
         return response.data;
@@ -29,14 +28,12 @@ export const retrievePosts = async () => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
     try {
-        const response = await axios({
+        const response = await axiosInstance({
             method: 'get',
-            url: `${BASE_URL}/api/posts/feed/all`,
+            url: `/api/posts/feed/all`,
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
-            },
-            mode: 'cors'
+            }
         })
 
         return response.data;
@@ -51,20 +48,18 @@ export const retrievePostById = async (id) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
     try {
-        const response = await axios({
+        const response = await axiosInstance({
             method: 'get',
-            url: `${BASE_URL}/api/posts/${id}/`,
+            url: `/api/posts/${id}/`,
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
-            },
-            mode: 'cors'
+            }
         })
 
         return response.data;
     }
     catch (error) {
-        console.log(error);
+        console.log(error.response);
         return error;
     }
 }
@@ -73,15 +68,14 @@ export const likePostById = async (id) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
     try {
-        const response = await axios({
+        const response = await axiosInstance({
             method: 'post',
-            url: `${BASE_URL}/api/posts/${id}/like/`,
+            url: `/api/posts/${id}/like/`,
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
-            },
-            mode: 'cors'
-        })
+            }
+        });
+
         return response.data;
     }
     catch (error) {
@@ -94,15 +88,14 @@ export const unlikePostById = async (id) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
     try {
-        const response = await axios({
+        const response = await axiosInstance({
             method: 'delete',
-            url: `${BASE_URL}/api/posts/${id}/like/`,
+            url: `/api/posts/${id}/like/`,
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
-            },
-            mode: 'cors'
-        })
+            }
+        });
+
         return response.data;
     }
     catch (error) {
@@ -115,14 +108,12 @@ export const retrievePostLikesById = async (id) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
     try {
-        const response = await axios({
+        const response = await axiosInstance({
             method: 'get',
-            url: `${BASE_URL}/api/posts/${id}/likes/`,
+            url: `/api/posts/${id}/likes/`,
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
-            },
-            mode: 'cors'
+            }
         })
 
         return response.data;
@@ -137,14 +128,12 @@ export const createCommentByPostId = async (id, comment) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
     try {
-        const response = await axios({
+        const response = await axiosInstance({
             method: 'post',
-            url: `${BASE_URL}/api/posts/${id}/comment/new/`,
+            url: `/api/posts/${id}/comment/new/`,
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
             },
-            mode: 'cors',
             data: {
                 comment: comment
             }
@@ -153,7 +142,7 @@ export const createCommentByPostId = async (id, comment) => {
         return response.data;
     }
     catch (error) {
-        console.log(error.response);
+        console.log(error);
         return error;
     }
 }
