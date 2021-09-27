@@ -41,7 +41,7 @@ const CommentItem = ({ profile, imageUri, comment, createdAt }) => {
         <View>
             <View style={styles.container}>
                 <TouchableWithoutFeedback onPress={goToProfile} >
-                    <ProfilePicture uri={imageUri} size={40} />
+                    <ProfilePicture uri={imageUri} size={30} />
                 </TouchableWithoutFeedback>
                 <View style={styles.commentContainer}>
                     <View style={styles.commentDetails}>
@@ -60,13 +60,13 @@ const CommentItem = ({ profile, imageUri, comment, createdAt }) => {
                     <Text style={styles.postedAt}>{moment(createdAt).fromNow()}</Text>
                 </View>
             </View>
-            <View
+            {/* <View
                 style={{
                     height: 1,
                     backgroundColor: "#CED0CE",
                     marginHorizontal: "3%"
                 }}
-            />
+            /> */}
         </View>
     )
 }
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginRight: 5,
         marginVertical: 10,
-        alignItems: 'center',
+        // alignItems: 'center',
         width: "80%"
     },
     commentContainer: {

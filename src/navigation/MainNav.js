@@ -6,6 +6,7 @@ import StoryScreen from '../screens/StoryScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import CommentsScreen from '../screens/CommentsScreen';
 import LikesScreen from '../screens/LikesScreen';
+import ChatScreen from '../screens/ChatScreen';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -52,6 +53,12 @@ const MainNav = () => {
                             </TouchableOpacity>
                         )
                     })} />
+                <RootStack.Screen
+                    name='ChatScreen'
+                    component={ChatScreen}
+                    options={{
+                        headerShown: false
+                    }} />
             </RootStack.Navigator>
         </>
     )

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -18,14 +19,18 @@ import {
 } from '@react-navigation/drawer';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 
 import HomeScreen from '../screens/HomeScreen';
 import PostScreen from '../screens/PostScreen';
 import logo from '../assets/images/instagram-logo.png'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const HomeStack = createStackNavigator();
 
 const StackNav = () => {
+
+    const navigation = useNavigation();
     return (
         <HomeStack.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />}>
             <HomeStack.Screen
@@ -41,7 +46,9 @@ const StackNav = () => {
                         <View style={{ flexDirection: 'row', marginRight: 20, width: 130, justifyContent: 'space-between', alignItems: 'center' }}>
                             <Ionicons name='ios-camera-outline' size={26} color={'black'} />
                             <Ionicons name='heart-outline' size={26} color={'#000'} />
-                            <Ionicons name='chatbubble-ellipses-outline' size={25} color={'#000'} />
+                            <TouchableOpacity onPress={() => navigation.push('ChatScreen')}>
+                                <Fontisto name='messenger' size={21} color={'#000'} />
+                            </TouchableOpacity>
                         </View>
                     ),
                     headerTitle: () => (

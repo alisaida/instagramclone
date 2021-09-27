@@ -81,8 +81,11 @@ const resetTokenAndReattemptRequest = async (error) => {
             });
 
             if (!response || !response.data) {
+                console.log('Failed to generate new refreshToken - logging out user');
                 return Promise.reject(error);
             }
+
+            console.log('Successfully retrieve new auth tokens');
 
             const access_token = response.data.accessToken;
             const refresh_token = response.data.refreshToken;

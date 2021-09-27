@@ -49,13 +49,12 @@ const Profile = ({ profile, isAuthProfile, navigation }) => {
                     <ProfilePicture uri={profile.profilePicture} size={100} />
                 </View>
                 <View style={styles.stats}>
-                    <Stat statName='Posts' statCount='40.9 k' />
-                    <Stat statName='Followers' statCount='347' />
+                    <Stat statName='Posts' statCount='4.9 k' />
+                    <Stat statName='Followers' statCount='17 k' />
                     <Stat statName='Following' statCount='1,751' />
                 </View>
             </View>
             <Text style={styles.profileName}>{profile.name}</Text>
-
         </View >
     )
 }

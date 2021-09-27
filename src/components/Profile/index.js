@@ -8,7 +8,8 @@ import Stat from './components/Stat';
 import Details from './components/Details'
 
 import styles from './styles';
-
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 // import postsData from '../../data/photos'
 import Feed from './components/Feed';
 
@@ -36,6 +37,18 @@ const Profile = ({ profile, isAuthProfile, navigation }) => {
         setPosts(postData);
     }
 
+    const header = () => {
+        return (
+            <View>
+                <Details profile={profile} isAuthProfile={isAuthProfile} navigation={navigation} />
+                <View style={styles.headerButtons}>
+                    <Fontisto name='nav-icon-grid' size={20} />
+                    <MaterialIcons name='person-pin' size={30} />
+                </View>
+            </View>
+        )
+    }
+
     return (
         <View >
             <FlatList
@@ -43,7 +56,7 @@ const Profile = ({ profile, isAuthProfile, navigation }) => {
                 keyExtractor={({ _id }) => _id}
                 renderItem={({ item }) => <Feed post={item} />}
                 numColumns={numColumns}
-                ListHeaderComponent={<Details profile={profile} isAuthProfile={isAuthProfile} navigation={navigation} />}
+                ListHeaderComponent={header}
             />
         </View >
     )

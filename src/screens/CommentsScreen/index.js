@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, SafeAreaView, FlatList, RefreshControl, TextInp
 
 import PostCommentList from '../../components/Post/components/PostCommentList';
 import CommentItem from '../../components/Post/components/PostCommentItem';
+import ProfilePicture from '../../components/ProfilePicture';
 
 import { retrievePostById, createCommentByPostId } from '../../api/posts';
 
@@ -19,7 +20,7 @@ const CommentScreen = ({ navigation, route }) => {
 
     const fetchPostData = async () => {
         try {
-            const data = await retrievePostById(route.params.postId);
+            const data = await retrievePostById(route.params.post._id);
             if (data) {
                 setPostData(data);
             }
@@ -51,15 +52,13 @@ const CommentScreen = ({ navigation, route }) => {
     }
 
     return (
-        <KeyboardAvoidingView behavior="padding" enabled keyboardVerticalOffset={65} //style={styles.keyboardAvoider}
-        >
-
+        <KeyboardAvoidingView behavior="padding" enabled keyboardVerticalOffset={65} >
             <View style={styles.container}>
                 <FlatList
                     data={postData.comments}
                     ListHeaderComponent={
                         <CommentItem
-                            name={route.params.profile} imageUri={'place.holder'} comment={postData.post.caption} createdAt={postData.post.createdAt}
+                            name={route.params.profile} imageUri={''} comment={postData.post.caption} createdAt={postData.post.createdAt}
                         />
                     }
                     keyExtractor={({ _id }) => _id}
@@ -68,6 +67,7 @@ const CommentScreen = ({ navigation, route }) => {
                     refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                 />
                 <View style={styles.bottomContainer}>
+                    <ProfilePicture size={40} />
                     <View style={styles.inputContainer}>
                         <ScrollView keyboardDismissMode='on-drag'>
                             <TextInput

@@ -15,6 +15,13 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         textAlign: 'justify',
         fontWeight: '500'
+    },
+    headerButtons: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        marginHorizontal: 25,
+        margin: 5
     }
 });
 
