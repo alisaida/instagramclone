@@ -7,6 +7,8 @@ import ProfileScreen from '../screens/ProfileScreen';
 import CommentsScreen from '../screens/CommentsScreen';
 import LikesScreen from '../screens/LikesScreen';
 import ChatScreen from '../screens/ChatScreen';
+import ChatRoomScreen from '../screens/ChatRoomScreen';
+
 import { TouchableOpacity, StyleSheet } from 'react-native';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -56,6 +58,12 @@ const MainNav = () => {
                 <RootStack.Screen
                     name='ChatScreen'
                     component={ChatScreen}
+                    options={{
+                        headerShown: false
+                    }} />
+                <RootStack.Screen
+                    name='ChatRoom'
+                    component={ChatRoomScreen}
                     options={{
                         headerShown: false
                     }} />

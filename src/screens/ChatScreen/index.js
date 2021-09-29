@@ -1,15 +1,21 @@
 import React from 'react'
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
-import Header from '../../components/Chat/components/Header'
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import ChatList from '../../components/Chat/components/ChatList';
+import ChatScreenHeader from '../../components/Chat/components/ChatScreenHeader';
 
 const ChatScreen = () => {
     return (
-        <SafeAreaView>
-            <Header />
+        <SafeAreaView style={styles.container}>
+            <ChatScreenHeader />
+            <ChatList />
         </SafeAreaView>
     )
 }
 
 export default ChatScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        height: '100%'
+    }
+})

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, SafeAreaView, ActivityIndicator, FlatList } from 'react-native';
+import { Text, View, SafeAreaView, ActivityIndicator, FlatList, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
@@ -50,16 +50,25 @@ const Profile = ({ profile, isAuthProfile, navigation }) => {
     }
 
     return (
-        <View >
+        <View
+            flatListStyle={styles.container} //this may cause issues
+        >
             <FlatList
                 data={posts}
                 keyExtractor={({ _id }) => _id}
                 renderItem={({ item }) => <Feed post={item} />}
                 numColumns={numColumns}
                 ListHeaderComponent={header}
+                contentContainerStyle={{ flexGrow: 1 }}
             />
         </View >
     )
 }
 
 export default Profile;
+
+const flatListStyle = StyleSheet.create({
+    container: {
+        height: '100%'
+    }
+})

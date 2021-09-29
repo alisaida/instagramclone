@@ -7,19 +7,13 @@ const LikeItem = ({ name, imageUri, username }) => {
     return (
         <View>
             <View style={styles.container}>
-                <ProfilePicture uri={imageUri} size={60} />
+                <ProfilePicture uri={imageUri} size={50} />
                 <View style={styles.profileDetails}>
                     <Text style={styles.username}>{username}</Text>
                     <Text style={styles.profileName}>{name}</Text>
                 </View>
             </View>
-            <View
-                style={{
-                    height: 1,
-                    backgroundColor: "#CED0CE",
-                    marginHorizontal: "3%"
-                }}
-            />
+
         </View>
     )
 }
@@ -30,11 +24,10 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         marginHorizontal: 10,
-        marginVertical: 10,
+        marginVertical: 5,
         alignItems: 'center',
     },
     profileDetails: {
-        marginTop: 6,
         marginLeft: 3
     },
     username: {

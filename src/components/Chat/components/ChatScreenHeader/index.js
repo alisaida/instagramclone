@@ -6,7 +6,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const Header = () => {
+const ChatScreenHeader = () => {
     const navigation = useNavigation();
     return (
         <View style={styles.container}>
@@ -26,7 +26,7 @@ const Header = () => {
     )
 }
 
-export default Header
+export default ChatScreenHeader
 
 const styles = StyleSheet.create({
     container: {
