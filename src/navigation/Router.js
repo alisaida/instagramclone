@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import MainNav from './MainNav';
 import AuthNav from './AuthNav';
+import CallScreen from '../screens/CallScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const AuthStack = createStackNavigator();
@@ -35,7 +36,8 @@ const Router = () => {
 
             {(authUser) ?
                 (
-                    <MainNav />
+                    // <MainNav />
+                    <CallScreen />
                 ) : <AuthNav />
             }
 

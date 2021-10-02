@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
-import { API, graphqlOperation } from 'aws-amplify';
+// import { API, graphqlOperation } from 'aws-amplify';
 
 // import { listStorys } from '../../graphql/queries';
 

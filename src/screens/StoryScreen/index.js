@@ -1,7 +1,7 @@
 import { useNavigation, useRoute, NavigationAction } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { View, Text, SafeAreaView, ImageBackground, ActivityIndicator, TouchableWithoutFeedback, Dimensions, TextInput, StatusBar } from 'react-native';
-import { API, graphqlOperation } from 'aws-amplify';
+// import { API, graphqlOperation } from 'aws-amplify';
 import moment from 'moment';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
