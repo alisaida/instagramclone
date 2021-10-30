@@ -60,7 +60,7 @@ const ChatRoomScreen = () => {
         <SafeAreaView>
             <KeyboardAvoidingView behavior="padding" enabled keyboardVerticalOffset={5} >
                 <View style={styles.container}>
-                    <ChatRoomHeader profile={route.params.recipientProfile} />
+                    <ChatRoomHeader profile={route.params.recipientProfile} authUserId={route.params.authUser} chatRoomId={route.params.chatRoomId} />
                     <FlatList
                         data={messages}
                         keyExtractor={({ _id }) => _id}

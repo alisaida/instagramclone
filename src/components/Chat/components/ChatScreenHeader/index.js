@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 
@@ -6,15 +6,39 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import { currentAuthProfile } from '../../../../api/profile';
 const ChatScreenHeader = () => {
+
+    useEffect(() => {
+        return () => { }
+    })
+
     const navigation = useNavigation();
+
+    const [profile, setProfile] = useState(null);
+
+    useEffect(() => {
+        fetchCurrentProfile();
+    }, []);
+
+    const fetchCurrentProfile = async () => {
+        const response = await currentAuthProfile();
+        if (response) {
+            setProfile(response);
+        }
+    }
+
+    if (!profile || !profile.userId || !profile.username)
+        return null;
+
+
     return (
         <View style={styles.container}>
             <View style={styles.left}>
                 < TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
                     <MaterialIcons name='arrow-back-ios' size={26} />
                 </TouchableOpacity>
-                <Text style={styles.profileName}>jimxjack26</Text>
+                <Text style={styles.profileName}>{profile.username}</Text>
                 <Entypo name='chevron-thin-down' size={14} />
             </View>
             <View style={styles.right}>
@@ -25,6 +49,8 @@ const ChatScreenHeader = () => {
 
     )
 }
+// if (profile)
+//     console.log(profile)
 
 export default ChatScreenHeader
 

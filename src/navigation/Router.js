@@ -4,11 +4,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import MainNav from './MainNav';
 import AuthNav from './AuthNav';
 import CallScreen from '../screens/CallScreen';
+import CallNav from './CallNav';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const AuthStack = createStackNavigator();
 
 import { useSelector } from 'react-redux';
+import { ContextProvider } from '../contexts/SocketContext';
+
 
 const Router = () => {
 
@@ -31,13 +34,16 @@ const Router = () => {
         }
     }
 
+
     return (
         <NavigationContainer>
 
-            {(authUser) ?
+            {(authUser)
+                ?
                 (
-                    // <MainNav />
-                    <CallScreen />
+                    <ContextProvider>
+                        <MainNav />
+                    </ContextProvider>
                 ) : <AuthNav />
             }
 

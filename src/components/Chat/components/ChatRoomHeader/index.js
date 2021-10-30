@@ -1,19 +1,48 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
-
+import { useDispatch } from "react-redux";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProfilePicture from '../../../ProfilePicture';
+import { SocketContext } from '../../../../contexts/SocketContext';
 
-const ChatScreenHeader = ({ profile }) => {
+import { currentAuthProfile } from '../../../../api/profile'
+
+const ChatScreenHeader = ({ profile, authUserId, chatRoomId }) => {
 
     const navigation = useNavigation();
+
+    const { callUser } = useContext(SocketContext);
+
+    const [fromProfile, setFromProfile] = useState(null);
+
+    const makeCall = async () => {
+        const fromProfile = await fetchAuthProfile();
+        const callData = {
+            callId: {
+                from: fromProfile, //me
+                to: profile //other party
+            }
+        }
+
+        callUser(callData);
+    }
+
+    const fetchAuthProfile = async () => {
+        try {
+            const profile = await currentAuthProfile();
+            return profile;
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     return (
         <>
             <View style={styles.container}>
                 <View style={styles.left}>
-                    < TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
+                    <TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
                         <MaterialIcons name='arrow-back-ios' size={24} />
                     </TouchableOpacity>
                     <ProfilePicture size={35} />
@@ -23,7 +52,9 @@ const ChatScreenHeader = ({ profile }) => {
                     </View>
                 </View>
                 <View style={styles.right}>
-                    <Ionicons name='call-outline' size={26} style={{ marginRight: 10 }} />
+                    <TouchableOpacity style={styles.leftHeader} onPress={() => makeCall()}>
+                        <Ionicons name='call-outline' size={26} style={{ marginRight: 10 }} />
+                    </TouchableOpacity>
                     <Ionicons name='videocam-outline' size={26} />
                 </View>
             </View>

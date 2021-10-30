@@ -9,6 +9,12 @@ import { retrieveMyChats, retrieveChatsByUserId, retrieveRecipientsByChatRoomId,
 
 import { fetchProfileById } from '../../../../api/profile';
 const ChatListItem = ({ chatRoomData, authUser }) => {
+
+    // Side-effect cleanup
+    useEffect(() => {
+        return () => { };
+    }, []);
+
     const navigation = useNavigation();
     const [profile, setProfile] = useState(null);
 

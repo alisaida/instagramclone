@@ -7,12 +7,14 @@ import { retrieveMyChats } from '../../../../api/chats';
 
 const ChatList = () => {
 
+    useEffect(() => {
+        return () => { }
+    })
+
     const { auth } = useSelector((state) => state);
     const [authUser, setAuthUser] = useState(null);
     const [chatRooms, setChatRooms] = useState(null);
     const [refreshing, setRefreshing] = useState(false);
-
-
 
     useEffect(() => {
         setUser();
