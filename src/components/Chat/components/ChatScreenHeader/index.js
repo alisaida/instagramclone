@@ -9,9 +9,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { currentAuthProfile } from '../../../../api/profile';
 const ChatScreenHeader = () => {
 
+
+    // Side-effect cleanup
     useEffect(() => {
-        return () => { }
-    })
+        return () => { };
+    }, []);
 
     const navigation = useNavigation();
 

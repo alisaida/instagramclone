@@ -18,7 +18,7 @@ import {
 } from 'react-native-webrtc';
 
 const CallScreen = () => {
-    const { name, callAccepted, myVideo, userVideo, callEnded, stream, call, leaveCall, answerCall } = useContext(SocketContext);
+    const { localStream, remoteStream, call, activeCall, socket, peerServer, leaveCall, answerCall } = useContext(SocketContext);
     const [callerInfo, setCallerInfo] = useState(null);
     const [isReceivingCall, setIsReceivingCall] = useState(false);
     const dispatch = useDispatch();
@@ -42,9 +42,11 @@ const CallScreen = () => {
         if (authUserId === call.callId.from.userId) {
             setIsReceivingCall(false);
             setCallerInfo(call.callId.to);
+            console.log('sending call')
         } else {
             setIsReceivingCall(true);
             setCallerInfo(call.callId.from);
+            console.log('receiving call')
         }
     }
 
@@ -64,7 +66,7 @@ const CallScreen = () => {
                         // navigation.pop();
                         leaveCall();
                     }}>
-                        <MaterialIcons name='call-end' size={40} color={'white'} />
+                        <MaterialIcons name='clear' size={40} color={'white'} />
                     </TouchableOpacity>
                     <Text style={styles.buttonLabel}>Decline</Text>
                 </View>
@@ -72,7 +74,7 @@ const CallScreen = () => {
                     <TouchableOpacity style={styles.acceptCall} onPress={() => {
                         answerCall()
                     }}>
-                        <MaterialIcons name='call' size={40} color={'white'} />
+                        <MaterialIcons name='check' size={40} color={'white'} />
                     </TouchableOpacity>
 
                     <Text style={styles.buttonLabel}>Accept</Text>
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     acceptCall: {
-        backgroundColor: 'green',
+        backgroundColor: '#397df2',
         borderRadius: 50,
         margin: 20,
         padding: 10,

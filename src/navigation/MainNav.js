@@ -24,14 +24,14 @@ const RootStack = createStackNavigator();
 
 const MainNav = () => {
 
-    const { call, callEnded, callAccepted } = useContext(SocketContext);
+    const { call, activeCall } = useContext(SocketContext);
 
     return (
         <RootStack.Navigator>
 
             {
                 call ? (
-                    callAccepted ? <RootStack.Screen
+                    activeCall ? <RootStack.Screen
                         name='Call'
                         component={CallScreen}
                         options={{
