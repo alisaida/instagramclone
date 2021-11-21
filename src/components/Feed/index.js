@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, FlatList, RefreshControl } from 'react-native';
 
-import { listPosts } from '../../graphql/queries';
+// import { listPosts } from '../../graphql/queries';
 import { retrievePosts } from '../../api/posts';
 
 import Post from '../Post';
