@@ -42,11 +42,9 @@ const CallScreen = () => {
         if (authUserId === call.callId.from.userId) {
             setIsReceivingCall(false);
             setCallerInfo(call.callId.to);
-            console.log('sending call')
         } else {
             setIsReceivingCall(true);
             setCallerInfo(call.callId.from);
-            console.log('receiving call')
         }
     }
 

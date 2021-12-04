@@ -17,13 +17,14 @@ const ChatScreenHeader = ({ profile, authUserId, chatRoomId }) => {
 
     const [fromProfile, setFromProfile] = useState(null);
 
-    const makeCall = async () => {
+    const makeCall = async (isVideo) => {
         const fromProfile = await fetchAuthProfile();
         const callData = {
             callId: {
                 from: fromProfile, //me
                 to: profile //other party
-            }
+            },
+            isVideo: isVideo
         }
 
         callUser(callData);
@@ -52,10 +53,12 @@ const ChatScreenHeader = ({ profile, authUserId, chatRoomId }) => {
                     </View>
                 </View>
                 <View style={styles.right}>
-                    <TouchableOpacity style={styles.leftHeader} onPress={() => makeCall()}>
+                    <TouchableOpacity style={styles.leftHeader} onPress={() => makeCall(false)}>
                         <Ionicons name='call-outline' size={26} style={{ marginRight: 10 }} />
                     </TouchableOpacity>
-                    <Ionicons name='videocam-outline' size={26} />
+                    <TouchableOpacity style={styles.leftHeader} onPress={() => makeCall(true)}>
+                        <Ionicons name='videocam-outline' size={26} style={{ marginRight: 10 }} />
+                    </TouchableOpacity>
                 </View>
             </View>
             <View

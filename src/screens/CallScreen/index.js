@@ -14,6 +14,8 @@ import { SocketContext } from '../../contexts/SocketContext';
 
 import SecureStorage from 'react-native-secure-storage';
 
+import CallActions from '../../components/CallActions';
+
 import {
     RTCPeerConnection,
     RTCIceCandidate,
@@ -58,29 +60,8 @@ const CallScreen = () => {
                         <RTCView streamURL={localStream.toURL()} style={[styles.localStream, { width: width / 2.8, height: height / 3.6 }]}></RTCView>) : null
                 }
 
-                <View style={[styles.buttonContainer, { width: width, height: 150, }]}>
-                    <View style={[styles.actionButtons,]}>
-                        <TouchableOpacity style={[styles.button, { backgroundColor: 'white', }]}>
-                            <Ionicons name='ios-camera-reverse-sharp' size={31} color={'black'} backgroundColor={'grey'} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.button, { backgroundColor: 'white', }]}>
-                            <Feather name='video-off' size={30} color={'black'} backgroundColor={'grey'} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.button, { backgroundColor: 'white', }]}>
-                            <FontAwesome name='volume-up' size={33} color={'black'} />
-                        </TouchableOpacity>
 
-
-                        <TouchableOpacity style={[styles.button, { backgroundColor: 'red', }]} onPress={() => {
-                            leaveCall();
-                        }}>
-                            <MaterialIcons name='call-end' size={31} color={'white'} />
-                        </TouchableOpacity>
-                    </View>
-
-
-                </View>
-
+                <CallActions width={width} height={150} />
             </RTCView >
 
 
