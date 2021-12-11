@@ -5,6 +5,11 @@ const numColumns = 3;
 
 const Feed = ({ post }) => {
 
+    // Side-effect cleanup
+    useEffect(() => {
+        return () => { };
+    }, []);
+
     return (
         <Image
             source={{ uri: post.imageUri }}

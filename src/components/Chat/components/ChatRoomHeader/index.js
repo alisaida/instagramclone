@@ -24,7 +24,9 @@ const ChatScreenHeader = ({ profile, authUserId, chatRoomId }) => {
                 from: fromProfile, //me
                 to: profile //other party
             },
-            isVideo: isVideo
+            chatRoomId: chatRoomId,
+            isVideo: isVideo,
+            createdDate: Date.now()
         }
 
         callUser(callData);

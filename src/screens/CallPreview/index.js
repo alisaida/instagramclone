@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { StyleSheet, Text, View, SafeAreaView, Dimensions, TouchableOpacity, StatusBar } from 'react-native';
-import { useDispatch, useSelector } from "react-redux";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import { SocketContext } from '../../contexts/SocketContext';
 import SecureStorage from 'react-native-secure-storage';
 
@@ -17,13 +15,10 @@ import {
     RTCView
 } from 'react-native-webrtc';
 
-const CallScreen = () => {
+const PreviewScreen = () => {
     const { localStream, remoteStream, call, socket, peerServer, leaveCall, answerCall } = useContext(SocketContext);
     const [callerInfo, setCallerInfo] = useState(null);
     const [isReceivingCall, setIsReceivingCall] = useState(false);
-    const dispatch = useDispatch();
-    const navigation = useNavigation();
-    const route = useRoute();
 
     const height = Dimensions.get('screen').height;
     const width = Dimensions.get('screen').width;
@@ -86,7 +81,7 @@ const CallScreen = () => {
     )
 }
 
-export default CallScreen
+export default PreviewScreen
 
 const styles = StyleSheet.create({
     container: {

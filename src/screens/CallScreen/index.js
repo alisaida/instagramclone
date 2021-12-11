@@ -1,14 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { StyleSheet, Text, View, SafeAreaView, Dimensions, TouchableOpacity, StatusBar } from 'react-native';
 
-import { useDispatch, useSelector } from "react-redux";
-
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
-import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { SocketContext } from '../../contexts/SocketContext';
 
@@ -27,15 +23,21 @@ import {
     RTCView
 } from 'react-native-webrtc';
 
+import useInterval from '../../hooks/useInterval';
+
+const interval = 10;
+
 const CallScreen = () => {
     const { localStream, remoteStream, call, socket, peerServer, leaveCall, answerCall } = useContext(SocketContext);
     const [authUserId, setAuthUserId] = useState('');
-    const dispatch = useDispatch();
-    const navigation = useNavigation();
-    const route = useRoute();
-
+    const [callerInfo, setCallerInfo] = useState(null);
     const height = Dimensions.get('screen').height;
     const width = Dimensions.get('screen').width;
+
+    const [isRunning, setIsRunning] = useState(true);
+    const [prevTime, setPrevTime] = useState(null);
+    const [timeInMilliseconds, setTimeInMilliseconds] = useState(0);
+    const [time, setTime] = useState(null);
 
     // Side-effect cleanup
     useEffect(() => {
@@ -46,16 +48,58 @@ const CallScreen = () => {
         retrieveUserData();
     }, []);
 
+    useInterval(
+        () => {
+            let prev = prevTime ? prevTime : Date.now();
+            let diffTime = Date.now() - prev;
+            let newMilliTime = timeInMilliseconds + diffTime;
+            let newTime = toTime(newMilliTime);
+            setPrevTime(Date.now());
+            setTimeInMilliseconds(newMilliTime);
+            setTime(newTime);
+        },
+        isRunning ? interval : null
+    );
+
+    const handleTime = () => {
+        setIsRunning(!isRunning);
+        setPrevTime(null);
+    };
+
+    const toTime = time => {
+        let milliseconds = parseInt(time % 1000),
+            seconds = Math.floor((time / 1000) % 60),
+            minutes = Math.floor(time / (1000 * 60));
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        return {
+            milliseconds,
+            seconds,
+            minutes
+        };
+    };
+
     const retrieveUserData = async () => {
-        const userId = await SecureStorage.getItem('userId').catch(() => null);
-        setAuthUserId(userId);
+        const authUserId = await SecureStorage.getItem('userId').catch(() => null);
+        if (call && call.callId && call.callId.from && call.callId.to) {
+            if (authUserId === call.callId.from.userId) {
+                setCallerInfo(call.callId.to);
+            } else {
+                setCallerInfo(call.callId.from);
+            }
+        } else {
+            setCallerInfo(null);
+        }
+        setAuthUserId(authUserId);
     }
 
 
     return (
 
-        remoteStream ? (
-            <RTCView
+        call ? (
+            call.isVideo && remoteStream ? <RTCView
                 streamURL={remoteStream.toURL()}
                 style={{ width: width, height: height }}
                 objectFit="cover">
@@ -65,11 +109,17 @@ const CallScreen = () => {
                         <RTCView streamURL={localStream.toURL()} style={[styles.localStream, { width: width / 2.8, height: height / 3.6 }]}></RTCView>) : null
                 }
 
-
                 <CallActions width={width} height={150} />
-            </RTCView >
-
-
+            </RTCView > :
+                <SafeAreaView style={styles.container}>
+                    <StatusBar backgroundColor="black" barStyle="light-content" />
+                    < View style={styles.callerIdContainer}>
+                        {callerInfo && <Text style={styles.callInfoFontLarge}>{callerInfo.name}</Text>}
+                        {callerInfo && <Text style={styles.callInfoFontSmall}>{callerInfo.username}</Text>}
+                        {time && <Text style={[styles.callInfoFontSmall, { marginVertical: 10 }]}>{`${time.minutes}:${time.seconds}`}</Text>}
+                    </View>
+                    <CallActions width={width} height={150} />
+                </SafeAreaView>
         ) : null
 
     )
@@ -87,6 +137,13 @@ const styles = StyleSheet.create({
     remoteStream: {
 
     },
+    callerIdContainer: {
+        marginVertical: 25
+    },
+    container: {
+        flex: 1,
+        backgroundColor: 'black',
+    },
     buttonContainer: {
         position: 'absolute',
         bottom: -10,
@@ -94,6 +151,16 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         backgroundColor: '#232323',
         marginVertical: 10,
+    },
+    callInfoFontLarge: {
+        color: 'white',
+        fontSize: 30,
+        alignSelf: 'center',
+    },
+    callInfoFontSmall: {
+        color: 'white',
+        fontSize: 16,
+        alignSelf: 'center',
     },
     actionButtons: {
         marginTop: 10,

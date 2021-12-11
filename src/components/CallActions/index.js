@@ -10,7 +10,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { SocketContext } from '../../contexts/SocketContext';
 
 const CallActions = ({ width, height }) => {
-    const { localStream, remoteStream, call, socket, peerServer, leaveCall, answerCall, toggleMute } = useContext(SocketContext);
+    const { localStream, remoteStream, call, socket, peerServer, leaveCall, answerCall, isMute, toggleMicrophone, toggleCamera } = useContext(SocketContext);
+
+
 
     return (
         <View style={[styles.buttonContainer, { width: width, height: 150, }]}>
@@ -19,7 +21,9 @@ const CallActions = ({ width, height }) => {
                 {/* camera toggle or speaker */}
                 {
                     !!call && !!call.isAccepted && (call.isVideo ?
-                        <TouchableOpacity style={[styles.button, { backgroundColor: 'white', }]}>
+                        <TouchableOpacity style={[styles.button, { backgroundColor: 'white', }]} onPress={() => {
+                            toggleCamera();
+                        }}>
                             <Ionicons name='ios-camera-reverse-sharp' size={31} color={'black'} backgroundColor={'grey'} />
                         </TouchableOpacity> :
                         <TouchableOpacity style={[styles.button, { backgroundColor: 'white', }]}>
@@ -33,9 +37,14 @@ const CallActions = ({ width, height }) => {
                 </TouchableOpacity>
 
                 {/* microphone toggle */}
-                <TouchableOpacity style={[styles.button, { backgroundColor: 'white', }]}>
-                    <MaterialCommunityIcons name='microphone' size={31} color={'black'} backgroundColor={'grey'} />
-                    {/* <MaterialCommunityIcons name='microphone-off' size={31} color={'black'} backgroundColor={'grey'} /> */}
+                <TouchableOpacity style={[styles.button, { backgroundColor: 'white', }]} onPress={() => {
+                    toggleMicrophone();
+                }}>
+                    {
+                        isMute ? <MaterialCommunityIcons name='microphone-off' size={31} color={'black'} backgroundColor={'grey'} />
+                            : <MaterialCommunityIcons name='microphone' size={31} color={'black'} backgroundColor={'grey'} />
+                    }
+
                 </TouchableOpacity>
 
                 {/* hangup */}

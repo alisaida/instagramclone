@@ -18,6 +18,11 @@ const Router = () => {
     const { auth } = useSelector((state) => state);
     const [authUser, setAuthUser] = useState(null);
 
+    // Side-effect cleanup
+    useEffect(() => {
+        return () => { };
+    }, []);
+
     useEffect(() => {
         checkUser();
     }, [auth])

@@ -16,6 +16,7 @@ const ContextProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);
     const [peerServer, setPeerServer] = useState(null);
     const [connection, setConnection] = useState(null);
+    const [isMute, setIsMute] = useState(false);
 
     // Side-effect cleanup
     useEffect(() => {
@@ -73,7 +74,8 @@ const ContextProvider = ({ children }) => {
 
         socket.on('user-offline', (data) => {
             console.log('userOffline');
-            resetContext();
+            // resetContext();
+            closeCall();
         });
 
         const peerServer = new Peer(userId, {
@@ -100,7 +102,8 @@ const ContextProvider = ({ children }) => {
 
                 // peerjs close event after disconnecting
                 connection.on('close', () => {
-                    resetContext();
+                    // resetContext();
+                    closeCall();
                 });
             });
 
@@ -113,10 +116,38 @@ const ContextProvider = ({ children }) => {
 
     }
 
+    const toggleCamera = () => {
+        if (localStream) {
+            // @ts-ignore
+            localStream.getVideoTracks().forEach((track) => track._switchCamera());
+        }
+    };
+
+    const toggleMicrophone = () => {
+        if (localStream) {
+            localStream.getAudioTracks().forEach((track) => {
+                track.enabled = !track.enabled;
+                setIsMute(!track.enabled);
+            });
+        }
+    };
+
+    const disableCamera = () => {
+        if (localStream) {
+            localStream.getVideoTracks().forEach((track) => {
+                track.enabled = !track.enabled;
+            });
+        }
+    };
+
     const answerCall = () => {
         if (!socket) {
             console.log('Socket connection error');
             return;
+        }
+
+        if (call && !call.isVideo) {
+            disableCamera();
         }
 
         setCall({ ...call, isAccepted: true });
@@ -138,10 +169,13 @@ const ContextProvider = ({ children }) => {
     };
 
     const callUser = (callData) => {
-
         if (!peerServer || !socket) {
             console.log('Peer server or socket connection error');
             return;
+        }
+
+        if (callData && !callData.isVideo) {
+            disableCamera();
         }
 
         socket.emit('call-user', callData);
@@ -155,7 +189,7 @@ const ContextProvider = ({ children }) => {
         try {
             const conn = peerServer.call(callData.callId.to.userId, localStream);
             conn.on('stream', (stream) => {
-                console.log('New call received from', callData.callId.from.username);
+                console.log('New call received from', callData.callId.from.username, callData);
                 setCall({ ...callData, isAccepted: true });
                 setRemoteStream(stream)
             });
@@ -211,7 +245,7 @@ const ContextProvider = ({ children }) => {
     }
 
     return (
-        <SocketContext.Provider value={{ localStream, remoteStream, call, authUser, socket, peerServer, callUser, leaveCall, answerCall }}>
+        <SocketContext.Provider value={{ localStream, remoteStream, call, authUser, socket, peerServer, callUser, leaveCall, answerCall, isMute, toggleMicrophone, toggleCamera }}>
             {children}
         </SocketContext.Provider>
     );
