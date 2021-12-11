@@ -18,7 +18,7 @@ import {
 } from 'react-native-webrtc';
 
 const CallScreen = () => {
-    const { localStream, remoteStream, call, activeCall, socket, peerServer, leaveCall, answerCall } = useContext(SocketContext);
+    const { localStream, remoteStream, call, socket, peerServer, leaveCall, answerCall } = useContext(SocketContext);
     const [callerInfo, setCallerInfo] = useState(null);
     const [isReceivingCall, setIsReceivingCall] = useState(false);
     const dispatch = useDispatch();
@@ -39,12 +39,16 @@ const CallScreen = () => {
 
     const retrieveUserData = async () => {
         const authUserId = await SecureStorage.getItem('userId').catch(() => null);
-        if (authUserId === call.callId.from.userId) {
-            setIsReceivingCall(false);
-            setCallerInfo(call.callId.to);
+        if (call && call.callId && call.callId.from && call.callId.to) {
+            if (authUserId === call.callId.from.userId) {
+                setIsReceivingCall(false);
+                setCallerInfo(call.callId.to);
+            } else {
+                setIsReceivingCall(true);
+                setCallerInfo(call.callId.from);
+            }
         } else {
-            setIsReceivingCall(true);
-            setCallerInfo(call.callId.from);
+            setCallerInfo(null);
         }
     }
 

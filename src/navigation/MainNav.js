@@ -22,16 +22,17 @@ import { SocketContext } from '../contexts/SocketContext';
 
 const RootStack = createStackNavigator();
 
+
 const MainNav = () => {
 
-    const { call, activeCall } = useContext(SocketContext);
+    const { call } = useContext(SocketContext);
 
     return (
         <RootStack.Navigator>
 
             {
-                call ? (
-                    activeCall ? <RootStack.Screen
+                !!call ? (
+                    !!call.isAccepted ? <RootStack.Screen
                         name='Call'
                         component={CallScreen}
                         options={{

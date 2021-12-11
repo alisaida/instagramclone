@@ -10,7 +10,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { SocketContext } from '../../contexts/SocketContext';
 
 const CallActions = ({ width, height }) => {
-    const { localStream, remoteStream, call, activeCall, socket, peerServer, leaveCall, answerCall, toggleMute } = useContext(SocketContext);
+    const { localStream, remoteStream, call, socket, peerServer, leaveCall, answerCall, toggleMute } = useContext(SocketContext);
 
     return (
         <View style={[styles.buttonContainer, { width: width, height: 150, }]}>
@@ -18,7 +18,7 @@ const CallActions = ({ width, height }) => {
 
                 {/* camera toggle or speaker */}
                 {
-                    activeCall && (activeCall.isVideo ?
+                    !!call && !!call.isAccepted && (call.isVideo ?
                         <TouchableOpacity style={[styles.button, { backgroundColor: 'white', }]}>
                             <Ionicons name='ios-camera-reverse-sharp' size={31} color={'black'} backgroundColor={'grey'} />
                         </TouchableOpacity> :

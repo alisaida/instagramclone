@@ -12,7 +12,6 @@ const ContextProvider = ({ children }) => {
     const [localStream, setLocalStream] = useState(null);
     const [remoteStream, setRemoteStream] = useState(null);
     const [call, setCall] = useState(null);
-    const [activeCall, setActiveCall] = useState(null);
     const [authUser, setAuthUser] = useState('');
     const [socket, setSocket] = useState(null);
     const [peerServer, setPeerServer] = useState(null);
@@ -77,12 +76,6 @@ const ContextProvider = ({ children }) => {
             resetContext();
         });
 
-        socket.on('rejected-call', (data) => {
-            console.log('rejecing call');
-            setActiveCall(null);
-            setCall(null);
-        });
-
         const peerServer = new Peer(userId, {
             host: '192.168.0.56',
             secure: false, //requires ssl certificates
@@ -103,11 +96,11 @@ const ContextProvider = ({ children }) => {
             console.log('initializing calll', callData);
             peerServer.on('call', (connection) => {
                 setConnection(connection);
-                setCall({ ...callData, isRinging: true });
+                setCall(callData);
 
                 // peerjs close event after disconnecting
                 connection.on('close', () => {
-                    closeCall();
+                    resetContext();
                 });
             });
 
@@ -126,13 +119,15 @@ const ContextProvider = ({ children }) => {
             return;
         }
 
+        setCall({ ...call, isAccepted: true });
+
         //end call event after accepting call
         socket.on('call-ended', (data) => {
             closeCall();
         });
 
         socket.on('call-connected', (data) => {
-            setActiveCall(data)
+            setCall(data)
         });
 
         socket.emit('accept-call', call);
@@ -140,8 +135,6 @@ const ContextProvider = ({ children }) => {
         connection.on('stream', (stream) => {
             setRemoteStream(stream)
         });
-
-        setActiveCall(call);
     };
 
     const callUser = (callData) => {
@@ -156,20 +149,18 @@ const ContextProvider = ({ children }) => {
 
         //end call event after accepting call
         socket.on('call-ended', (data) => {
-            console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
             closeCall();
         });
 
         try {
             const conn = peerServer.call(callData.callId.to.userId, localStream);
             conn.on('stream', (stream) => {
-                console.log('New call received from', callData.callId.from);
-                setActiveCall(callData);
+                console.log('New call received from', callData.callId.from.username);
+                setCall({ ...callData, isAccepted: true });
                 setRemoteStream(stream)
             });
             conn.on('close', () => {
-                console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx2')
-                closeCall();
+                resetContext();
             });
         } catch (error) {
             console.log('Calling error', error);
@@ -200,7 +191,7 @@ const ContextProvider = ({ children }) => {
             socket.emit('end-call', { ...call, endedBy: authUser, recipient: recipient });
         }
 
-        if (!activeCall) {
+        if (!call.isAccepted) {
             closeCall(); //close any active calls
         }
     };
@@ -214,13 +205,13 @@ const ContextProvider = ({ children }) => {
     }
 
     const resetContext = () => {
-        setActiveCall(null);
+        setCall({ ...call, isAccepted: false });
         setCall(null);
         setRemoteStream(null);
     }
 
     return (
-        <SocketContext.Provider value={{ localStream, remoteStream, call, activeCall, authUser, socket, peerServer, callUser, leaveCall, answerCall }}>
+        <SocketContext.Provider value={{ localStream, remoteStream, call, authUser, socket, peerServer, callUser, leaveCall, answerCall }}>
             {children}
         </SocketContext.Provider>
     );

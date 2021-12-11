@@ -12,6 +12,11 @@ const Feed = ({ navigation }) => {
     const [posts, setPosts] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
 
+    // Side-effect cleanup
+    useEffect(() => {
+        return () => { };
+    }, []);
+
     useEffect(() => {
         fetchPosts();
     }, []);

@@ -28,7 +28,7 @@ import {
 } from 'react-native-webrtc';
 
 const CallScreen = () => {
-    const { localStream, remoteStream, call, activeCall, socket, peerServer, leaveCall, answerCall } = useContext(SocketContext);
+    const { localStream, remoteStream, call, socket, peerServer, leaveCall, answerCall } = useContext(SocketContext);
     const [authUserId, setAuthUserId] = useState('');
     const dispatch = useDispatch();
     const navigation = useNavigation();
@@ -36,6 +36,11 @@ const CallScreen = () => {
 
     const height = Dimensions.get('screen').height;
     const width = Dimensions.get('screen').width;
+
+    // Side-effect cleanup
+    useEffect(() => {
+        return () => { };
+    }, []);
 
     useEffect(() => {
         retrieveUserData();
