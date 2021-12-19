@@ -146,3 +146,27 @@ export const createCommentByPostId = async (id, comment) => {
         return error;
     }
 }
+
+export const createPost = async (imageUri, caption) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'post',
+            url: `/api/posts/new/`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            },
+            data: {
+                imageUri: imageUri,
+                caption: caption
+            }
+        })
+
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}

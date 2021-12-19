@@ -42,7 +42,7 @@ const CommentScreen = ({ navigation, route }) => {
         if (!newComment || newComment === '')
             return;
         try {
-            const response = await createCommentByPostId(route.params.postId, newComment);
+            const response = await createCommentByPostId(route.params.post._id, newComment);
             if (response) {
                 console.log(response);
             }

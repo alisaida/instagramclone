@@ -10,6 +10,7 @@ import ChatScreen from '../screens/ChatScreen';
 import ChatRoomScreen from '../screens/ChatRoomScreen';
 import CallScreen from '../screens/CallScreen';
 import CallPreview from '../screens/CallPreview';
+import CreatePostScreen from '../screens/CreatePostScreen';
 
 import CallNav from './CallNav';
 
@@ -86,6 +87,12 @@ const MainNav = () => {
                         <RootStack.Screen
                             name='Call'
                             component={CallScreen}
+                            options={{
+                                headerShown: false
+                            }} />
+                        <RootStack.Screen
+                            name='CreatePost'
+                            component={CreatePostScreen}
                             options={{
                                 headerShown: false
                             }} />

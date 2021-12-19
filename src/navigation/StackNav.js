@@ -26,6 +26,8 @@ import PostScreen from '../screens/PostScreen';
 import logo from '../assets/images/instagram-logo.png'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import PostMenuItem from '../components/Post/components/PostMenuItem';
+
 const HomeStack = createStackNavigator();
 
 const StackNav = () => {
@@ -43,8 +45,8 @@ const StackNav = () => {
                         marginRight: 20,
                     },
                     headerRight: () => (
-                        <View style={{ flexDirection: 'row', marginRight: 20, width: 130, justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Ionicons name='ios-camera-outline' size={26} color={'black'} />
+                        <View style={{ flexDirection: 'row', marginRight: 20, width: 100, justifyContent: 'space-between', alignItems: 'center' }}>
+                            <PostMenuItem />
                             <Ionicons name='heart-outline' size={26} color={'#000'} />
                             <TouchableOpacity onPress={() => navigation.push('ChatScreen')}>
                                 <Fontisto name='messenger' size={21} color={'#000'} />

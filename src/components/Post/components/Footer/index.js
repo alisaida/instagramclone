@@ -97,10 +97,10 @@ const Footer = ({ navigation, authProfile, profile, post, isSaved: isSavedProp }
             <TouchableWithoutFeedback onPress={navigateToLikeScreen}>
                 <Text style={styles.likes} >{likesCount.toLocaleString()} Likes</Text>
             </TouchableWithoutFeedback>
-            {post.caption && <View style={styles.postDetails}>
+            < View style={styles.postDetails}>
                 <Text style={styles.postUser} >{profile.name}</Text>
-                <Text style={styles.caption} >{post.caption}</Text>
-            </View>}
+                {post && !!post.caption && <Text style={styles.caption} >{post.caption}</Text>}
+            </View>
             <TouchableWithoutFeedback onPress={navigateToCommentsScreen}>
                 <View>
                     {commentsCount > 0 && (commentsCount == 1 ?
