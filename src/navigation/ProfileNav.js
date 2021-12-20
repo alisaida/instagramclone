@@ -12,12 +12,11 @@ const Drawer = createDrawerNavigator();
 
 const ProfileNav = () => {
     return (
-        <Drawer.Navigator
-            drawerContent={(props) => <CustomDrawerContent {...props} />}
+        <Stack.Navigator
             screenOptions={{
                 headerShown: false,
-                drawerPosition: "right"
-            }}>
+            }}
+        >
             <Stack.Screen
                 name="ProfileScreen"
                 component={ProfileScreen}
@@ -27,30 +26,8 @@ const ProfileNav = () => {
                     },
                 }}
             />
-        </Drawer.Navigator >
+        </Stack.Navigator >
     )
-}
-
-function CustomDrawerContent(props) {
-    const dispatch = useDispatch();
-
-    return (
-        <DrawerContentScrollView {...props}>
-            <DrawerItemList {...props} />
-            <DrawerItem
-                label="Friend Requests"
-                onPress={() => Linking.openURL('https://mywebsite.com/help')}
-            />
-            <DrawerItem
-                label="Bookmarks"
-                onPress={() => Linking.openURL('https://mywebsite.com/help')}
-            />
-            <DrawerItem
-                label="Sign out"
-                onPress={() => dispatch(logout())}
-            />
-        </DrawerContentScrollView>
-    );
 }
 
 export default ProfileNav;

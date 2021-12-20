@@ -26,6 +26,8 @@ const CreatePostScreen = () => {
             try {
                 const response = await createPost(data.Location, caption);
 
+                console.log('uploaded image', response.status);
+
                 if (response) {
                     navigation.pop(); //close screen after successful create
                 }

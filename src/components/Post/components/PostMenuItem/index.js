@@ -20,14 +20,12 @@ const PostMenuItem = () => {
 
         setTimeout(() => {
             ImagePicker.openPicker({
-                width: 300,
-                height: 300,
+                width: 1000,
+                height: 800,
                 cropping: true,
-                compressImageQuality: 0.7,
+                compressImageQuality: 1,
                 forceJpg: true
             }).then(image => {
-                // console.log(image);
-                // console.log(setImageData(image));
                 navigation.push('CreatePost', { image: image });
             }).catch(error => { });
         }, 400)
@@ -37,14 +35,12 @@ const PostMenuItem = () => {
     const openCamera = () => {
         setTimeout(() => {
             ImagePicker.openCamera({
-                compressImageMaxWidth: 300,
-                compressImageMaxHeight: 300,
+                compressImageMaxWidth: 1000,
+                compressImageMaxHeight: 800,
                 cropping: true,
-                compressImageQuality: 0.7,
+                compressImageQuality: 1,
                 forceJpg: true
             }).then(image => {
-                // console.log(image);
-                // console.log(setImageData(image));
                 navigation.push('CreatePost', { image: image });
             }).catch(error => { });
         }, 400)

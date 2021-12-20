@@ -34,7 +34,7 @@ const StackNav = () => {
 
     const navigation = useNavigation();
     return (
-        <HomeStack.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />}>
+        <HomeStack.Navigator>
             <HomeStack.Screen
                 name="HomeScreen"
                 component={HomeScreen}

@@ -13,7 +13,7 @@ import { DrawerActions } from '@react-navigation/native';
 import styles from './styles'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const MyHeader = ({ username, navigation }) => {
+const MyHeader = ({ username, navigation, togglePostMenu, toggleSettingsMenu }) => {
     return (
         <View style={styles.container}>
             <View style={styles.profileName}>
@@ -21,8 +21,11 @@ const MyHeader = ({ username, navigation }) => {
                 <MaterialIcons name='verified' color='#2b82c4' size={16} />
             </View>
             <View style={styles.iconsRight}>
-                <FontAwesome name='plus-square-o' size={25} style={styles.icon} />
-                <TouchableOpacity onPress={() => { navigation.dispatch(DrawerActions.toggleDrawer()); }}>
+                <TouchableOpacity onPress={() => { togglePostMenu() }}>
+                    <FontAwesome name='plus-square-o' size={25} style={styles.icon} />
+                </TouchableOpacity>
+                {/* <TouchableOpacity onPress={() => { navigation.dispatch(DrawerActions.toggleDrawer()); }}> */}
+                <TouchableOpacity onPress={() => { toggleSettingsMenu() }}>
                     <Ionicons name='ios-reorder-three-outline' size={30} />
                 </TouchableOpacity>
             </View>

@@ -17,6 +17,11 @@ const Footer = ({ navigation, authProfile, profile, post, isSaved: isSavedProp }
     const [commentsCount, setCommentsCount] = useState(0);
     const [isSaved, setIsSaved] = useState(false);
 
+    // Side-effect cleanup
+    useEffect(() => {
+        return () => { };
+    }, []);
+
     const onLikePressed = async () => {
         let apiResponse;
         try {

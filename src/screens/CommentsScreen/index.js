@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useRef } from 'react'
 import { StyleSheet, Text, View, SafeAreaView, FlatList, RefreshControl, TextInput, ScrollView, Button, KeyboardAvoidingView } from 'react-native';
 
 import PostCommentList from '../../components/Post/components/PostCommentList';
@@ -12,6 +12,7 @@ const CommentScreen = ({ navigation, route }) => {
     const [postData, setPostData] = useState(null);
     const [refreshing, setRefreshing] = useState(false);
     const [newComment, setNewComment] = useState('');
+    const commentInput = useRef();
 
 
     useEffect(() => {
@@ -44,6 +45,7 @@ const CommentScreen = ({ navigation, route }) => {
         try {
             const response = await createCommentByPostId(route.params.post._id, newComment);
             if (response) {
+                commentInput.current.clear();
                 console.log(response);
             }
         } catch (e) {
@@ -76,6 +78,7 @@ const CommentScreen = ({ navigation, route }) => {
                                 placeholder="Add a comment..."
                                 placeholderTextColor="#9e9e9e"
                                 onChangeText={setNewComment}
+                                ref={commentInput}
                             />
                         </ScrollView>
                         {

@@ -12,7 +12,7 @@ import Feed from '../../../Feed';
 import Header from '../Header';
 
 
-const Profile = ({ profile, isAuthProfile, navigation }) => {
+const Details = ({ profile, isAuthProfile, navigation, togglePostMenu, toggleSettingsMenu }) => {
 
     useEffect(() => {
         // Side-effect logic...
@@ -41,7 +41,7 @@ const Profile = ({ profile, isAuthProfile, navigation }) => {
             {
                 // myheader or their header 
                 isAuthProfile ?
-                    (<MyHeader username={profile.username} navigation={navigation} />) :
+                    (<MyHeader username={profile.username} navigation={navigation} togglePostMenu={togglePostMenu} toggleSettingsMenu={toggleSettingsMenu} />) :
                     (<Header profile={profile} navigation={navigation} />)
             }
             <View style={styles.container}>
@@ -58,4 +58,4 @@ const Profile = ({ profile, isAuthProfile, navigation }) => {
         </View >
     )
 }
-export default Profile;
+export default Details;

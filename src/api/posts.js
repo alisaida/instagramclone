@@ -163,7 +163,7 @@ export const createPost = async (imageUri, caption) => {
             }
         })
 
-        return response.data;
+        return response;
     }
     catch (error) {
         console.log(error);

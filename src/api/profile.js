@@ -47,6 +47,49 @@ export const fetchProfileById = async (userId) => {
     }
 }
 
+export const fetchProfileByName = async (name) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'get',
+            url: `/api/profiles/user?name=${name}`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        const { profiles } = response.data;
+
+        return profiles;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const fetchProfileByUsername = async (username) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'get',
+            url: `/api/profiles/user?username=${username}`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        const { profiles } = response.data;
+        return profiles;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
 export const createProfile = async (username, name, profilePicture, bio) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
