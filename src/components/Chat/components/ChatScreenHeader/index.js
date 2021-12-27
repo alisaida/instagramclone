@@ -7,7 +7,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { currentAuthProfile } from '../../../../api/profile';
-const ChatScreenHeader = () => {
+const ChatScreenHeader = ({ createNewChat }) => {
 
 
     // Side-effect cleanup
@@ -45,7 +45,9 @@ const ChatScreenHeader = () => {
             </View>
             <View style={styles.right}>
                 <Ionicons name='videocam-outline' size={29} style={{ marginRight: 10 }} />
-                <Ionicons name='create-outline' size={26} />
+                < TouchableOpacity style={styles.leftHeader} onPress={() => createNewChat()}>
+                    <Ionicons name='create-outline' size={26} />
+                </TouchableOpacity>
             </View>
         </View>
 

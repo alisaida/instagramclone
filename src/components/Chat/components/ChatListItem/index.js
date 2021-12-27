@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import moment from 'moment'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import ProfilePicture from '../../../ProfilePicture';
@@ -37,13 +38,18 @@ const ChatListItem = ({ chatRoomData, authUser }) => {
         return null;
     }
 
+
+
     return (
+        chatRoomData && chatRoomData.lastMessage &&
         <View style={styles.container}>
             <TouchableOpacity style={styles.left} onPress={() => navigation.push('ChatRoom', { chatRoomId: chatRoomData._id, authUser: authUser, recipientProfile: profile })}>
                 <ProfilePicture size={50} />
                 <View style={styles.messageDeails}>
-                    <Text style={{ fontSize: 16 }}>{profile.username}</Text>
-                    <Text style={{ fontSize: 16, color: 'grey' }}>Hello? 2d</Text>
+                    <Text style={{ fontSize: 14 }}>{profile.username}</Text>
+
+                    <Text style={{ fontSize: 14, color: 'grey' }}>{chatRoomData.lastMessage.content} • {moment(chatRoomData.lastMessage.createdAt).fromNow()}</Text>
+
                 </View>
             </TouchableOpacity>
             <TouchableOpacity>

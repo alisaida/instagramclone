@@ -25,6 +25,50 @@ export const retrieveMyChats = async () => {
     }
 }
 
+export const createChatRoom = async (username) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'post',
+            url: `/api/chats/new/`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            },
+            data: {
+                username: username
+            }
+        })
+
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const retrieveChatsWithRecipient = async (userId) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'get',
+            url: `/api/chats/users/${userId}/me`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+        return response.data;
+    }
+    catch (error) {
+        if (error.response.status !== 404) {
+            console.log(error)
+        }
+        return error;
+    }
+}
+
 export const retrieveChatsByUserId = async (userId) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
