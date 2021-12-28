@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
 import LikeItem from '../PostLikeItem';
 
@@ -28,15 +28,17 @@ const PostLikeList = ({ postLike, navigation }) => {
         }
     }
 
+    const goToProfile = () => {
+        navigation.push('Root', { screen: 'ProfileScreen', params: { otherProfile: profile, isAuthProfile: false } });
+    }
+
     if (!profile || !profile.name)
         return null;
 
     return (
-        <LikeItem
-            name={profile.name}
-            imageUri={'place.holder'}
-            username={profile.username}
-        />
+        <TouchableOpacity onPress={goToProfile}>
+            <LikeItem name={profile.name} imageUri={profile.profilePicture} username={profile.username} />
+        </TouchableOpacity>
 
     )
 }

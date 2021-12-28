@@ -22,14 +22,20 @@ import Feather from 'react-native-vector-icons/Feather';
 import Feed from './components/Feed';
 
 import { retrievePostsByUserId } from '../../api/posts';
-import { logout } from '../../redux/actions/authActions'
+import { logout } from '../../redux/actions/authActions';
 
-const Profile = ({ profile, isAuthProfile, navigation }) => {
+import Loading from '../../components/Loading';
+
+import { fetchProfileById } from '../../api/profile'
+
+const Profile = ({ userId, isAuthProfile, navigation }) => {
 
     const dispatch = useDispatch();
     const [visible, setVisible] = useState(false);
     const [isMenu, setIsMenu] = useState(false);
     const [isSettings, setIsSettings] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [profile, setProfile] = useState(null);
 
     // Side-effect cleanup
     useEffect(() => {
@@ -40,15 +46,39 @@ const Profile = ({ profile, isAuthProfile, navigation }) => {
     const [posts, setPosts] = useState(null);
 
     useEffect(() => {
-        if (profile.userId) {
+        if (userId) {
+            fetchProfileData();
             fetchPostData();
         }
     }, []);
 
+    const updateProfile = (profilePicture) => {
+        const newProfile = { ...profile, profilePicture: profilePicture }
+        setProfile(newProfile);
+    }
+
+    const fetchProfileData = async () => {
+        setIsLoading(true);
+        try {
+            const profileData = await fetchProfileById(userId);
+            setProfile(profileData);
+        } catch (e) {
+            setIsLoading(false);
+            console.log(`ProfileScreen: Failed to load Profile data for userId ${userId}`, e)
+        }
+        setIsLoading(false);
+    }
 
     const fetchPostData = async () => {
-        const postData = await retrievePostsByUserId(profile.userId)
-        setPosts(postData);
+        setIsLoading(true);
+        try {
+            const postData = await retrievePostsByUserId(userId);
+            setPosts(postData);
+        } catch (e) {
+            setIsLoading(false);
+            console.log(`ProfileScreen: Failed to load Post data for userId ${userId}`, e)
+        }
+        setIsLoading(false);
     }
 
     const togglePostMenu = () => {
@@ -67,6 +97,10 @@ const Profile = ({ profile, isAuthProfile, navigation }) => {
         setIsSettings(false);
     }
 
+    if (!profile) {
+        return null;
+    }
+
     const settingsIcon = <EvilIcons name="gear" size={22} color="#900" />;
     const archiveIcon = <MaterialCommunityIcons name="history" size={22} color="#900" />;
     const qrIcon = <Ionicons name="md-qr-code-outline" size={22} color="#900" />;
@@ -82,7 +116,7 @@ const Profile = ({ profile, isAuthProfile, navigation }) => {
     return (
         <>
             <View>
-                <Details profile={profile} isAuthProfile={isAuthProfile} navigation={navigation} togglePostMenu={togglePostMenu} toggleSettingsMenu={toggleSettingsMenu} />
+                <Details profile={profile} isAuthProfile={isAuthProfile} navigation={navigation} togglePostMenu={togglePostMenu} toggleSettingsMenu={toggleSettingsMenu} setIsLoading={setIsLoading} updateProfile={updateProfile} />
                 <View style={styles.headerButtons}>
                     <Fontisto name='nav-icon-grid' size={20} />
                     <MaterialIcons name='person-pin' size={30} />
@@ -120,6 +154,7 @@ const Profile = ({ profile, isAuthProfile, navigation }) => {
                     </>
                 </BottomDrawer>
             }
+            {isLoading && <Loading isLoading={true} />}
         </>
 
     )

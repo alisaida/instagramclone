@@ -29,10 +29,12 @@ const styles = StyleSheet.create({
     },
     postUser: {
         fontWeight: 'bold',
-        margin: 3,
+        marginHorizontal: 3,
+        marginVertical: 2,
     },
     caption: {
-        margin: 3,
+        marginHorizontal: 3,
+        marginVertical: 2,
     },
     postDetails: {
         flexDirection: 'row',
@@ -40,11 +42,15 @@ const styles = StyleSheet.create({
     },
     comments: {
         color: '#595857',
-        margin: 3,
+        marginHorizontal: 3,
+        marginVertical: 2,
+        fontSize: 13
     },
     postedAt: {
         color: '#595857',
-        margin: 3,
+        marginHorizontal: 3,
+        marginVertical: 2,
+        fontSize: 13
     },
 
 });

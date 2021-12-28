@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, TextInput, Button, RefreshControl, KeyboardAvoidingView, FlatList } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, ScrollView, TextInput, Button, RefreshControl, KeyboardAvoidingView, FlatList, Alert, TouchableOpacity } from 'react-native'
 import { useNavigation, useRoute, NavigationAction } from '@react-navigation/native';
+import ImagePicker from 'react-native-image-crop-picker';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ChatRoomHeader from '../../components/Chat/components/ChatRoomHeader';
 import MessageListItem from '../../components/Chat/components/MessageListItem';
 import { retrieveMessagesByChatRoomId, createMessage } from '../../api/chats';
+
+import { uploadToS3 } from '../../utils/s3Helper'
+
 const ChatRoomScreen = () => {
 
     // Side-effect cleanup
@@ -34,6 +39,74 @@ const ChatRoomScreen = () => {
         }
     };
 
+    const showAlert = () => Alert.alert(
+        "Upload",
+        "How would you like to upload photo?",
+        [{
+            text: "Camera",
+            onPress: () => openCamera(),
+            style: "default",
+        },
+        {
+            text: "Gallery",
+            onPress: () => openGallery(),
+            style: "default",
+        }]
+    );
+
+    const openGallery = () => {
+        setTimeout(() => {
+            ImagePicker.openPicker({
+                width: 1000,
+                height: 800,
+                cropping: true,
+                compressImageQuality: 1,
+                forceJpg: true
+            }).then(image => {
+                uploadImage(image);
+            }).catch(error => { });
+        }, 400)
+    };
+
+    const openCamera = () => {
+        setTimeout(() => {
+            ImagePicker.openCamera({
+                compressImageMaxWidth: 1000,
+                compressImageMaxHeight: 800,
+                cropping: true,
+                compressImageQuality: 1,
+                forceJpg: true
+            }).then(image => {
+                uploadImage(image);
+            }).catch(error => { });
+        }, 400)
+    };
+
+    const uploadImage = (image) => {
+        uploadToS3(image).then(data => {
+            console.log('Uploading image', data)
+
+            if (data && data.Location) {
+                try {
+                    const res = createMessage(route.params.chatRoomId, '', data.Location);
+                    res.then(response => {
+                        if (response && response.data) {
+                            //get response and display last message to list
+                            const lastMessage = response.data;
+                            // setMessages({ ...messages, lastMessage });
+                            messages.push(lastMessage);
+                            setNewMessage('');
+                        }
+                    })
+                } catch (e) {
+                    console.warn(e);
+                    // setIsLoading(false);
+                }
+            }
+        })
+        // setIsLoading(false);
+    }
+
     const onRefresh = useCallback(async () => {
         setRefreshing(true);
         fetchChatMessages();
@@ -46,6 +119,9 @@ const ChatRoomScreen = () => {
                 const response = await createMessage(route.params.chatRoomId, newMessage);
                 if (response.status === 201) {
                     //get response and display last message to list
+                    const lastMessage = response.data;
+                    // setMessages({ ...messages, lastMessage });
+                    messages.push(lastMessage);
                     setNewMessage('');
                     messageInput.current.clear();
                 }
@@ -70,7 +146,9 @@ const ChatRoomScreen = () => {
                     <View style={styles.bottomContainer}>
                         <View style={styles.inputContainer}>
                             <View style={styles.inputIcon}>
-                                <Ionicons name='ios-camera-outline' size={24} color={'white'} style={{ marginHorizontal: 3, marginVertical: 2, padding: 2 }} />
+                                <TouchableOpacity onPress={showAlert}>
+                                    <Ionicons name='ios-camera-outline' size={24} color={'white'} style={{ marginHorizontal: 3, marginVertical: 2, padding: 2 }} />
+                                </TouchableOpacity>
                             </View>
                             <ScrollView keyboardDismissMode='on-drag'>
                                 <TextInput

@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import { Image, FlatList, Dimensions, Text, TouchableOpacity } from 'react-native';
-
-const numColumns = 3;
+import { Image, FlatList, Dimensions, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 const Feed = ({ post }) => {
 
@@ -11,18 +9,23 @@ const Feed = ({ post }) => {
     }, []);
 
     return (
-        <TouchableOpacity style={{ aspectRatio: 1, flex: 1 / numColumns }}>
-            <Image
-                source={{ uri: post.imageUri }}
-                style={{
-                    width: "100%",
-                    height: "100%",
-                    flex: 1,
-                    // resizeMode: "contain"
-                }}
-            />
+        <TouchableOpacity style={styles.container}>
+            <Image source={{ uri: post.imageUri }} style={styles.image} />
         </TouchableOpacity>
     );
 };
 
 export default Feed;
+
+const styles = StyleSheet.create({
+    container: {
+        aspectRatio: 1,
+        flex: 1 / 3,
+        margin: 0.3
+    },
+    image: {
+        width: "100%",
+        height: "100%",
+        flex: 1,
+    }
+})

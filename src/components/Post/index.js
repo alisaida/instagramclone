@@ -8,15 +8,15 @@ import Footer from './components/Footer/index';
 
 import { fetchProfileById } from '../../api/profile';
 
-
-const post = {
-
-}
-
 const Post = ({ post, navigation }) => {
 
     const [authProfile, setAuthProfile] = useState(null);
     const [profile, setProfile] = useState(null);
+
+    // Side-effect cleanup
+    useEffect(() => {
+        return () => { };
+    }, []);
 
     useEffect(() => {
         loadAuthProfile();

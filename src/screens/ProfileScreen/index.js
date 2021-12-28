@@ -31,8 +31,8 @@ const ProfileScreen = ({ route, navigation }) => {
     return (
         <SafeAreaView>
             {(otherProfile && authProfile && authProfile.userId !== otherProfile.userId) ?
-                (<Profile profile={otherProfile} isAuthProfile={false} navigation={navigation} />) :
-                (<Profile profile={authProfile} isAuthProfile={true} navigation={navigation} />)}
+                (<Profile userId={otherProfile.userId} isAuthProfile={false} navigation={navigation} />) :
+                (<Profile userId={authProfile.userId} isAuthProfile={true} navigation={navigation} />)}
         </SafeAreaView>
     );
 }

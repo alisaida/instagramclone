@@ -7,26 +7,37 @@ import moment from 'moment';
 
 import ProfilePicture from '../../../ProfilePicture';
 
-const CommentItem = ({ profile, imageUri, comment, createdAt }) => {
+const CommentItem = ({ profile, comment, createdAt }) => {
 
 
     const navigation = useNavigation();
-    moment.updateLocale('en-mobile', {
-        parentLocale: 'en',
+
+    moment.updateLocale('en', {
         relativeTime: {
-            future: "in %s",
-            past: "%s ",
-            s: "ssssssssssss",
-            m: "m",
-            mm: "%d m",
-            h: "h",
-            hh: "%d h",
-            d: "d",
-            dd: "%d d",
-            M: "a mth",
-            MM: "%d mths",
+            s: '1s',
+            ss: '%ds',
+            m: "1m",
+            mm: "%dm",
+            h: "1h",
+            hh: "%dh",
+            d: '1d',
+            dd: (day) => {
+                if (day < 7) {
+                    return day + 'd';
+                }
+                else {
+                    var weeks = Math.round(day / 7);
+                    return weeks + (weeks > 1 ? 'w' : 'w');
+                }
+            },
+            M: () => {
+                return 4 + 'w';
+            },
+            MM: (month) => {
+                return month * 4 + 'w';
+            },
             y: "y",
-            yy: "%d y"
+            yy: "%dy"
         }
     });
 
@@ -41,7 +52,7 @@ const CommentItem = ({ profile, imageUri, comment, createdAt }) => {
         <View>
             <View style={styles.container}>
                 <TouchableWithoutFeedback onPress={goToProfile} >
-                    <ProfilePicture uri={imageUri} size={30} />
+                    <ProfilePicture uri={profile.profilePicture} size={30} />
                 </TouchableWithoutFeedback>
                 <View style={styles.commentContainer}>
                     <View style={styles.commentDetails}>
@@ -57,17 +68,10 @@ const CommentItem = ({ profile, imageUri, comment, createdAt }) => {
                             <Text style={styles.comment}>{comment}</Text>
                         </Text>
                     </View>
-                    <Text style={styles.postedAt}>{moment(createdAt).fromNow()}</Text>
+                    <Text style={styles.postedAt}>{moment(createdAt).fromNow(true)}</Text>
                 </View>
             </View>
-            {/* <View
-                style={{
-                    height: 1,
-                    backgroundColor: "#CED0CE",
-                    marginHorizontal: "3%"
-                }}
-            /> */}
-        </View>
+        </View >
     )
 }
 

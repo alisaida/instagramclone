@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from "react-redux";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -41,6 +41,10 @@ const ChatScreenHeader = ({ profile, authUserId, chatRoomId }) => {
         }
     }
 
+    const goToProfile = () => {
+        navigation.push('Root', { screen: 'ProfileScreen', params: { otherProfile: profile, isAuthProfile: false } });
+    }
+
     return (
         <>
             <View style={styles.container}>
@@ -48,11 +52,15 @@ const ChatScreenHeader = ({ profile, authUserId, chatRoomId }) => {
                     <TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
                         <MaterialIcons name='arrow-back-ios' size={24} />
                     </TouchableOpacity>
-                    <ProfilePicture size={35} />
-                    <View style={styles.profileDetails}>
-                        <Text style={styles.profileName}>{profile.name}</Text>
-                        <Text style={styles.username}>{profile.username}</Text>
-                    </View>
+                    <TouchableOpacity style={styles.profile} onPress={goToProfile} >
+                        <>
+                            <ProfilePicture uri={profile.profilePicture} size={35} />
+                            <View style={styles.profileDetails}>
+                                <Text style={styles.profileName}>{profile.name}</Text>
+                                <Text style={styles.username}>{profile.username}</Text>
+                            </View>
+                        </>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.right}>
                     <TouchableOpacity style={styles.leftHeader} onPress={() => makeCall(false)}>
@@ -94,11 +102,16 @@ const styles = StyleSheet.create({
         marginRight: 15
 
     },
+    profile: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
     profileDetails: {
         marginLeft: 10,
         marginBottom: 5
     },
     profileName: {
+        marginTop: 4,
         fontSize: 18,
         fontWeight: '600',
     },

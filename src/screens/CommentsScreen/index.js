@@ -60,7 +60,7 @@ const CommentScreen = ({ navigation, route }) => {
                     data={postData.comments}
                     ListHeaderComponent={
                         <CommentItem
-                            name={route.params.profile} imageUri={''} comment={postData.post.caption} createdAt={postData.post.createdAt}
+                            name={route.params.profile} comment={postData.post.caption} createdAt={postData.post.createdAt}
                         />
                     }
                     keyExtractor={({ _id }) => _id}

@@ -34,7 +34,12 @@ const StackNav = () => {
 
     const navigation = useNavigation();
     return (
-        <HomeStack.Navigator>
+        <HomeStack.Navigator
+            screenOptions={{
+                headerStyle: { elevation: 0 },
+                cardStyle: { backgroundColor: '#fff' }
+            }}
+        >
             <HomeStack.Screen
                 name="HomeScreen"
                 component={HomeScreen}

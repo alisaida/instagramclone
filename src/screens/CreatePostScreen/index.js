@@ -18,24 +18,26 @@ const CreatePostScreen = () => {
 
     const image = route.params.image;
 
-    const uploadImage = async () => {
+    const uploadImage = () => {
         setIsLoading(true);
-        const data = await uploadToS3(image);
+        uploadToS3(image).then(data => {
+            console.log('Uploading image', data)
 
-        if (data && data.Location) {
-            try {
-                const response = await createPost(data.Location, caption);
-
-                console.log('uploaded image', response.status);
-
-                if (response) {
-                    navigation.pop(); //close screen after successful create
+            if (data && data.Location) {
+                try {
+                    const res = createPost(data.Location, caption);
+                    res.then(response => {
+                        console.log('uploaded image', response.status);
+                        if (response) {
+                            navigation.pop(); //close screen after successful create
+                        }
+                    })
+                } catch (e) {
+                    console.warn(e);
                 }
-
-            } catch (e) {
-                console.warn(e);
             }
-        }
+
+        })
 
         setIsLoading(false);
     }

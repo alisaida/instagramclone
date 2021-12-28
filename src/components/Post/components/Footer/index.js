@@ -4,8 +4,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import moment from 'moment'
-
-
 import styles from './styles';
 import { retrievePostById, likePostById, unlikePostById } from '../../../../api/posts';
 
@@ -16,6 +14,28 @@ const Footer = ({ navigation, authProfile, profile, post, isSaved: isSavedProp }
     const [likesCount, setLikesCount] = useState(0);
     const [commentsCount, setCommentsCount] = useState(0);
     const [isSaved, setIsSaved] = useState(false);
+    const [postTime, setPostTime] = useState('');
+
+    moment.updateLocale('en', {
+        relativeTime: {
+            future: "in %s",
+            past: "%s ago",
+            s: 'a few seconds',
+            ss: '%d seconds',
+            m: "a minute",
+            mm: "%d minutes",
+            h: "an hour",
+            hh: "%d hours",
+            d: "a day",
+            dd: "%d days",
+            w: "a week",
+            ww: "%d weeks",
+            M: "a month",
+            MM: "%d months",
+            y: "a year",
+            yy: "%d years"
+        }
+    });
 
     // Side-effect cleanup
     useEffect(() => {
@@ -55,10 +75,23 @@ const Footer = ({ navigation, authProfile, profile, post, isSaved: isSavedProp }
                 setPostData(data);
                 setLikesCount(data.likes.length);
                 setIsLiked(checkLikes(data.likes));
-                setCommentsCount(data.comments.length)
+                setCommentsCount(data.comments.length);
+                setPostCreatedTime();
             }
         } catch (e) {
             console.log(e)
+        }
+    }
+
+    const setPostCreatedTime = () => {
+        var now = moment(new Date()); //todays date
+        var end = moment(post.createdAt); // another date
+        var duration = moment.duration(now.diff(end));
+        var days = duration.asWeeks();
+        if (duration.asWeeks() >= 1) {
+            setPostTime(moment(post.createdAt).format("MMMM Do YYYY"));
+        } else {
+            setPostTime(moment(post.createdAt).fromNow(false));
         }
     }
 
@@ -113,7 +146,7 @@ const Footer = ({ navigation, authProfile, profile, post, isSaved: isSavedProp }
                         (<Text style={styles.comments} >View all {commentsCount} comments</Text>))}
                 </View>
             </TouchableWithoutFeedback>
-            <Text style={styles.postedAt} >{moment(post.createdAt).format("MMMM Do YYYY")}</Text>
+            <Text style={styles.postedAt} >{postTime}</Text>
         </View >
     );
 }

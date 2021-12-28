@@ -4,9 +4,11 @@ import { StyleSheet, Text, View, Image } from 'react-native'
 const MessageListItem = ({ message, authUser }) => {
 
     const [isOutgoing, setIsOutgoing] = useState(false);
+    const [isImage, setIsImage] = useState(false);
 
     useEffect(() => {
         setDirection();
+        checkImage();
     }, []);
 
     const setDirection = () => {
@@ -17,15 +19,28 @@ const MessageListItem = ({ message, authUser }) => {
         }
     }
 
+    const checkImage = () => {
+        if (message.imageUri) {
+            setIsImage(true);
+        } else {
+            setIsImage(false);
+        }
+    }
+
+    // console.log(message)
+
     return (
         <View style={[styles.container, isOutgoing ? { alignSelf: 'flex-end' } : { alignSelf: 'flex-start' }]}>
             <View style={styles.bubbleContainer}>
-                <View style={[styles.msgBubble, isOutgoing ? { backgroundColor: '#2b83ef' } : { backgroundColor: '#eeeff0' }]}>
-                    {
-                        message.imageUri && <Image source={{ uri: message.imageUri }} style={styles.image} />
-                    }
+                <View style={[styles.msgBubble, isOutgoing ? { backgroundColor: '#2b83ef' } : { backgroundColor: '#eeeff0' }, !isImage ? { padding: 10, margin: 5, } : { padding: 3, borderRadius: 7 }]}>
+                    <>
 
-                    <Text style={styles.text, [isOutgoing ? { color: 'white' } : { color: 'black' }]}>{message.content}</Text>
+                        {
+                            isImage ? <Image source={{ uri: message.imageUri }} style={styles.image} />
+                                : <Text style={styles.text, [isOutgoing ? { color: 'white' } : { color: 'black' }]}>{message.content}</Text>
+                        }
+
+                    </>
                 </View>
             </View>
         </View >
@@ -47,9 +62,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     msgBubble: {
-        margin: 5,
-        paddingVertical: 10,
-        paddingHorizontal: 12,
+        marginVertical: 5,
         borderRadius: 20,
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.8,
@@ -58,7 +71,7 @@ const styles = StyleSheet.create({
     },
     image: {
         height: 250,
-        flex: 1,
-        width: null
+        width: 250,
+        borderRadius: 10
     }
 })
