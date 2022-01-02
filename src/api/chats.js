@@ -149,7 +149,7 @@ export const retrieveMessagesByChatRoomId = async (chatRoomId) => {
     }
 }
 
-export const createMessage = async (chatRoomId, content, imageUri) => {
+export const createMessage = async (chatRoomId, content) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
     try {
@@ -172,7 +172,7 @@ export const createMessage = async (chatRoomId, content, imageUri) => {
     }
 }
 
-export const createMessageImage = async (chatRoomId, content, imageUri) => {
+export const createMessageImage = async (chatRoomId, imageUri) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
     try {
