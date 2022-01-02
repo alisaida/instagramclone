@@ -7,13 +7,10 @@ import moment from 'moment'
 import styles from './styles';
 import { retrievePostById, likePostById, unlikePostById } from '../../../../api/posts';
 
-const Footer = ({ navigation, authProfile, profile, post, isSaved: isSavedProp }) => {
+const Footer = ({ navigation, authProfile, profile, post, likesCount, commentsCount, isBookmarked, isLiked, onBookmarkPressed, onLikePressed }) => {
 
     const [postData, setPostData] = useState(null);
-    const [isLiked, setIsLiked] = useState(false);
-    const [likesCount, setLikesCount] = useState(0);
-    const [commentsCount, setCommentsCount] = useState(0);
-    const [isSaved, setIsSaved] = useState(false);
+
     const [postTime, setPostTime] = useState('');
 
     moment.updateLocale('en', {
@@ -42,30 +39,16 @@ const Footer = ({ navigation, authProfile, profile, post, isSaved: isSavedProp }
         return () => { };
     }, []);
 
-    const onLikePressed = async () => {
-        let apiResponse;
-        try {
-            if (isLiked) {
-                apiResponse = await unlikePostById(post._id);
-            } else {
-                apiResponse = await likePostById(post._id);
-            }
-
-            setIsLiked(!isLiked);
-            const amount = isLiked ? -1 : 1;
-            setLikesCount(likesCount + amount);
-        } catch (e) {
-            console.log(e)
-        }
-    }
-
-    const onSavePressed = () => {
-        setIsSaved(!isSaved);
-    }
-
     useEffect(() => {
-        setIsSaved(isSavedProp);
-        fetchPostData();
+        var now = moment(new Date()); //todays date
+        var end = moment(post.createdAt); // another date
+        var duration = moment.duration(now.diff(end));
+        var days = duration.asWeeks();
+        if (duration.asWeeks() >= 1) {
+            setPostTime(moment(post.createdAt).format("MMMM Do YYYY"));
+        } else {
+            setPostTime(moment(post.createdAt).fromNow(false));
+        }
     }, []);
 
     const fetchPostData = async () => {
@@ -73,13 +56,10 @@ const Footer = ({ navigation, authProfile, profile, post, isSaved: isSavedProp }
             const data = await retrievePostById(post._id);
             if (data) {
                 setPostData(data);
-                setLikesCount(data.likes.length);
-                setIsLiked(checkLikes(data.likes));
-                setCommentsCount(data.comments.length);
                 setPostCreatedTime();
             }
         } catch (e) {
-            console.log(e)
+            console.log(`Post: Failed to retrievePostById for id ${post._id}`, e);
         }
     }
 
@@ -93,11 +73,6 @@ const Footer = ({ navigation, authProfile, profile, post, isSaved: isSavedProp }
         } else {
             setPostTime(moment(post.createdAt).fromNow(false));
         }
-    }
-
-    const checkLikes = (postLikes) => {
-        const likesArr = postLikes.filter(like => like.userId === authProfile.userId);
-        return likesArr.length > 0;
     }
 
     const navigateToCommentsScreen = () => {
@@ -124,9 +99,9 @@ const Footer = ({ navigation, authProfile, profile, post, isSaved: isSavedProp }
                     <Ionicons name='paper-plane-outline' size={22.5} />
                 </View>
                 <View style={styles.iconsRight}>
-                    <TouchableWithoutFeedback onPress={onSavePressed}>
+                    <TouchableWithoutFeedback onPress={onBookmarkPressed}>
                         {
-                            isSaved ? <FontAwesome name='bookmark' size={22} color={'black'} />
+                            isBookmarked ? <FontAwesome name='bookmark' size={22} color={'black'} />
                                 : <FontAwesome name='bookmark-o' size={22} />
                         }
                     </TouchableWithoutFeedback>

@@ -6,7 +6,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ChatRoomHeader from '../../components/Chat/components/ChatRoomHeader';
 import MessageListItem from '../../components/Chat/components/MessageListItem';
-import { retrieveMessagesByChatRoomId, createMessage } from '../../api/chats';
+import { retrieveMessagesByChatRoomId, createMessage, createMessageImage } from '../../api/chats';
 
 import { uploadToS3 } from '../../utils/s3Helper'
 
@@ -30,9 +30,9 @@ const ChatRoomScreen = () => {
 
     const fetchChatMessages = async () => {
         try {
-            const messages = await retrieveMessagesByChatRoomId(route.params.chatRoomId);
-            if (messages) {
-                setMessages(messages);
+            const response = await retrieveMessagesByChatRoomId(route.params.chatRoomId);
+            if (response && response.data) {
+                setMessages(response.data);
             }
         } catch (error) {
             console.log('Fetch User Chat Failed', error)
@@ -88,7 +88,7 @@ const ChatRoomScreen = () => {
 
             if (data && data.Location) {
                 try {
-                    const res = createMessage(route.params.chatRoomId, '', data.Location);
+                    const res = createMessageImage(route.params.chatRoomId, data.Location);
                     res.then(response => {
                         if (response && response.data) {
                             //get response and display last message to list
@@ -128,7 +128,7 @@ const ChatRoomScreen = () => {
             }
 
         } catch (error) {
-            console.log('Fetch User Chat Failed', error)
+            console.log(`ChatRoomScreen: Failed to createMessage ${newMessage} from chatRoomId ${route.params.chatRoomId}`, error);
         }
     }
 

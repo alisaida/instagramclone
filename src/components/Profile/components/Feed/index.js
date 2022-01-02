@@ -1,14 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, FlatList, Dimensions, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const Feed = ({ post }) => {
+import { retrievePostById } from '../../../../api/posts';
+const Feed = ({ postId }) => {
+
+    const [post, setPost] = useState(null);
 
     // Side-effect cleanup
     useEffect(() => {
         return () => { };
     }, []);
 
+    useEffect(() => {
+        fetchPostData();
+    }, []);
+
+    const fetchPostData = async () => {
+        try {
+            const response = await retrievePostById(postId);
+            if (response && response.data) {
+                const postData = response.data;
+                if (postData) {
+                    setPost(postData);
+                }
+            }
+        } catch (e) {
+            console.log(`Feed Component: Failed to retrievePostById for id ${postId}`, e);
+        }
+    }
+
     return (
+        post &&
         <TouchableOpacity style={styles.container}>
             <Image source={{ uri: post.imageUri }} style={styles.image} />
         </TouchableOpacity>

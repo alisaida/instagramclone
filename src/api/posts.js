@@ -104,6 +104,86 @@ export const unlikePostById = async (id) => {
     }
 }
 
+export const checkIsLiked = async (id) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'get',
+            url: `/api/posts/${id}/likes/me`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const bookmarkPostById = async (id) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'post',
+            url: `/api/posts/${id}/bookmark/`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const unBookmarkPostById = async (id) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'delete',
+            url: `/api/posts/${id}/bookmark/`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const checkIsBookmarked = async (id) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'get',
+            url: `/api/posts/${id}/bookmarks/me`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
 export const retrievePostLikesById = async (id) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
@@ -111,6 +191,26 @@ export const retrievePostLikesById = async (id) => {
         const response = await axiosInstance({
             method: 'get',
             url: `/api/posts/${id}/likes/`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const retrievePostCommentsById = async (id) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'get',
+            url: `/api/posts/${id}/comments/`,
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }

@@ -17,12 +17,12 @@ const LikesScreen = ({ navigation, route }) => {
 
     const fetchPostData = async () => {
         try {
-            const data = await retrievePostLikesById(route.params.post._id);
-            if (data) {
-                setPostLikes(data);
+            const response = await retrievePostLikesById(route.params.post._id);
+            if (response && response.data) {
+                setPostLikes(response.data);
             }
         } catch (e) {
-            console.log(e)
+            console.log(`Post: Failed to retrievePostLikesById for postId ${route.params.post._id}`, e);
         }
     }
 

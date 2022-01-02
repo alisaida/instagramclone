@@ -41,7 +41,7 @@ const ChatContactListItem = ({ profile, authUser }) => {
                 return data._id;
             }
         } catch (error) {
-            console.log('failed', error);
+            console.log(`ChatContactListItem: Failed to createChatRoom for recipient ${profile.username}`, error);
         }
     }
 

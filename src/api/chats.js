@@ -20,7 +20,7 @@ export const retrieveMyChats = async () => {
         return response.data.chatRooms;
     }
     catch (error) {
-        console.log(error);
+        console.log('wtf');
         return error;
     }
 }
@@ -89,6 +89,26 @@ export const retrieveChatsByUserId = async (userId) => {
     }
 }
 
+export const retrieveChatDataByChatRoomId = async (chatRoomId) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'get',
+            url: `/api/chats/${chatRoomId}/`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        return response.data;
+    }
+    catch (error) {
+        console.log('failed to retreive chat data', error);
+        return error;
+    }
+}
+
 export const retrieveRecipientsByChatRoomId = async (chatRoomId) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
@@ -135,12 +155,34 @@ export const createMessage = async (chatRoomId, content, imageUri) => {
     try {
         const response = await axiosInstance({
             method: 'post',
-            url: `/api/chats/${chatRoomId}/messages/new`,
+            url: `/api/chats/${chatRoomId}/messages/newMessage`,
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             },
             data: {
-                content: content,
+                content: content
+            }
+        })
+
+        return response;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const createMessageImage = async (chatRoomId, content, imageUri) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'post',
+            url: `/api/chats/${chatRoomId}/messages/newMessageImage`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            },
+            data: {
                 imageUri: imageUri
             }
         })

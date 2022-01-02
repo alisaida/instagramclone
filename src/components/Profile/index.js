@@ -48,7 +48,7 @@ const Profile = ({ userId, isAuthProfile, navigation }) => {
     useEffect(() => {
         if (userId) {
             fetchProfileData();
-            fetchPostData();
+            fetchUserPostsData();
         }
     }, []);
 
@@ -64,19 +64,24 @@ const Profile = ({ userId, isAuthProfile, navigation }) => {
             setProfile(profileData);
         } catch (e) {
             setIsLoading(false);
-            console.log(`ProfileScreen: Failed to load Profile data for userId ${userId}`, e)
+            console.log(`ProfileScreen: Failed to fetchProfileById: ${userId}`, e)
         }
         setIsLoading(false);
     }
 
-    const fetchPostData = async () => {
+    const fetchUserPostsData = async () => {
         setIsLoading(true);
         try {
-            const postData = await retrievePostsByUserId(userId);
-            setPosts(postData);
+            const response = await retrievePostsByUserId(userId);
+            if (response && response.data) {
+                const postData = response.data;
+                if (postData) {
+                    setPosts(postData);
+                }
+            }
         } catch (e) {
             setIsLoading(false);
-            console.log(`ProfileScreen: Failed to load Post data for userId ${userId}`, e)
+            console.log(`ProfileScreen: Failed to retrievePostsByUserId for id ${userId}`, e);
         }
         setIsLoading(false);
     }
@@ -124,8 +129,8 @@ const Profile = ({ userId, isAuthProfile, navigation }) => {
             </View>
             <FlatList
                 data={posts}
-                keyExtractor={({ _id }) => _id}
-                renderItem={({ item }) => <Feed post={item} />}
+                keyExtractor={(item, index) => String(index)}
+                renderItem={({ item }) => <Feed postId={item} />}
                 numColumns={numColumns}
                 contentContainerStyle={{ flexGrow: 1 }}
             />

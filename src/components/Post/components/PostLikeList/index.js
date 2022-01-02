@@ -25,6 +25,7 @@ const PostLikeList = ({ postLike, navigation }) => {
                 setProfile(profile);
         } catch (error) {
             console.log(error);
+            console.log(`PostLikeList: Failed to fetchProfileById for userId ${postLike.userId}`, error);
         }
     }
 

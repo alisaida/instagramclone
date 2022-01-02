@@ -22,13 +22,12 @@ const PostCommentList = ({ postComment, navigation }) => {
             setProfile(profile);
         } catch (error) {
             console.log(error);
+            console.log(`PostCommentList: Failed to fetchProfileById for userId ${postComment.userId}`, error);
         }
     }
 
     if (!profile)
         return null;
-
-    // console.log(postComment)
 
     return (
         <CommentItem

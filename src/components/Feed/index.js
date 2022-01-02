@@ -22,11 +22,13 @@ const Feed = ({ navigation }) => {
 
     const fetchPosts = async () => {
         try {
-            const postData = await retrievePosts();
-            if (postData)
-                setPosts(postData);
+            const response = await retrievePosts();
+            if (response && response.data) {
+                const postsData = response.data;
+                setPosts(postsData);
+            }
         } catch (error) {
-            console.log('failed');
+            console.log(`Feed: Failed retrievePosts data`, error);
         }
     }
 
@@ -40,8 +42,8 @@ const Feed = ({ navigation }) => {
         <FlatList
             data={posts}
             ListHeaderComponent={<Stories />}
-            keyExtractor={({ _id }) => _id}
-            renderItem={({ item }) => <Post post={item} navigation={navigation} />}
+            keyExtractor={(item, index) => item}
+            renderItem={({ item }) => <Post postId={item} navigation={navigation} />}
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         />
     );

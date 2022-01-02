@@ -7,11 +7,17 @@ import Body from './components/Body/index';
 import Footer from './components/Footer/index';
 
 import { fetchProfileById } from '../../api/profile';
+import { retrievePostById, checkIsLiked, likePostById, unlikePostById, bookmarkPostById, unBookmarkPostById, checkIsBookmarked } from '../../api/posts';
 
-const Post = ({ post, navigation }) => {
+const Post = ({ postId, navigation }) => {
 
     const [authProfile, setAuthProfile] = useState(null);
     const [profile, setProfile] = useState(null);
+    const [post, setPost] = useState(null);
+    const [isLiked, setIsLiked] = useState(false);
+    const [isBookmarked, setIsBookmarked] = useState(false);
+    const [likesCount, setLikesCount] = useState(0);
+    const [commentsCount, setCommentsCount] = useState(0);
 
     // Side-effect cleanup
     useEffect(() => {
@@ -20,12 +26,12 @@ const Post = ({ post, navigation }) => {
 
     useEffect(() => {
         loadAuthProfile();
-        fetchProfile();
+        fetchPostData();
     }, [])
 
     const loadAuthProfile = async () => {
-        const userId = await SecureStorage.getItem('userId');
         try {
+            const userId = await SecureStorage.getItem('userId');
             const authProfile = await fetchProfileById(userId);
             setAuthProfile(authProfile);
         } catch (e) {
@@ -33,9 +39,60 @@ const Post = ({ post, navigation }) => {
         }
     }
 
-    const fetchProfile = async () => {
-        const profile = await fetchProfileById(post.userId);
-        setProfile(profile);
+    const fetchPostData = async () => {
+        try {
+            const response = await retrievePostById(postId);
+            if (response && response.data) {
+                const post = response.data;
+                const profile = await fetchProfileById(post.userId);
+                const isLiked = await checkIsLiked(post._id);
+                const isBookmarked = await checkIsBookmarked(post._id);
+
+                if (profile) {
+                    setPost(post);
+                    setProfile(profile);
+                    setIsLiked(isLiked);
+                    setIsBookmarked(isBookmarked);
+
+                    setLikesCount(post.likes);
+                    setCommentsCount(post.comments);
+                }
+            }
+        } catch (e) {
+            console.log(`Post: Failed to fetchProfileById for id ${postId}`, e);
+        }
+    }
+
+    const onLikePressed = async () => {
+        let apiResponse;
+        try {
+            if (isLiked) {
+                apiResponse = await unlikePostById(post._id);
+            } else {
+                apiResponse = await likePostById(post._id);
+            }
+
+            setIsLiked(!isLiked);
+            const amount = isLiked ? -1 : 1;
+            setLikesCount(likesCount + amount);
+        } catch (e) {
+            console.log(`Post: Failed to like/unlike for ${post._id}`, e);
+        }
+    }
+
+    const onBookmarkPressed = async () => {
+        let apiResponse;
+        try {
+            if (isBookmarked) {
+                apiResponse = await unBookmarkPostById(post._id);
+            } else {
+                apiResponse = await bookmarkPostById(post._id);
+            }
+
+            setIsBookmarked(!isBookmarked);
+        } catch (e) {
+            console.log(`Post: Failed to bookmark/unbookmark for ${post._id}`, e);
+        }
     }
 
     if (!profile || !authProfile) {
@@ -44,9 +101,25 @@ const Post = ({ post, navigation }) => {
 
     return (
         <View>
-            <Header profile={profile} />
-            <Body imageUri={post.imageUri} />
-            <Footer navigation={navigation} authProfile={authProfile} profile={profile} post={post} isSaved={false} />
+            <Header
+                profile={profile}
+            />
+            <Body
+                imageUri={post.imageUri}
+                onLikePressed={onLikePressed}
+            />
+            <Footer
+                navigation={navigation}
+                authProfile={authProfile}
+                profile={profile}
+                post={post}
+                likesCount={likesCount}
+                commentsCount={commentsCount}
+                isBookmarked={isBookmarked}
+                isLiked={isLiked}
+                onBookmarkPressed={onBookmarkPressed}
+                onLikePressed={onLikePressed}
+            />
         </View>
     );
 }

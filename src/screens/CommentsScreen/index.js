@@ -1,32 +1,58 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react'
 import { StyleSheet, Text, View, SafeAreaView, FlatList, RefreshControl, TextInput, ScrollView, Button, KeyboardAvoidingView } from 'react-native';
-
+import SecureStorage from 'react-native-secure-storage';
 import PostCommentList from '../../components/Post/components/PostCommentList';
 import CommentItem from '../../components/Post/components/PostCommentItem';
 import ProfilePicture from '../../components/ProfilePicture';
 
-import { retrievePostById, createCommentByPostId } from '../../api/posts';
+import { retrievePostById, retrievePostCommentsById, createCommentByPostId } from '../../api/posts';
+import { fetchProfileById } from '../../api/profile';
 
 const CommentScreen = ({ navigation, route }) => {
 
+    const [comments, setComments] = useState([]);
     const [postData, setPostData] = useState(null);
     const [refreshing, setRefreshing] = useState(false);
     const [newComment, setNewComment] = useState('');
+    const [authProfile, setAuthProfile] = useState(null);
     const commentInput = useRef();
 
 
     useEffect(() => {
         fetchPostData();
+        fetchPostComments();
+        loadAuthProfile();
     }, []);
+
+    const loadAuthProfile = async () => {
+        try {
+            const userId = await SecureStorage.getItem('userId');
+            const authProfile = await fetchProfileById(userId);
+            setAuthProfile(authProfile);
+        } catch (e) {
+            console.log(`Post: Failed to load authProfile for userId ${auth.userId}`, e)
+        }
+    }
 
     const fetchPostData = async () => {
         try {
-            const data = await retrievePostById(route.params.post._id);
-            if (data) {
-                setPostData(data);
+            const response = await retrievePostById(route.params.post._id);
+            if (response && response.data) {
+                setPostData(response.data);
             }
         } catch (e) {
-            console.log(e)
+            console.log(`CommentsScreen: Failed to retrievePostById for id ${route.params.post._id}`, e);
+        }
+    }
+
+    const fetchPostComments = async () => {
+        try {
+            const response = await retrievePostCommentsById(route.params.post._id);
+            if (response && response.data) {
+                setComments(response.data);
+            }
+        } catch (e) {
+            console.log(`CommentsScreen: Failed to retrievePostCommentsById for id ${route.params.post._id}`, e);
         }
     }
 
@@ -36,8 +62,9 @@ const CommentScreen = ({ navigation, route }) => {
         setRefreshing(false);
     }, [refreshing]);
 
-    if (!postData || !postData.comments || !postData.post)
+    if (!postData || !postData.caption || !authProfile) {
         return null;
+    }
 
     const createComment = async () => {
         if (!newComment || newComment === '')
@@ -49,7 +76,7 @@ const CommentScreen = ({ navigation, route }) => {
                 console.log(response);
             }
         } catch (e) {
-            console.log(e);
+            console.log(`Post: Failed to createCommentByPostId for id ${route.params.post._id}`, e);
         }
     }
 
@@ -57,10 +84,10 @@ const CommentScreen = ({ navigation, route }) => {
         <KeyboardAvoidingView behavior="padding" enabled keyboardVerticalOffset={65} >
             <View style={styles.container}>
                 <FlatList
-                    data={postData.comments}
+                    data={comments}
                     ListHeaderComponent={
                         <CommentItem
-                            name={route.params.profile} comment={postData.post.caption} createdAt={postData.post.createdAt}
+                            name={route.params.profile} comment={postData.caption} createdAt={postData.createdAt}
                         />
                     }
                     keyExtractor={({ _id }) => _id}
@@ -69,7 +96,7 @@ const CommentScreen = ({ navigation, route }) => {
                     refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                 />
                 <View style={styles.bottomContainer}>
-                    <ProfilePicture size={40} />
+                    <ProfilePicture size={40} uri={authProfile.profilePicture} />
                     <View style={styles.inputContainer}>
                         <ScrollView keyboardDismissMode='on-drag'>
                             <TextInput

@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, FlatList, RefreshControl } from 'react-native';
 import { useSelector } from 'react-redux';
 import ChatListItem from '../ChatListItem/';
 
-import { retrieveMyChats } from '../../../../api/chats';
+import { retrieveChatsByUserId } from '../../../../api/chats';
 
 const ChatList = () => {
 
@@ -35,12 +35,13 @@ const ChatList = () => {
 
     const fetchChatRooms = async () => {
         try {
-            const chatRooms = await retrieveMyChats();
+            const userId = await auth.userId;
+            const chatRooms = await retrieveChatsByUserId(userId);
             if (chatRooms) {
                 setChatRooms(chatRooms);
             }
         } catch (error) {
-            console.log('Fetch User Chat Failed', error)
+            console.log(`ChatList Component: Failed to chats (retrieveChatsByUserId) for auth user ${userId}`, error);
         }
     };
 
@@ -54,7 +55,7 @@ const ChatList = () => {
         <FlatList
             data={chatRooms}
             keyExtractor={({ _id }) => _id}
-            renderItem={({ item }) => <ChatListItem chatRoomData={item} authUser={authUser} />}
+            renderItem={({ item }) => <ChatListItem chatRoomId={item._id} authUser={authUser} />}
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         />
     )

@@ -198,6 +198,7 @@ const ContextProvider = ({ children }) => {
             });
         } catch (error) {
             console.log('Calling error', error);
+            console.log(`SocketContext: Failed initiate Call: ${callData}`, error);
         }
     };
 

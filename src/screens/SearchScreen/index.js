@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, SafeAreaView, FlatList, TextInput, ScrollView, 
 import Search from '../../components/Search';
 
 import { retrievePosts } from '../../api/posts';
-import Feed from '../../components/Profile/components/Feed'
+import Feed from '../../components/Profile/components/Feed';
 
 const SearchScreen = () => {
 
@@ -22,11 +22,13 @@ const SearchScreen = () => {
 
     const fetchPosts = async () => {
         try {
-            const postData = await retrievePosts();
-            if (postData)
-                setPosts(postData);
+            const response = await retrievePosts();
+            if (response && response.data) {
+                const postsData = response.data;
+                setPosts(postsData);
+            }
         } catch (error) {
-            console.log('failed');
+            console.log(`SearchScreen: Failed to retrievePosts`, error);
         }
     }
 
@@ -38,15 +40,14 @@ const SearchScreen = () => {
 
     return (
         <>
-
             <Search isSearching={isSearching} setIsSearching={setIsSearching} />
             {
                 !isSearching &&
                 <View>
                     <FlatList
                         data={posts}
-                        keyExtractor={(item) => item._id.toString()}
-                        renderItem={({ item }) => <Feed post={item} />}
+                        keyExtractor={(item, index) => String(index)}
+                        renderItem={({ item, index }) => <Feed postId={item} />}
                         numColumns={3}
                         contentContainerStyle={{ flexGrow: 1 }}
                     />

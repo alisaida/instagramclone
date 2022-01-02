@@ -4,7 +4,7 @@ import styles from './styles'
 
 let lastPress = 0;
 
-const Body = ({ imageUri }) => {
+const Body = ({ imageUri, onLikePressed }) => {
 
     onDoubleTap = () => {
         const time = new Date().getTime();
@@ -13,7 +13,7 @@ const Body = ({ imageUri }) => {
         const DOUBLE_PRESS_DELAY = 400;
 
         if (delta < DOUBLE_PRESS_DELAY) {
-            console.warn('double pressed!');
+            onLikePressed();
         }
 
         lastPress = time;

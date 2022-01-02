@@ -9,7 +9,8 @@ import ProfilePicture from '../../../ProfilePicture';
 import { retrieveMyChats, retrieveChatsByUserId, retrieveRecipientsByChatRoomId, retrieveMessagesByChatRoomId, createMessage } from '../../../../api/chats';
 
 import { fetchProfileById } from '../../../../api/profile';
-const ChatListItem = ({ chatRoomData, authUser }) => {
+import { retrieveChatDataByChatRoomId } from '../../../../api/chats'
+const ChatListItem = ({ chatRoomId, authUser }) => {
 
     moment.updateLocale('en', {
         relativeTime: {
@@ -47,57 +48,59 @@ const ChatListItem = ({ chatRoomData, authUser }) => {
 
     const navigation = useNavigation();
     const [profile, setProfile] = useState(null);
-    const [lastMessage, setLastMessage] = useState('');
+    const [chatRoom, setChatRoom] = useState(null);
+    const [lastMessage, setLastMessage] = useState(null);
+    const [lastMessageContent, setLastMessageContent] = useState('');
 
     useEffect(() => {
-        fetctRecipientData();
-
-        if (chatRoomData && chatRoomData.lastMessage) {
-            if (chatRoomData.lastMessage.imageUri) {
-                const msg = authUser === chatRoomData.lastMessage.userId ? 'You sent a photo' : 'Sent a photo';
-                setLastMessage(msg);
-            } else {
-                setLastMessage(chatRoomData.lastMessage.content);
-            }
-        }
+        fetchChatRoomData();
+        updateLastMessage();
     }, []);
 
-    const fetctRecipientData = async () => {
-        const recipients = await retrieveRecipientsByChatRoomId(chatRoomData._id);
-        if (!chatRoomData.isGroupChat) {
-            const recipient = recipients[0].userId === authUser ? recipients[1] : recipients[0];
-            const profile = await fetchProfileById(recipient.userId);
-            setProfile(profile);
-        } else {
-            //split current user from list
+    useEffect(() => {
+        updateLastMessage();
+    }, [lastMessage]);
+
+    const fetchChatRoomData = async () => {
+        try {
+            const chatRoom = await retrieveChatDataByChatRoomId(chatRoomId);
+            if (chatRoom) {
+                const recipient = chatRoom.recipients[0].userId === authUser ? chatRoom.recipients[1] : chatRoom.recipients[0];
+                const profile = await fetchProfileById(recipient.userId);
+
+                setProfile(profile);
+                setChatRoom(chatRoom);
+                setLastMessage(chatRoom.lastMessage);
+            }
+        } catch (e) {
+            console.log(`ChatListItem Component: Failed to ChatRoom data (retrieveChatDataByChatRoomId) for id ${chatRoomId}`, e);
         }
     }
 
-    if (!profile || !profile.username) {
+    const updateLastMessage = () => {
+        if (lastMessage) {
+            if (lastMessage.imageUri) {
+                const messageContent = authUser === lastMessage.userId ? 'You sent a photo' : 'Sent a photo';
+                setLastMessageContent(messageContent);
+            } else if (lastMessage.content !== '') {
+                setLastMessageContent(lastMessage.content);
+            }
+        }
+    }
+
+    if (!profile || !profile.username && !lastMessage) {
         return null;
     }
 
-    const setUpLastMessage = () => {
-        if (chatRoomData && chatRoomData.lastMessage) {
-            if (chatRoomData.lastMessage.imageUri) {
-                const msg = authUser === chatRoomData.lastMessage.userId ? 'You sent a photo' : 'Sent a photo';
-                setLastMessage(msg);
-            } else {
-                setLastMessage(chatRoomData.lastMessage.content);
-            }
-        }
-    }
-
-
     return (
-        chatRoomData && chatRoomData.lastMessage &&
-        <View style={styles.container}>
-            <TouchableOpacity style={styles.left} onPress={() => navigation.push('ChatRoom', { chatRoomId: chatRoomData._id, authUser: authUser, recipientProfile: profile })}>
+        lastMessage
+        && <View style={styles.container}>
+            <TouchableOpacity style={styles.left} onPress={() => navigation.push('ChatRoom', { chatRoomId: chatRoom.chatRoomId, authUser: authUser, recipientProfile: profile })}>
                 <ProfilePicture uri={profile.profilePicture} size={50} />
                 <View style={styles.messageDeails}>
                     <Text style={{ fontSize: 14 }}>{profile.username}</Text>
 
-                    <Text style={{ fontSize: 14, color: 'grey' }}>{lastMessage} • {moment(chatRoomData.lastMessage.createdAt).fromNow(true)}</Text>
+                    <Text style={{ fontSize: 14, color: 'grey' }}>{lastMessageContent} • {moment(lastMessage.createdAt).fromNow(true)}</Text>
 
                 </View>
             </TouchableOpacity>

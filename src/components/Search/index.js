@@ -56,7 +56,7 @@ const Search = ({ isSearching, setIsSearching, isContactSearch }) => {
 
             setProfiles(results)
         } catch (error) {
-            console.log('failed', error);
+            console.log(`SearchScreen: Failed to fetchProfileBy[Name/Username] for id ${userId}`, error);
         }
     }
 
@@ -87,7 +87,6 @@ const Search = ({ isSearching, setIsSearching, isContactSearch }) => {
         }
     }
 
-
     return (
         <SafeAreaView >
 
@@ -102,7 +101,6 @@ const Search = ({ isSearching, setIsSearching, isContactSearch }) => {
                         onSubmitEditing={search}
                         ref={searchInput}
                     />
-
                 </View>
                 {
                     isSearching && <Button title="Cancel" onPress={() => { clearSearch() }} />
