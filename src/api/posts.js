@@ -24,13 +24,13 @@ export const retrievePostsByUserId = async (userId) => {
     }
 }
 
-export const retrievePosts = async () => {
+export const retrievePosts = async (page, size) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
-
+    console.log(`API call: /api/posts/feed/all?page=${page}&size=${size}`)
     try {
         const response = await axiosInstance({
             method: 'get',
-            url: `/api/posts/feed/all`,
+            url: `/api/posts/feed/all?page=${page}&size=${size}`,
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }
@@ -40,7 +40,7 @@ export const retrievePosts = async () => {
     }
     catch (error) {
         console.log(error);
-        return error;
+        return null;
     }
 }
 
@@ -184,13 +184,13 @@ export const checkIsBookmarked = async (id) => {
     }
 }
 
-export const retrievePostLikesById = async (id) => {
+export const retrievePostLikesById = async (id, page, size) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
-
+    console.log(`API call: /api/posts/${id}/likes?page=${page}&size=${size}/`)
     try {
         const response = await axiosInstance({
             method: 'get',
-            url: `/api/posts/${id}/likes/`,
+            url: `/api/posts/${id}/likes?page=${page}&size=${size}/`,
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }
@@ -204,13 +204,13 @@ export const retrievePostLikesById = async (id) => {
     }
 }
 
-export const retrievePostCommentsById = async (id) => {
+export const retrievePostCommentsById = async (id, page, size) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
-
+    console.log(`API call: /api/posts/${id}/comments?page=${page}&size=${size}/`)
     try {
         const response = await axiosInstance({
             method: 'get',
-            url: `/api/posts/${id}/comments/`,
+            url: `/api/posts/${id}/comments?page=${page}&size=${size}/`,
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }
@@ -239,7 +239,7 @@ export const createCommentByPostId = async (id, comment) => {
             }
         })
 
-        return response.data;
+        return response;
     }
     catch (error) {
         console.log(error);

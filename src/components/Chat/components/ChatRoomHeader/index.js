@@ -73,7 +73,7 @@ const ChatScreenHeader = ({ profile, authUserId, chatRoomId }) => {
             </View>
             <View
                 style={{
-                    height: 1,
+                    height: 0.4,
                     backgroundColor: "#CED0CE"
                 }}
             />
@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: 10,
-        marginBottom: 5
+        marginTop: -2,
+        marginBottom: 3
     },
     left: {
         flexDirection: 'row',
@@ -112,11 +112,11 @@ const styles = StyleSheet.create({
     },
     profileName: {
         marginTop: 4,
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: '600',
     },
     username: {
-        fontSize: 14,
+        fontSize: 12,
         fontWeight: '500',
         color: 'grey'
     }

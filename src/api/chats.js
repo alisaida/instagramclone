@@ -129,13 +129,13 @@ export const retrieveRecipientsByChatRoomId = async (chatRoomId) => {
     }
 }
 
-export const retrieveMessagesByChatRoomId = async (chatRoomId) => {
+export const retrieveMessagesByChatRoomId = async (chatRoomId, page, size) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
-
+    console.log(`API call: /api/chats/${chatRoomId}/messages?page=${page}&size=${size}`)
     try {
         const response = await axiosInstance({
             method: 'get',
-            url: `/api/chats/${chatRoomId}/messages/`,
+            url: `/api/chats/${chatRoomId}/messages?page=${page}&size=${size}`,
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }

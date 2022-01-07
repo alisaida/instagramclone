@@ -10,19 +10,45 @@ const LikesScreen = ({ navigation, route }) => {
 
     const [postLikes, setPostLikes] = useState(null);
     const [refreshing, setRefreshing] = useState(false);
+    const [scrollToEndReached, setScrollToEndReached] = useState(false);
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
-        fetchPostData();
+        fetchPostLikes();
     }, []);
 
-    const fetchPostData = async () => {
+    const fetchPostLikes = async () => {
         try {
-            const response = await retrievePostLikesById(route.params.post._id);
+            const response = await retrievePostLikesById(route.params.post._id, 1, 10);
+
             if (response && response.data) {
-                setPostLikes(response.data);
+                const likes = response.data;
+                const nextPage = response.page;
+                setPage(parseInt(nextPage) + 1);
+                setPostLikes(likes);
             }
         } catch (e) {
-            console.log(`Post: Failed to retrievePostLikesById for postId ${route.params.post._id}`, e);
+            console.log(`LikesScreen: Failed to retrievePostLikesById for postId ${route.params.post._id}`, e);
+        }
+    }
+
+    const fetchMorePostLikes = async () => {
+        try {
+            const response = await retrievePostLikesById(route.params.post._id, page, 10);
+            if (response && response.data) {
+                const newLikes = response.data;
+
+                const nextPage = response.page;
+                setPage(parseInt(nextPage) + 1);
+
+                if (newLikes && newLikes.length > 0) {
+                    setPostLikes((oldLikes) => {
+                        return oldLikes.concat(newLikes);
+                    });
+                }
+            }
+        } catch (e) {
+            console.log(`LikesScreen: Failed to retrievePostLikesById for id ${route.params.post._id}`, e);
         }
     }
 
@@ -43,7 +69,16 @@ const LikesScreen = ({ navigation, route }) => {
                     keyExtractor={({ _id }) => _id}
                     renderItem={({ item }) => <PostLikeList postLike={item} navigation={navigation} />}
                     contentContainerStyle={{ flexGrow: 1 }}
-                    refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+                    // refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+                    onEndReached={() => { setScrollToEndReached(true) }}
+                    onMomentumScrollEnd={() => {
+                        if (scrollToEndReached) {
+                            setRefreshing(true)
+                            fetchMorePostLikes();
+                            setScrollToEndReached(false);
+                            setRefreshing(false)
+                        }
+                    }}
                 />
             </View>
         </SafeAreaView >

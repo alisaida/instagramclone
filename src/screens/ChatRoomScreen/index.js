@@ -21,8 +21,11 @@ const ChatRoomScreen = () => {
     const navigation = useNavigation();
     const [messages, setMessages] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
+    const [scrollToEndReached, setScrollToEndReached] = useState(false);
+    const [page, setPage] = useState(1);
     const [newMessage, setNewMessage] = useState('');
     const messageInput = useRef();
+    const flatListRef = useRef();
 
     useEffect(() => {
         fetchChatMessages();
@@ -30,9 +33,37 @@ const ChatRoomScreen = () => {
 
     const fetchChatMessages = async () => {
         try {
-            const response = await retrieveMessagesByChatRoomId(route.params.chatRoomId);
+            const response = await retrieveMessagesByChatRoomId(route.params.chatRoomId, 1, 13);
             if (response && response.data) {
-                setMessages(response.data);
+                const messages = response.data;
+                const nextPage = response.page;
+                setPage(parseInt(nextPage) + 1);
+                setMessages(messages);
+            }
+        } catch (error) {
+            console.log('Fetch User Chat Failed', error)
+        }
+    };
+
+    const loadMoreOlderMessages = async () => {
+        try {
+            const response = await retrieveMessagesByChatRoomId(route.params.chatRoomId, page, 13);
+            if (response && response.data) {
+                const newMessages = response.data;
+                //filter out messages that already displayed
+                const displayedMessages = messages.map(message => {
+                    return message._id;
+                });
+
+                const filteredMessages = newMessages.filter(message => !displayedMessages.includes(message._id));
+
+                const nextPage = response.page;
+                setPage(parseInt(nextPage) + 1);
+                if (filteredMessages && filteredMessages.length > 0) {
+                    setMessages((oldMessages) => {
+                        return oldMessages.concat(filteredMessages);
+                    });
+                }
             }
         } catch (error) {
             console.log('Fetch User Chat Failed', error)
@@ -91,20 +122,17 @@ const ChatRoomScreen = () => {
                     const res = createMessageImage(route.params.chatRoomId, data.Location);
                     res.then(response => {
                         if (response && response.data) {
-                            //get response and display last message to list
                             const lastMessage = response.data;
-                            // setMessages({ ...messages, lastMessage });
-                            messages.push(lastMessage);
+                            setMessages([lastMessage, ...messages]);
+                            // messages.unshift(lastMessage);
                             setNewMessage('');
                         }
                     })
                 } catch (e) {
                     console.warn(e);
-                    // setIsLoading(false);
                 }
             }
         })
-        // setIsLoading(false);
     }
 
     const onRefresh = useCallback(async () => {
@@ -117,11 +145,10 @@ const ChatRoomScreen = () => {
         try {
             if (newMessage !== '') {
                 const response = await createMessage(route.params.chatRoomId, newMessage);
-                if (response.status === 201) {
-                    //get response and display last message to list
+                if (response && response.status === 201) {
                     const lastMessage = response.data;
-                    // setMessages({ ...messages, lastMessage });
-                    messages.push(lastMessage);
+                    setMessages([lastMessage, ...messages]);
+                    // messages.unshift(lastMessage);
                     setNewMessage('');
                     messageInput.current.clear();
                 }
@@ -138,10 +165,20 @@ const ChatRoomScreen = () => {
                 <View style={styles.container}>
                     <ChatRoomHeader profile={route.params.recipientProfile} authUserId={route.params.authUser} chatRoomId={route.params.chatRoomId} />
                     <FlatList
+                        inverted={true}
                         data={messages}
+                        ref={flatListRef}
                         keyExtractor={({ _id }) => _id}
                         renderItem={({ item }) => <MessageListItem message={item} authUser={route.params.authUser} />}
-                        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+                        onEndReached={() => { setScrollToEndReached(true) }}
+                        onMomentumScrollEnd={() => {
+                            if (scrollToEndReached) {
+                                setRefreshing(true)
+                                loadMoreOlderMessages();
+                                setScrollToEndReached(false);
+                                setRefreshing(false)
+                            }
+                        }}
                     />
                     <View style={styles.bottomContainer}>
                         <View style={styles.inputContainer}>

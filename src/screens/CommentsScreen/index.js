@@ -16,6 +16,8 @@ const CommentScreen = ({ navigation, route }) => {
     const [newComment, setNewComment] = useState('');
     const [authProfile, setAuthProfile] = useState(null);
     const commentInput = useRef();
+    const [scrollToEndReached, setScrollToEndReached] = useState(false);
+    const [page, setPage] = useState(1);
 
 
     useEffect(() => {
@@ -47,20 +49,43 @@ const CommentScreen = ({ navigation, route }) => {
 
     const fetchPostComments = async () => {
         try {
-            const response = await retrievePostCommentsById(route.params.post._id);
+            const response = await retrievePostCommentsById(route.params.post._id, 1, 10);
             if (response && response.data) {
-                setComments(response.data);
+                const comments = response.data;
+                const nextPage = response.page;
+                setPage(parseInt(nextPage) + 1);
+                setComments(comments);
             }
         } catch (e) {
             console.log(`CommentsScreen: Failed to retrievePostCommentsById for id ${route.params.post._id}`, e);
         }
     }
 
-    const onRefresh = useCallback(async () => {
-        setRefreshing(true);
-        fetchPostData();
-        setRefreshing(false);
-    }, [refreshing]);
+    const fetchMorePostComments = async () => {
+        try {
+            const response = await retrievePostCommentsById(route.params.post._id, page, 10);
+            if (response && response.data) {
+                const newComments = response.data;
+
+                const nextPage = response.page;
+                setPage(parseInt(nextPage) + 1);
+
+                //filter out messages that already displayed
+                const displayedComments = comments.map(comment => {
+                    return comment._id;
+                });
+
+                const filteredComments = newComments.filter(comment => !displayedComments.includes(comment._id));
+                if (filteredComments && filteredComments.length > 0) {
+                    setComments((oldComments) => {
+                        return oldComments.concat(filteredComments);
+                    });
+                }
+            }
+        } catch (e) {
+            console.log(`CommentsScreen: Failed to retrievePostCommentsById for id ${route.params.post._id}`, e);
+        }
+    }
 
     if (!postData || !postData.caption || !authProfile) {
         return null;
@@ -71,9 +96,10 @@ const CommentScreen = ({ navigation, route }) => {
             return;
         try {
             const response = await createCommentByPostId(route.params.post._id, newComment);
-            if (response) {
+            if (response && response.status === 201) {
+                const comment = response.data;
+                setComments([comment, ...comments]);
                 commentInput.current.clear();
-                console.log(response);
             }
         } catch (e) {
             console.log(`Post: Failed to createCommentByPostId for id ${route.params.post._id}`, e);
@@ -93,7 +119,15 @@ const CommentScreen = ({ navigation, route }) => {
                     keyExtractor={({ _id }) => _id}
                     renderItem={({ item }) => <PostCommentList postComment={item} navigation={navigation} />}
                     contentContainerStyle={{ flexGrow: 1 }}
-                    refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+                    onEndReached={() => { setScrollToEndReached(true) }}
+                    onMomentumScrollEnd={() => {
+                        if (scrollToEndReached) {
+                            setRefreshing(true)
+                            fetchMorePostComments();
+                            setScrollToEndReached(false);
+                            setRefreshing(false)
+                        }
+                    }}
                 />
                 <View style={styles.bottomContainer}>
                     <ProfilePicture size={40} uri={authProfile.profilePicture} />

@@ -10,8 +10,7 @@ import { retrievePostById, likePostById, unlikePostById } from '../../../../api/
 const Footer = ({ navigation, authProfile, profile, post, likesCount, commentsCount, isBookmarked, isLiked, onBookmarkPressed, onLikePressed }) => {
 
     const [postData, setPostData] = useState(null);
-
-    const [postTime, setPostTime] = useState('');
+    const [duration, setDuration] = useState(null);
 
     moment.updateLocale('en', {
         relativeTime: {
@@ -43,12 +42,7 @@ const Footer = ({ navigation, authProfile, profile, post, likesCount, commentsCo
         var now = moment(new Date()); //todays date
         var end = moment(post.createdAt); // another date
         var duration = moment.duration(now.diff(end));
-        var days = duration.asWeeks();
-        if (duration.asWeeks() >= 1) {
-            setPostTime(moment(post.createdAt).format("MMMM Do YYYY"));
-        } else {
-            setPostTime(moment(post.createdAt).fromNow(false));
-        }
+        setDuration(duration);
     }, []);
 
     const fetchPostData = async () => {
@@ -82,6 +76,9 @@ const Footer = ({ navigation, authProfile, profile, post, likesCount, commentsCo
     const navigateToLikeScreen = () => {
         navigation.push('Root', { screen: 'Likes', params: { post: post } });
     }
+
+    if (!duration)
+        return null;
 
     return (
         <View style={styles.container} >
@@ -121,7 +118,8 @@ const Footer = ({ navigation, authProfile, profile, post, likesCount, commentsCo
                         (<Text style={styles.comments} >View all {commentsCount} comments</Text>))}
                 </View>
             </TouchableWithoutFeedback>
-            <Text style={styles.postedAt} >{postTime}</Text>
+            {duration.asWeeks() >= 1 ? <Text style={styles.postedAt} >{moment(post.createdAt).format("MMMM Do YYYY")}</Text> :
+                <Text style={styles.postedAt} >{moment(post.createdAt).fromNow(false)}</Text>}
         </View >
     );
 }
