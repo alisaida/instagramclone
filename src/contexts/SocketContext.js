@@ -2,9 +2,8 @@ import React, { createContext, useState, useRef, useEffect } from 'react';
 import SecureStorage from 'react-native-secure-storage';
 import { io } from 'socket.io-client';
 import Peer from 'react-native-peerjs';
-import {
-    mediaDevices
-} from 'react-native-webrtc';
+import { mediaDevices } from 'react-native-webrtc';
+import PushNotification from 'react-native-push-notification';
 
 const SocketContext = createContext();
 
@@ -113,8 +112,41 @@ const ContextProvider = ({ children }) => {
             });
         });
 
+        socket.on('send-message', (messageData) => {
+            handleNotification(messageData);
+        });
+
 
     }
+
+    const handleNotification = (messageData) => {
+        const { from, to, message } = messageData;
+        const { content, chatRoomId } = message;
+        const { name, username } = from;
+
+        PushNotification.localNotification({
+            channelId: 'chats',
+            // title: from.name,
+            subtitle: from.name,
+            message: message.content,
+            sound: "chime.aiff",
+            playSound: true,
+            userInfo: {
+                chatRoomId: message.chatRoomId,
+                recipientProfile: from,
+                authUser: to.userId
+            },
+        });
+    }
+
+    const sendTxtMessage = (messageData) => {
+        if (!socket) {
+            console.log('Socket connection error');
+            return;
+        }
+
+        socket.emit('send-message', messageData);
+    };
 
     const toggleCamera = () => {
         if (localStream) {
@@ -167,6 +199,10 @@ const ContextProvider = ({ children }) => {
             setRemoteStream(stream)
         });
     };
+
+    // const handleNotification = (message, from) => {
+
+    // };
 
     const callUser = (callData) => {
         if (!peerServer || !socket) {
@@ -246,7 +282,7 @@ const ContextProvider = ({ children }) => {
     }
 
     return (
-        <SocketContext.Provider value={{ localStream, remoteStream, call, authUser, socket, peerServer, callUser, leaveCall, answerCall, isMute, toggleMicrophone, toggleCamera }}>
+        <SocketContext.Provider value={{ localStream, remoteStream, call, authUser, socket, peerServer, callUser, sendTxtMessage, leaveCall, answerCall, isMute, toggleMicrophone, toggleCamera }}>
             {children}
         </SocketContext.Provider>
     );

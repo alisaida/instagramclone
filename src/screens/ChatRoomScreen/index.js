@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import React, { useState, useEffect, useCallback, useRef, useContext } from 'react'
 import { StyleSheet, Text, View, SafeAreaView, ScrollView, TextInput, Button, RefreshControl, KeyboardAvoidingView, FlatList, Alert, TouchableOpacity } from 'react-native'
 import { useNavigation, useRoute, NavigationAction } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -7,6 +7,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ChatRoomHeader from '../../components/Chat/components/ChatRoomHeader';
 import MessageListItem from '../../components/Chat/components/MessageListItem';
 import { retrieveMessagesByChatRoomId, createMessage, createMessageImage } from '../../api/chats';
+import { currentAuthProfile } from '../../api/profile';
+
+import { SocketContext } from '../../contexts/SocketContext';
 
 import { uploadToS3 } from '../../utils/s3Helper'
 
@@ -24,13 +27,27 @@ const ChatRoomScreen = () => {
     const [scrollToEndReached, setScrollToEndReached] = useState(false);
     const [page, setPage] = useState(1);
     const [newMessage, setNewMessage] = useState('');
+    const [authUser, setAuthUser] = useState(null);
     const messageInput = useRef();
     const flatListRef = useRef();
+    const { sendTxtMessage } = useContext(SocketContext);
 
     useEffect(() => {
         fetchChatMessages();
+        fetchAuthProfile();
     }, []);
 
+    const fetchAuthProfile = async () => {
+        try {
+            const profile = await currentAuthProfile();
+            if (profile) {
+                setAuthUser(profile);
+            }
+
+        } catch (error) {
+            console.log(`ChatRoomScreen: Failed to fetch currentAuthProfile`, error);
+        }
+    }
     const fetchChatMessages = async () => {
         try {
             const response = await retrieveMessagesByChatRoomId(route.params.chatRoomId, 1, 13);
@@ -147,6 +164,15 @@ const ChatRoomScreen = () => {
                 const response = await createMessage(route.params.chatRoomId, newMessage);
                 if (response && response.status === 201) {
                     const lastMessage = response.data;
+
+                    const messageData = {
+                        from: authUser,
+                        to: route.params.recipientProfile,
+                        chatRoomId: route.params.chatRoomId,
+                        message: lastMessage
+                    }
+
+                    sendTxtMessage(messageData);
                     setMessages([lastMessage, ...messages]);
                     // messages.unshift(lastMessage);
                     setNewMessage('');

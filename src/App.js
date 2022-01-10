@@ -7,13 +7,7 @@
  */
 import 'react-native-gesture-handler';
 import React, { useEffect, useState, useMemo } from 'react';
-
-import {
-  StatusBar,
-  SafeAreaView,
-  Image,
-  View
-} from 'react-native';
+import { StatusBar, SafeAreaView, Image, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 
 import MainNav from './navigation/MainNav';
