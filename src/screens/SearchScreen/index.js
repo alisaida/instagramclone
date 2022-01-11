@@ -12,7 +12,7 @@ const SearchScreen = () => {
     const [isSearching, setIsSearching] = useState(false);
     const [scrollToEndReached, setScrollToEndReached] = useState(false);
     const [page, setPage] = useState(1);
-    const [size, setSize] = useState(6);
+    const [size, setSize] = useState(15);
 
     useEffect(() => {
         fetchPosts();

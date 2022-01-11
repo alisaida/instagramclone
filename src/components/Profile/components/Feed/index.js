@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Image, FlatList, Dimensions, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import CacheImage from '../../../CacheImage'
 
 import { retrievePostById } from '../../../../api/posts';
 const Feed = ({ postId }) => {
@@ -32,7 +33,7 @@ const Feed = ({ postId }) => {
     return (
         post &&
         <TouchableOpacity style={styles.container}>
-            <Image source={{ uri: post.imageUri }} style={styles.image} />
+            <CacheImage showProgress={true} uri={post.imageUri} style={styles.image} />
         </TouchableOpacity>
     );
 };

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native';
+import CacheImage from '../../../CacheImage';
 
 const MessageListItem = ({ message, authUser }) => {
 
@@ -36,7 +37,7 @@ const MessageListItem = ({ message, authUser }) => {
                     <>
 
                         {
-                            isImage ? <Image source={{ uri: message.imageUri }} style={styles.image} />
+                            isImage ? <CacheImage showProgress={true} uri={message.imageUri} style={styles.image} />
                                 : <Text style={styles.text, [isOutgoing ? { color: 'white' } : { color: 'black' }]}>{message.content}</Text>
                         }
 

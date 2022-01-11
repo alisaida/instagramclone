@@ -310,6 +310,8 @@ PODS:
     - React-RCTImage
   - RNSecureStorage (0.1.2):
     - React
+  - RNSVG (12.1.1):
+    - React
   - RNVectorIcons (8.1.0):
     - React-Core
   - TOCropViewController (2.6.0)
@@ -358,6 +360,7 @@ DEPENDENCIES:
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSecureStorage (from `../node_modules/react-native-secure-storage`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -447,6 +450,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNSecureStorage:
     :path: "../node_modules/react-native-secure-storage"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   Yoga:
@@ -494,6 +499,7 @@ SPEC CHECKSUMS:
   RNReanimated: ad9db9ab64944d631e13a723a63f1704bddebeaf
   RNScreens: 2a71d74b4e530f051f5684c8111d7591176722cf
   RNSecureStorage: 24d433f7673a0daade43689de805933a70641731
+  RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6

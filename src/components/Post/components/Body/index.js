@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, Image, View, TouchableWithoutFeedback } from 'react-native';
+import CacheImage from '../../../CacheImage';
 import styles from './styles'
 
 let lastPress = 0;
@@ -22,7 +23,7 @@ const Body = ({ imageUri, onLikePressed }) => {
     return (
         <View>
             <TouchableWithoutFeedback onPress={onDoubleTap} >
-                <Image source={{ uri: `${imageUri}` }} style={styles.image} />
+                <CacheImage showProgress={true} uri={imageUri} style={styles.image} />
             </TouchableWithoutFeedback>
         </View>
     );
