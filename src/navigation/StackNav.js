@@ -37,7 +37,8 @@ const StackNav = () => {
         <HomeStack.Navigator
             screenOptions={{
                 headerStyle: { elevation: 0 },
-                cardStyle: { backgroundColor: '#fff' }
+                headerMode: 'screen',
+                cardStyle: { backgroundColor: '#FFFFFF' }
             }}
         >
             <HomeStack.Screen

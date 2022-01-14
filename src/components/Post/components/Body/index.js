@@ -23,7 +23,9 @@ const Body = ({ imageUri, onLikePressed }) => {
     return (
         <View>
             <TouchableWithoutFeedback onPress={onDoubleTap} >
-                <CacheImage showProgress={true} uri={imageUri} style={styles.image} />
+                <View>
+                    <CacheImage showProgress={true} uri={imageUri} style={styles.image} />
+                </View>
             </TouchableWithoutFeedback>
         </View>
     );

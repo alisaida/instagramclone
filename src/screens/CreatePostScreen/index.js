@@ -1,20 +1,20 @@
 import React, { useRef, useState } from 'react'
-import { StyleSheet, Text, View, Image, SafeAreaView, Button, TouchableOpacity, TextInput, ScrollView, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, Text, View, Image, SafeAreaView, Button, TouchableOpacity, TextInput, ScrollView, KeyboardAvoidingView, ImageBackground } from 'react-native'
 import { useRoute, useNavigation } from '@react-navigation/native';
 import Modal from "react-native-modal";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { uploadToS3 } from '../../utils/s3Helper';
 import { createPost } from '../../api/posts';
-import Loading from '../../components/Loading';
+import * as Progress from 'react-native-progress';
 
 const CreatePostScreen = () => {
 
     const navigation = useNavigation();
     const route = useRoute();
     const [caption, setCaption] = useState('');
-    const messageInput = useRef();
     const [isLoading, setIsLoading] = useState(false);
+    const messageInput = useRef();
 
     const image = route.params.image;
 
@@ -38,8 +38,6 @@ const CreatePostScreen = () => {
             }
 
         })
-
-        setIsLoading(false);
     }
 
     return (
@@ -55,7 +53,11 @@ const CreatePostScreen = () => {
                     </View>
                     <View style={styles.border} />
                     <View style={styles.content}>
-                        <Image source={{ uri: `${image.path}` }} style={styles.image} />
+                        <ImageBackground source={{ uri: `${image.path}` }} style={styles.image} >
+                            <View style={{ height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                                {isLoading && <Progress.Circle indeterminate={true} size={50} />}
+                            </View>
+                        </ImageBackground>
                         <ScrollView keyboardDismissMode='on-drag'>
                             <TextInput
                                 clearButtonMode="always"
@@ -72,7 +74,6 @@ const CreatePostScreen = () => {
                     <View style={styles.border} />
                 </KeyboardAvoidingView>
             </SafeAreaView>
-            {isLoading && <Loading isLoading={true} />}
         </>
     )
 }

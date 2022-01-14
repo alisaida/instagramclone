@@ -255,11 +255,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         height: 45,
         alignItems: 'center',
-        backgroundColor: 'white',
-        shadowColor: 'grey',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.8,
-        shadowRadius: 1,
+        backgroundColor: '#efefef',
     },
     input: {
         flex: 1,

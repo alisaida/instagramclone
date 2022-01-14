@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, Dimensions, Modal, PanResponder, StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
+import { Animated, Dimensions, Modal, PanResponder, StyleSheet, View, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
 
-const BottomDrawer = ({ setVisible, onDismiss, children }) => {
+const BottomDrawer = ({ setVisible, onDismiss, minHeight = 300, children }) => {
 
     const screenHeight = Dimensions.get('screen').height;
     const panY = useRef(new Animated.Value(screenHeight)).current;
@@ -56,17 +56,19 @@ const BottomDrawer = ({ setVisible, onDismiss, children }) => {
             onRequestClose={handleDismiss}>
             <TouchableWithoutFeedback onPress={handleDismiss}>
                 <View style={styles.overlay}>
-                    <Animated.View
-                        style={{
-                            ...styles.container,
-                            transform: [{ translateY: translateY }],
-                        }}
-                        {...panResponders.panHandlers}>
-                        <View style={styles.sliderIndicatorRow}>
-                            <View style={styles.sliderIndicator} />
-                        </View>
-                        {children}
-                    </Animated.View>
+                    <KeyboardAvoidingView behavior="padding" enabled keyboardVerticalOffset={0} >
+                        <Animated.View
+                            style={{
+                                ...styles.container, minHeight: minHeight,
+                                transform: [{ translateY: translateY }],
+                            }}
+                            {...panResponders.panHandlers}>
+                            <View style={styles.sliderIndicatorRow}>
+                                <View style={styles.sliderIndicator} />
+                            </View>
+                            {children}
+                        </Animated.View>
+                    </KeyboardAvoidingView>
                 </View>
             </TouchableWithoutFeedback>
         </Modal>
@@ -87,7 +89,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         borderTopRightRadius: 12,
         borderTopLeftRadius: 12,
-        minHeight: 300,
     },
     sliderIndicatorRow: {
         flexDirection: 'row',

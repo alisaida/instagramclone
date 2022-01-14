@@ -26,7 +26,7 @@ export const retrievePostsByUserId = async (userId) => {
 
 export const retrievePosts = async (page, size) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
-    console.log(`API call: /api/posts/feed/all?page=${page}&size=${size}`)
+
     try {
         const response = await axiosInstance({
             method: 'get',
@@ -186,7 +186,7 @@ export const checkIsBookmarked = async (id) => {
 
 export const retrievePostLikesById = async (id, page, size) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
-    console.log(`API call: /api/posts/${id}/likes?page=${page}&size=${size}/`)
+
     try {
         const response = await axiosInstance({
             method: 'get',
@@ -206,7 +206,7 @@ export const retrievePostLikesById = async (id, page, size) => {
 
 export const retrievePostCommentsById = async (id, page, size) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
-    console.log(`API call: /api/posts/${id}/comments?page=${page}&size=${size}/`)
+
     try {
         const response = await axiosInstance({
             method: 'get',

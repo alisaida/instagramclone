@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, FlatList, RefreshControl } from 'react-native';
+import { View, Text, FlatList, RefreshControl, StyleSheet, KeyboardAvoidingView } from 'react-native';
 
 import { retrievePosts } from '../../api/posts';
 
 import Post from '../Post';
 import Stories from "../../components/Stories";
-import SecureStorage from 'react-native-secure-storage'
+// import { styles } from './styles'
+import BottomDrawer from '../BottomDrawer';
+import DrawerSearch from '../DrawerSearch';
+import SecureStorage from 'react-native-secure-storage';
+
 const Feed = ({ navigation }) => {
 
     const [posts, setPosts] = useState([]);
@@ -13,6 +17,9 @@ const Feed = ({ navigation }) => {
     const [scrollToEndReached, setScrollToEndReached] = useState(false);
     const [page, setPage] = useState(1);
     const [size, setSize] = useState(6);
+    const [visible, setVisible] = useState(false);
+    const [isMenu, setIsMenu] = useState(false);
+    const [selectedPost, setSelectedPost] = useState(null);
 
     // Side-effect cleanup
     useEffect(() => {
@@ -28,7 +35,6 @@ const Feed = ({ navigation }) => {
             const response = await retrievePosts(1, size);
             if (response && response.data) {
                 const posts = response.data;
-                // console.log('1st api call', posts)
                 const nextPage = response.page;
                 setPage(parseInt(nextPage) + 1);
                 setPosts(posts);
@@ -43,7 +49,6 @@ const Feed = ({ navigation }) => {
             const response = await retrievePosts(page, size);
             if (response && response.data) {
                 const newPosts = response.data;
-                // console.log(`api call ${page}`, newPosts);
                 const nextPage = response.page;
                 setPage(parseInt(nextPage) + 1);
                 setPosts((oldPosts) => {
@@ -59,24 +64,47 @@ const Feed = ({ navigation }) => {
         setRefreshing(true);
         fetchPosts();
         setRefreshing(false);
-    }, [refreshing])
+    }, [refreshing]);
+
+    const dismissMenu = () => {
+        setVisible(false);
+        setIsMenu(false);
+    }
+
+    const toggleMenu = (postId) => {
+        setSelectedPost(postId);
+        setIsMenu(true)
+        setVisible(true);
+    }
 
     return (
-        <FlatList
-            data={posts}
-            ListHeaderComponent={<Stories />}
-            keyExtractor={(item, index) => String(item)}
-            renderItem={({ item }) => <Post postId={item} navigation={navigation} />}
-            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-            onEndReached={() => { setScrollToEndReached(true) }}
-            onMomentumScrollEnd={() => {
-                if (scrollToEndReached) {
-                    loadMoreOlderPosts();
-                    setScrollToEndReached(false);
-                }
-            }}
-        />
+        <>
+            <FlatList
+                data={posts}
+                ListHeaderComponent={<Stories />}
+                keyExtractor={(item, index) => String(item)}
+                renderItem={({ item }) => <Post postId={item} navigation={navigation} toggleMenu={toggleMenu} />}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+                onEndReached={() => { setScrollToEndReached(true) }}
+                onMomentumScrollEnd={() => {
+                    if (scrollToEndReached) {
+                        loadMoreOlderPosts();
+                        setScrollToEndReached(false);
+                    }
+                }}
+            />
+            {
+                visible && <BottomDrawer onDismiss={dismissMenu} minHeight={350} >
+                    {
+                        isMenu && <DrawerSearch selectedPost={selectedPost} onDismiss={dismissMenu} />
+                    }
+                </BottomDrawer>
+            }
+        </>
     );
 }
 
 export default Feed;
+
+const styles = StyleSheet.create({
+});

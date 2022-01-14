@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import moment from 'moment'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -9,7 +9,7 @@ import ProfilePicture from '../../../ProfilePicture';
 import { retrieveMyChats, retrieveChatsByUserId, retrieveRecipientsByChatRoomId, retrieveMessagesByChatRoomId, createMessage } from '../../../../api/chats';
 
 import { fetchProfileById } from '../../../../api/profile';
-import { retrieveChatDataByChatRoomId } from '../../../../api/chats'
+import { retrieveChatDataByChatRoomId, retrieveLastMessageByChatRoomId } from '../../../../api/chats'
 const ChatListItem = ({ chatRoomId, authUser }) => {
 
     moment.updateLocale('en', {
@@ -54,8 +54,16 @@ const ChatListItem = ({ chatRoomId, authUser }) => {
 
     useEffect(() => {
         fetchChatRoomData();
-        updateLastMessage();
+        fetchLastMessage();
     }, []);
+
+    useFocusEffect(
+        useCallback(() => {
+            fetchLastMessage();
+
+            return () => { };
+        }, [])
+    );
 
     useEffect(() => {
         updateLastMessage();
@@ -67,23 +75,40 @@ const ChatListItem = ({ chatRoomId, authUser }) => {
             if (chatRoom) {
                 const recipient = chatRoom.recipients[0].userId === authUser ? chatRoom.recipients[1] : chatRoom.recipients[0];
                 const profile = await fetchProfileById(recipient.userId);
+                const lastMessage = await retrieveLastMessageByChatRoomId(chatRoomId);
 
                 setProfile(profile);
                 setChatRoom(chatRoom);
-                setLastMessage(chatRoom.lastMessage);
+                setLastMessage(lastMessage);
             }
         } catch (e) {
             console.log(`ChatListItem Component: Failed to ChatRoom data (retrieveChatDataByChatRoomId) for id ${chatRoomId}`, e);
         }
     }
 
+    const fetchLastMessage = async () => {
+        try {
+            const lastMessage = await retrieveLastMessageByChatRoomId(chatRoomId);
+            if (lastMessage) {
+                setLastMessage(lastMessage);
+            }
+        } catch (e) {
+            console.log(`ChatListItem Component: Failed to ChatRoom data (fetchLastMessage) for id ${chatRoomId}`, e);
+        }
+    }
+
     const updateLastMessage = () => {
         if (lastMessage) {
-            if (lastMessage.imageUri) {
-                const messageContent = authUser === lastMessage.userId ? 'You sent a photo' : 'Sent a photo';
+            if (lastMessage.type === 'default') {
+                if (lastMessage.imageUri) {
+                    const messageContent = authUser === lastMessage.userId ? 'You sent a photo' : 'Sent a photo';
+                    setLastMessageContent(messageContent);
+                } else if (lastMessage.content !== '') {
+                    setLastMessageContent(lastMessage.content);
+                }
+            } else {
+                const messageContent = authUser === lastMessage.userId ? 'Sent' : 'Received';
                 setLastMessageContent(messageContent);
-            } else if (lastMessage.content !== '') {
-                setLastMessageContent(lastMessage.content);
             }
         }
     }

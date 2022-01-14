@@ -75,7 +75,7 @@ const TabNav = ({ route, options }) => {
                 tabBarActiveTintColor: 'black',
                 tabBarInactiveTintColor: 'gray',
                 tabBarShowLabel: false,
-                headerShown: false
+                headerShown: false,
             })}
         >
             <Tab.Screen
@@ -114,19 +114,6 @@ const TabNav = ({ route, options }) => {
                     )
                 })}
             />
-            {/* <Tab.Screen
-                name='Comments'
-                component={CommentsScreen}
-                options={({ navigation }) => ({
-                    headerShown: true,
-                    title: 'Comments',
-                    headerLeft: () => (
-                        < TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
-                            <MaterialIcons name='arrow-back-ios' size={25} />
-                        </TouchableOpacity>
-                    )
-                })}
-            /> */}
         </Tab.Navigator >
     )
 }

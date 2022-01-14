@@ -28,7 +28,6 @@ const SearchScreen = () => {
             const response = await retrievePosts(1, size);
             if (response && response.data) {
                 const posts = response.data;
-                // console.log('1st api call', posts)
                 const nextPage = response.page;
                 setPage(parseInt(nextPage) + 1);
                 setPosts(posts);
@@ -43,7 +42,6 @@ const SearchScreen = () => {
             const response = await retrievePosts(page, size);
             if (response && response.data) {
                 const newPosts = response.data;
-                // console.log(`api call ${page}`, newPosts);
                 const nextPage = response.page;
                 setPage(parseInt(nextPage) + 1);
                 setPosts((oldPosts) => {

@@ -129,9 +129,28 @@ export const retrieveRecipientsByChatRoomId = async (chatRoomId) => {
     }
 }
 
+export const retrieveLastMessageByChatRoomId = async (chatRoomId) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+    try {
+        const response = await axiosInstance({
+            method: 'get',
+            url: `/api/chats/${chatRoomId}/lastMessage`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
 export const retrieveMessagesByChatRoomId = async (chatRoomId, page, size) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
-    console.log(`API call: /api/chats/${chatRoomId}/messages?page=${page}&size=${size}`)
+
     try {
         const response = await axiosInstance({
             method: 'get',
@@ -184,6 +203,54 @@ export const createMessageImage = async (chatRoomId, imageUri) => {
             },
             data: {
                 imageUri: imageUri
+            }
+        })
+
+        return response;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const createMessagePost = async (chatRoomId, postId, content) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'post',
+            url: `/api/chats/${chatRoomId}/messages/newMessagePost`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            },
+            data: {
+                postId: postId,
+                content: content
+            }
+        })
+
+        return response;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const createMessageCall = async (chatRoomId, type, duration) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'post',
+            url: `/api/chats/${chatRoomId}/messages/newMessageCall`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            },
+            data: {
+                type: type,
+                duration: duration
             }
         })
 

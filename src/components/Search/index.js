@@ -8,7 +8,8 @@ import ProfileListItem from '../Profile/components/ProfileListItem'
 import ChatContactListItem from '../Chat/components/ChatContactListItem';
 import Feed from '../Profile/components/Feed'
 
-
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Search = ({ isSearching, setIsSearching, isContactSearch }) => {
 
@@ -92,6 +93,9 @@ const Search = ({ isSearching, setIsSearching, isContactSearch }) => {
 
             <View style={styles.container}>
                 <View style={styles.inputContainer}>
+                    <View style={styles.iconContainer}>
+                        <MaterialCommunityIcons name="magnify" size={22} color="#9e9e9e" style={{ marginHorizontal: 5 }} />
+                    </View>
                     <TextInput
                         clearButtonMode="always"
                         style={styles.input}
@@ -100,6 +104,7 @@ const Search = ({ isSearching, setIsSearching, isContactSearch }) => {
                         onChange={(e) => onChangeText(e.nativeEvent.text)}
                         onSubmitEditing={search}
                         ref={searchInput}
+                        backgroundColor={'#efefef'}
                     />
                 </View>
                 {
@@ -128,26 +133,27 @@ export default Search;
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        marginBottom: 25,
+        marginBottom: 10,
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginHorizontal: 15,
+        marginHorizontal: 10,
         marginTop: 2
     },
     inputContainer: {
         flex: 1,
         flexDirection: 'row',
         borderRadius: 10,
-        paddingHorizontal: 20,
-        height: 40,
+        // paddingHorizontal: 20,
+        height: 35,
         alignItems: 'center',
-        backgroundColor: 'white',
-        shadowColor: 'grey',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.8,
-        shadowRadius: 1,
+        backgroundColor: '#efefef',
     },
     input: {
         flex: 1,
+    },
+    iconContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     }
 })

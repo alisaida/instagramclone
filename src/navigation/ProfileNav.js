@@ -15,6 +15,8 @@ const ProfileNav = () => {
         <Stack.Navigator
             screenOptions={{
                 headerShown: false,
+                headerMode: 'screen',
+                cardStyle: { backgroundColor: '#FFFFFF' }
             }}
         >
             <Stack.Screen
@@ -31,3 +33,4 @@ const ProfileNav = () => {
 }
 
 export default ProfileNav;
+

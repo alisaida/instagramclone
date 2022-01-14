@@ -7,7 +7,7 @@ import moment from 'moment'
 import styles from './styles';
 import { retrievePostById, likePostById, unlikePostById } from '../../../../api/posts';
 
-const Footer = ({ navigation, authProfile, profile, post, likesCount, commentsCount, isBookmarked, isLiked, onBookmarkPressed, onLikePressed }) => {
+const Footer = ({ navigation, authProfile, profile, post, likesCount, commentsCount, isBookmarked, isLiked, onBookmarkPressed, onLikePressed, toggleMenu }) => {
 
     const [postData, setPostData] = useState(null);
     const [duration, setDuration] = useState(null);
@@ -93,7 +93,9 @@ const Footer = ({ navigation, authProfile, profile, post, likesCount, commentsCo
                     <TouchableWithoutFeedback onPress={navigateToCommentsScreen}>
                         <Text style={styles.flipY}><Ionicons name='chatbubble-outline' size={22.5} /></Text>
                     </TouchableWithoutFeedback>
-                    <Ionicons name='paper-plane-outline' size={22.5} />
+                    <TouchableWithoutFeedback onPress={() => toggleMenu(post._id)}>
+                        <Ionicons name='paper-plane-outline' size={22.5} />
+                    </TouchableWithoutFeedback>
                 </View>
                 <View style={styles.iconsRight}>
                     <TouchableWithoutFeedback onPress={onBookmarkPressed}>

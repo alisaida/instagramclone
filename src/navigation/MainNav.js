@@ -15,7 +15,7 @@ import CallScreen from '../screens/CallScreen';
 import CallPreview from '../screens/CallPreview';
 import CreatePostScreen from '../screens/CreatePostScreen';
 
-import CallNav from './CallNav';
+// import CallNav from './CallNav';
 
 import { TouchableOpacity, StyleSheet } from 'react-native';
 
@@ -81,8 +81,10 @@ const MainNav = () => {
 
 
     return (
-        <RootStack.Navigator>
-
+        <RootStack.Navigator screenOptions={{
+            headerMode: 'screen',
+            cardStyle: { backgroundColor: '#FFFFFF' }
+        }}>
             {
                 !!call ? (
                     !!call.isAccepted ? <RootStack.Screen

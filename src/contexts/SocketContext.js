@@ -141,7 +141,6 @@ const ContextProvider = ({ children }) => {
 
     const sendTxtMessage = (messageData) => {
         if (!socket) {
-            console.log('Socket connection error');
             return;
         }
 

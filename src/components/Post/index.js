@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { View } from 'react-native'
 import SecureStorage from 'react-native-secure-storage';
 
@@ -9,7 +10,7 @@ import Footer from './components/Footer/index';
 import { fetchProfileById } from '../../api/profile';
 import { retrievePostById, checkIsLiked, likePostById, unlikePostById, bookmarkPostById, unBookmarkPostById, checkIsBookmarked } from '../../api/posts';
 
-const Post = ({ postId, navigation }) => {
+const Post = ({ postId, navigation, toggleMenu }) => {
 
     const [authProfile, setAuthProfile] = useState(null);
     const [profile, setProfile] = useState(null);
@@ -19,15 +20,14 @@ const Post = ({ postId, navigation }) => {
     const [likesCount, setLikesCount] = useState(0);
     const [commentsCount, setCommentsCount] = useState(0);
 
-    // Side-effect cleanup
-    useEffect(() => {
-        return () => { };
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            loadAuthProfile();
+            fetchPostData();
 
-    useEffect(() => {
-        loadAuthProfile();
-        fetchPostData();
-    }, [])
+            return () => { };
+        }, [])
+    );
 
     const loadAuthProfile = async () => {
         try {
@@ -119,6 +119,7 @@ const Post = ({ postId, navigation }) => {
                 isLiked={isLiked}
                 onBookmarkPressed={onBookmarkPressed}
                 onLikePressed={onLikePressed}
+                toggleMenu={toggleMenu}
             />
         </View>
     );
