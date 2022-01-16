@@ -6,7 +6,6 @@ import { fetchProfileByName, fetchProfileByUsername } from '../../api/profile'
 
 import ProfileListItem from '../Profile/components/ProfileListItem'
 import ChatContactListItem from '../Chat/components/ChatContactListItem';
-import Feed from '../Profile/components/Feed'
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';

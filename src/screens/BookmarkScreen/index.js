@@ -2,10 +2,10 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, FlatList, TextInput, ScrollView, Button, } from 'react-native'
 import Search from '../../components/Search';
 
-import { retrievePosts } from '../../api/posts';
+import { retrieveSavedPosts } from '../../api/posts';
 import PostMini from '../../components/PostMini'
 
-const SearchScreen = () => {
+const BookmarkScreen = () => {
 
     const [posts, setPosts] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
@@ -25,7 +25,7 @@ const SearchScreen = () => {
 
     const fetchPosts = async () => {
         try {
-            const response = await retrievePosts(1, size);
+            const response = await retrieveSavedPosts(1, size);
             if (response && response.data) {
                 const posts = response.data;
                 const nextPage = response.page;
@@ -33,13 +33,13 @@ const SearchScreen = () => {
                 setPosts(posts);
             }
         } catch (error) {
-            console.log(`SearchScreen: Failed to retrievePosts`, error);
+            console.log(`BookmarkScreen: Failed to retrieveSavedPosts`, error);
         }
     }
 
     const loadMoreOlderPosts = async () => {
         try {
-            const response = await retrievePosts(page, size);
+            const response = await retrieveSavedPosts(page, size);
             if (response && response.data) {
                 const newPosts = response.data;
                 const nextPage = response.page;
@@ -49,7 +49,7 @@ const SearchScreen = () => {
                 });
             }
         } catch (error) {
-            console.log(`PostMini: Failed retrievePosts data`, error);
+            console.log(`BookmarkScreen: Failed retrieveSavedPosts data`, error);
         }
     }
 
@@ -61,29 +61,26 @@ const SearchScreen = () => {
 
     return (
         <>
-            <Search isSearching={isSearching} setIsSearching={setIsSearching} />
-            {
-                !isSearching &&
-                <View>
-                    <FlatList
-                        data={posts}
-                        keyExtractor={(item, index) => String(index)}
-                        renderItem={({ item, index }) => <PostMini postId={item} />}
-                        numColumns={3}
-                        contentContainerStyle={{ flexGrow: 1 }}
-                        onEndReached={() => { setScrollToEndReached(true) }}
-                        onMomentumScrollEnd={() => {
-                            if (scrollToEndReached) {
-                                loadMoreOlderPosts();
-                                setScrollToEndReached(false);
-                            }
-                        }}
-                    />
-                </View>
-            }
+            <View>
+                <FlatList
+                    data={posts}
+                    keyExtractor={(item, index) => String(index)}
+                    renderItem={({ item, index }) => <PostMini postId={item} />}
+                    numColumns={3}
+                    contentContainerStyle={{ flexGrow: 1 }}
+                    onEndReached={() => { setScrollToEndReached(true) }}
+                    onMomentumScrollEnd={() => {
+                        if (scrollToEndReached) {
+                            loadMoreOlderPosts();
+                            setScrollToEndReached(false);
+                        }
+                    }}
+                />
+            </View>
+
         </>
 
     );
 }
 
-export default SearchScreen;
+export default BookmarkScreen;

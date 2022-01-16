@@ -36,11 +36,56 @@ export const retrievePosts = async (page, size) => {
             }
         })
 
-        return response.data;
+        if (response && response.status && response.status === 200)
+            return response.data;
+        return null;
     }
     catch (error) {
         console.log(error);
         return null;
+    }
+}
+
+export const retrieveLikedPosts = async (page, size) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'get',
+            url: `/api/posts/likes/me?page=${page}&size=${size}`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        if (response && response.status && response.status === 200)
+            return response.data;
+        return [];
+    }
+    catch (error) {
+        console.log(error);
+        return [];
+    }
+}
+
+export const retrieveSavedPosts = async (page, size) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'get',
+            url: `/api/posts/bookmarks/me?page=${page}&size=${size}`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        if (response && response.status && response.status === 200)
+            return response.data;
+        return [];
+    }
+    catch (error) {
+        return [];
     }
 }
 
@@ -56,11 +101,12 @@ export const retrievePostById = async (id) => {
             }
         })
 
-        return response.data;
+        if (response && response.status && response.status === 200)
+            return response.data;
+        return null;
     }
     catch (error) {
-        console.log(error.response);
-        return error;
+        return null;
     }
 }
 

@@ -30,13 +30,12 @@ const styles = StyleSheet.create({
         marginLeft: 5
     },
     icon: {
-        marginHorizontal: 5
+        marginHorizontal: 5,
+        marginBottom: 2,
     },
     menu: {
         fontSize: 15,
         fontWeight: '400',
-        margin: 5,
-        marginBottom: 10,
-        padding: 5
+        padding: 10
     },
 })

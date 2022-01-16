@@ -19,7 +19,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 
-import Feed from './components/Feed';
+import PostMini from '../PostMini';
 
 import { retrievePostsByUserId } from '../../api/posts';
 import { logout } from '../../redux/actions/authActions';
@@ -130,7 +130,7 @@ const Profile = ({ userId, isAuthProfile, navigation }) => {
             <FlatList
                 data={posts}
                 keyExtractor={(item, index) => String(index)}
-                renderItem={({ item }) => <Feed postId={item} />}
+                renderItem={({ item }) => <PostMini postId={item} />}
                 numColumns={numColumns}
                 contentContainerStyle={{ flexGrow: 1 }}
             />
@@ -152,7 +152,10 @@ const Profile = ({ userId, isAuthProfile, navigation }) => {
                                 <MenuItem title='Settings' icon={settingsIcon} />
                                 <MenuItem title='Archive' icon={archiveIcon} />
                                 <MenuItem title='QR Code' icon={qrIcon} />
-                                <MenuItem title='Saved' icon={saveIcon} iconSpacing={10} />
+                                <MenuItem title='Saved' icon={saveIcon} iconSpacing={10} callback={() => {
+                                    dismissMenu();
+                                    navigation.navigate('Bookmarks', {});
+                                }} />
                                 <MenuItem title='Logout' icon={logoutIcon} callback={() => { dispatch(logout()) }} />
                             </View>
                         }

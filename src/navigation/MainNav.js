@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionPresets, CardStyleInterpolators } from '@react-navigation/stack';
 // import { useNavigation } from '@react-navigation/native';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification from "react-native-push-notification";
@@ -14,6 +15,8 @@ import ChatRoomScreen from '../screens/ChatRoomScreen';
 import CallScreen from '../screens/CallScreen';
 import CallPreview from '../screens/CallPreview';
 import CreatePostScreen from '../screens/CreatePostScreen';
+import BookmarkScreen from '../screens/BookmarkScreen';
+import PostScreen from '../screens/PostScreen';
 
 // import CallNav from './CallNav';
 
@@ -127,6 +130,38 @@ const MainNav = () => {
                                 )
                             })} />
                         <RootStack.Screen
+                            name='Bookmarks'
+                            component={BookmarkScreen}
+                            options={({ navigation }) => ({
+                                headerShown: true,
+                                title: 'Saved',
+                                headerLeft: () => (
+                                    < TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
+                                        <MaterialIcons name='arrow-back-ios' size={25} />
+                                    </TouchableOpacity>
+                                )
+                            })} />
+                        <RootStack.Screen
+                            name='PostScreen'
+                            component={PostScreen}
+                            options={({ navigation, route }) => ({
+                                // cardOverlayEnabled: true,
+                                cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid,
+                                headerShown: true,
+                                headerTitle: () => (
+                                    <View style={styles.postHeader}>
+                                        <Text style={styles.profileName}>{route.params.profile.username.toString().toUpperCase()}</Text>
+                                        <Text style={styles.screenName}>{route.params.screenName}</Text>
+                                    </View>
+                                ),
+
+                                headerLeft: () => (
+                                    < TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
+                                        <MaterialIcons name='arrow-back-ios' size={25} />
+                                    </TouchableOpacity>
+                                )
+                            })} />
+                        <RootStack.Screen
                             name='ChatScreen'
                             component={ChatScreen}
                             options={{
@@ -165,6 +200,19 @@ const styles = StyleSheet.create({
     leftHeader: {
         marginLeft: 15
     },
+    postHeader: {
+        alignContent: 'center',
+        alignItems: 'center'
+    },
+    profileName: {
+        color: '#666666',
+        fontSize: 14,
+        fontWeight: '500'
+    },
+    screenName: {
+        fontSize: 16,
+        fontWeight: '700'
+    }
 });
 
 

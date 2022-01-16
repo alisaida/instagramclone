@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Image, View, TouchableWithoutFeedback } from 'react-native';
+import { Text, Image, View, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import CacheImage from '../../../CacheImage';
 import styles from './styles'
 

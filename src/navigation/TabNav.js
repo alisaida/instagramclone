@@ -20,7 +20,6 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import StackNav from './StackNav';
 import HomeScreen from '../screens/HomeScreen';
 import SearchScreen from '../screens/SearchScreen';
-import PostScreen from '../screens/PostScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ShoppingScreen from '../screens/ShoppingScreen';
 import CommentsScreen from '../screens/CommentsScreen';
