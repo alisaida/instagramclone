@@ -38,11 +38,11 @@ export const retrievePosts = async (page, size) => {
 
         if (response && response.status && response.status === 200)
             return response.data;
-        return null;
+        return [];
     }
     catch (error) {
         console.log(error);
-        return null;
+        return [];
     }
 }
 

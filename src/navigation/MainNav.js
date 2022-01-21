@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets, CardStyleInterpolators } from '@react-navigation/stack';
-// import { useNavigation } from '@react-navigation/native';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification from "react-native-push-notification";
 import TabNav from './TabNav'
@@ -17,6 +16,7 @@ import CallPreview from '../screens/CallPreview';
 import CreatePostScreen from '../screens/CreatePostScreen';
 import BookmarkScreen from '../screens/BookmarkScreen';
 import PostScreen from '../screens/PostScreen';
+import FollowScreen from '../screens/FollowScreen';
 
 // import CallNav from './CallNav';
 
@@ -86,7 +86,8 @@ const MainNav = () => {
     return (
         <RootStack.Navigator screenOptions={{
             headerMode: 'screen',
-            cardStyle: { backgroundColor: '#FFFFFF' }
+            cardStyle: { backgroundColor: '#FFFFFF' },
+            headerStyle: { shadowColor: 'transparent', elevation: 0 }
         }}>
             {
                 !!call ? (
@@ -145,7 +146,6 @@ const MainNav = () => {
                             name='PostScreen'
                             component={PostScreen}
                             options={({ navigation, route }) => ({
-                                // cardOverlayEnabled: true,
                                 cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid,
                                 headerShown: true,
                                 headerTitle: () => (
@@ -154,7 +154,6 @@ const MainNav = () => {
                                         <Text style={styles.screenName}>{route.params.screenName}</Text>
                                     </View>
                                 ),
-
                                 headerLeft: () => (
                                     < TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
                                         <MaterialIcons name='arrow-back-ios' size={25} />
@@ -167,6 +166,22 @@ const MainNav = () => {
                             options={{
                                 headerShown: false
                             }} />
+                        <RootStack.Screen
+                            name='FollowScreen'
+                            component={FollowScreen}
+                            options={({ navigation, route }) => ({
+                                headerShown: true,
+                                headerTitle: () => (
+                                    <View style={styles.postHeader}>
+                                        <Text style={{ color: 'black', fontSize: 14, fontWeight: '500' }}>{route.params.profile.username}</Text>
+                                    </View>
+                                ),
+                                headerLeft: () => (
+                                    < TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
+                                        <MaterialIcons name='arrow-back-ios' size={25} />
+                                    </TouchableOpacity>
+                                )
+                            })} />
                         <RootStack.Screen
                             name='ChatRoom'
                             component={ChatRoomScreen}
@@ -202,7 +217,7 @@ const styles = StyleSheet.create({
     },
     postHeader: {
         alignContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     profileName: {
         color: '#666666',

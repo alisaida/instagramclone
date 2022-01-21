@@ -50,10 +50,9 @@ const MessageListItem = ({ message, authUser }) => {
                                                 <Text style={[isOutgoing ? { marginBottom: 2, color: 'black' } : { color: 'black' }]}>{message.callType}</Text>
                                                 <Text style={[isOutgoing ? { fontSize: 11, color: 'black' } : { color: 'black' }]}>{message.callDuration}</Text>
                                             </View>
-                                        </View> : (<TouchableOpacity>
-
+                                        </View> : (<View>
                                             <PostChatMessage postId={message.postId} />
-                                        </TouchableOpacity>
+                                        </View>
 
                                         )
                                 )

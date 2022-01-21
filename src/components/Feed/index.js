@@ -5,7 +5,6 @@ import { retrievePosts } from '../../api/posts';
 
 import Post from '../Post';
 import Stories from "../../components/Stories";
-// import { styles } from './styles'
 import BottomDrawer from '../BottomDrawer';
 import DrawerSearch from '../DrawerSearch';
 import SecureStorage from 'react-native-secure-storage';

@@ -3,11 +3,16 @@ import { View, Text } from 'react-native';
 import { useNavigation, useRoute, useFocusEffect } from '@react-navigation/native';
 
 import Post from '../../components/Post';
+import BottomDrawer from '../../components/BottomDrawer';
+import DrawerSearch from '../../components/DrawerSearch';
 const PostScreen = () => {
 
     const route = useRoute();
     const navigation = useNavigation();
     const [post, setPost] = useState(null);
+    const [visible, setVisible] = useState(false);
+    const [isMenu, setIsMenu] = useState(false);
+    const [selectedPost, setSelectedPost] = useState(null);
 
     useFocusEffect(
         useCallback(() => {
@@ -16,6 +21,17 @@ const PostScreen = () => {
             return () => { };
         }, [])
     );
+
+    const dismissMenu = () => {
+        setVisible(false);
+        setIsMenu(false);
+    }
+
+    const toggleMenu = () => {
+        setSelectedPost(post._id);
+        setIsMenu(true)
+        setVisible(true);
+    }
 
     if (!post || !post._id)
         return null;
@@ -39,7 +55,14 @@ const PostScreen = () => {
                 }
             }}
         >
-            <Post postId={post._id} navigation={navigation} />
+            <Post postId={post._id} navigation={navigation} toggleMenu={toggleMenu} />
+            {
+                visible && <BottomDrawer onDismiss={dismissMenu} minHeight={350} >
+                    {
+                        isMenu && <DrawerSearch selectedPost={selectedPost} onDismiss={dismissMenu} />
+                    }
+                </BottomDrawer>
+            }
         </View>
     );
 }

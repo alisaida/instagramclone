@@ -39,9 +39,14 @@ const Router = () => {
         }
     }
 
+    const theme = {
+        colors: {
+            background: "transparent",
+        },
+    };
 
     return (
-        <NavigationContainer>
+        <NavigationContainer theme={theme}>
 
             {(authUser)
                 ?

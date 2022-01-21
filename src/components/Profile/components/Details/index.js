@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, SafeAreaView, ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { Text, View, SafeAreaView, ActivityIndicator, Alert, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
 import ProfilePicture from '../../../ProfilePicture';
 import MyHeader from '../MyHeader';
 import Stat from '../Stat';
-
 import styles from './styles';
 
 import postsData from '../../../../data/photos'
@@ -15,25 +15,29 @@ import { uploadToS3 } from '../../../../utils/s3Helper';
 import { updateProfileImage } from '../../../../api/profile';
 
 
-const Details = ({ profile, isAuthProfile, navigation, togglePostMenu, toggleSettingsMenu, setIsLoading, updateProfile }) => {
+const Details = ({
+    profile,
+    authProfile,
+    isAuthProfile,
+    navigation,
+    togglePostMenu,
+    toggleSettingsMenu,
+    setIsLoading,
+    updateProfile,
+    postCount,
+    followersCount,
+    followingsCount,
+    isAuthorized
+}) => {
 
-    useEffect(() => {
-        // Side-effect logic...
-        return () => {
-            // Side-effect cleanup
-        };
-    }, []);
-
-    const [userStats, setUserStats] = useState(null);
     const [profilePicture, setProfilePicture] = useState(null);
 
-    useEffect(() => {
-        setProfilePicture(profile.profilePicture);
-
-        //dummy profile stats
-        const userStats = postsData.find(postData => postData.user.id === "1");
-        setUserStats(userStats);
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            setProfilePicture(profile.profilePicture);
+            return () => { };
+        }, [profile])
+    );
 
     const showAlert = () => Alert.alert(
         "Update profile picture",
@@ -104,11 +108,6 @@ const Details = ({ profile, isAuthProfile, navigation, togglePostMenu, toggleSet
         setIsLoading(false);
     }
 
-
-    if (!userStats) {
-        return null
-    }
-
     if (!profile) {
         return null;
     }
@@ -132,9 +131,23 @@ const Details = ({ profile, isAuthProfile, navigation, togglePostMenu, toggleSet
                     </View>
                 }
                 <View style={styles.stats}>
-                    <Stat statName='Posts' statCount='4.9 k' />
-                    <Stat statName='Followers' statCount='17 k' />
-                    <Stat statName='Following' statCount='1,751' />
+                    <Stat statName='Posts' statCount={postCount} isAuthorized={isAuthorized} />
+                    <TouchableWithoutFeedback onPress={() => {
+                        if (isAuthorized)
+                            navigation.push('FollowScreen', { authProfile: authProfile, profile: profile, followingsCount: followingsCount, followersCount: followersCount, index: 0 });
+                    }}>
+                        <View>
+                            <Stat statName='Followers' statCount={followersCount} isAuthorized={isAuthorized} />
+                        </View>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={() => {
+                        if (isAuthorized)
+                            navigation.push('FollowScreen', { authProfile: authProfile, profile: profile, followingsCount: followingsCount, followersCount: followersCount, index: 1 });
+                    }}>
+                        <View>
+                            <Stat statName='Following' statCount={followingsCount} isAuthorized={isAuthorized} />
+                        </View>
+                    </TouchableWithoutFeedback>
                 </View>
             </View>
             <Text style={styles.profileName}>{profile.name}</Text>

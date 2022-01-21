@@ -48,7 +48,7 @@ const ChatContactListItem = ({ profile, authUser }) => {
     return (
         <View>
             <TouchableOpacity style={styles.container} onPress={setUpChat}>
-                <ProfilePicture uri={profile.ProfilePicture} size={50} />
+                <ProfilePicture uri={profile.profilePicture} size={50} />
                 <View style={styles.profileDetails}>
                     <Text style={styles.username}>{profile.username}</Text>
                     <Text style={styles.profileName}>{profile.name}</Text>
