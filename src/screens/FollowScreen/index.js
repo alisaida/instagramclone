@@ -4,7 +4,7 @@ import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { useNavigation, useRoute, useFocusEffect } from '@react-navigation/native';
 
 import { fetchFollowersByUserIdAndStatus, fetchFollowingsByUserIdAndStatus, fetchPendingFollowersByUserId } from '../../api/profile';
-import FollowListItem from '../../components/FollowsListItem';
+import FollowListItem from '../../components/FollowListItem';
 
 const FollowScreen = () => {
 
@@ -29,18 +29,8 @@ const FollowScreen = () => {
                 data={followers}
                 extraData={followers}
                 keyExtractor={({ _id }) => _id}
-                renderItem={({ item }) => <FollowListItem follow={item} authProfile={route.params.authProfile} routeName={'followers'} />}
+                renderItem={({ item }) => <FollowListItem follow={item} authProfile={route.params.authProfile} removeItemFromList={removeItemFromList} routeName={'follower'} />}
                 contentContainerStyle={{ flexGrow: 1 }}
-            // refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-            // onEndReached={() => { setScrollToEndReached(true) }}
-            // onMomentumScrollEnd={() => {
-            //     if (scrollToEndReached) {
-            //         setRefreshing(true)
-            //         // fetchMorePostLikes();
-            //         setScrollToEndReached(false);
-            //         setRefreshing(false)
-            //     }
-            // }}
             />
         </View>
     );
@@ -51,18 +41,8 @@ const FollowScreen = () => {
                 data={followings}
                 extraData={followings}
                 keyExtractor={({ _id }) => _id}
-                renderItem={({ item }) => <FollowListItem follow={item} authProfile={route.params.authProfile} routeName={'following'} />}
+                renderItem={({ item }) => <FollowListItem follow={item} authProfile={route.params.authProfile} removeItemFromList={removeItemFromList} routeName={'following'} />}
                 contentContainerStyle={{ flexGrow: 1 }}
-            // refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-            // onEndReached={() => { setScrollToEndReached(true) }}
-            // onMomentumScrollEnd={() => {
-            //     if (scrollToEndReached) {
-            //         setRefreshing(true)
-            //         // fetchMorePostLikes();
-            //         setScrollToEndReached(false);
-            //         setRefreshing(false)
-            //     }
-            // }}
             />
         </View>
     );
@@ -87,14 +67,24 @@ const FollowScreen = () => {
         )
     }
 
+    const removeItemFromList = (follow, listName) => {
+        if (listName === 'follower') {
+            console.log('removing from the follower list')
+            const filteredData = followers.filter(item => item._id !== follow._id);
+            setFollowers(filteredData);
+        } else if (listName === 'following') {
+            console.log('removing from the following list')
+            const filteredData = followings.filter(item => item._id !== follow._id);
+            setFollowings(filteredData);
+        }
+    }
+
     const fetchFollowers = async () => {
         try {
             const resFollowers = await fetchFollowersByUserIdAndStatus(route.params.profile.userId, 'accepted', 1, 10);
 
             if (resFollowers && resFollowers.data) {
                 const followers = resFollowers.data;
-                // const nextPage = response.page;
-                // setPage(parseInt(nextPage) + 1);
                 setFollowers(followers);
             }
         } catch (e) {
@@ -104,12 +94,10 @@ const FollowScreen = () => {
 
     const fetchFollowings = async () => {
         try {
-            const resFollowings = await fetchFollowingsByUserIdAndStatus(route.params.profile.userId, undefined, 1, 10);
+            const resFollowings = await fetchFollowingsByUserIdAndStatus(route.params.profile.userId, 'accepted', 1, 10);
 
             if (resFollowings && resFollowings.data) {
                 const followings = resFollowings.data;
-                // const nextPage = response.page;
-                // setPage(parseInt(nextPage) + 1);
                 setFollowings(followings);
             }
         } catch (e) {

@@ -266,15 +266,18 @@ export const followUserById = async (userId) => {
 }
 
 //res.status(202).send('Profile unfollowed');
-export const unFollowUserById = async (userId) => {
+export const unFollowUserById = async (userId, relation) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
     try {
         const response = await axiosInstance({
-            method: 'delete',
-            url: `/api/profiles/${userId}/follow/`,
+            method: 'post',
+            url: `/api/profiles/follow/${userId}/unfollow/`,
             headers: {
                 'Authorization': `Bearer ${accessToken}`
+            },
+            data: {
+                relation: relation
             }
         })
 
@@ -294,6 +297,26 @@ export const acceptFollowing = async (followId) => {
         const response = await axiosInstance({
             method: 'patch',
             url: `/api/profiles/follow/${followId}/accept`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        return response;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const rejectFollowing = async (followId) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'delete',
+            url: `/api/profiles/follow/${followId}/reject`,
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }

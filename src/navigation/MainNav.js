@@ -17,6 +17,7 @@ import CreatePostScreen from '../screens/CreatePostScreen';
 import BookmarkScreen from '../screens/BookmarkScreen';
 import PostScreen from '../screens/PostScreen';
 import FollowScreen from '../screens/FollowScreen';
+import FollowRequestScreen from '../screens/FollowRequestScreen';
 
 // import CallNav from './CallNav';
 
@@ -136,6 +137,18 @@ const MainNav = () => {
                             options={({ navigation }) => ({
                                 headerShown: true,
                                 title: 'Saved',
+                                headerLeft: () => (
+                                    < TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
+                                        <MaterialIcons name='arrow-back-ios' size={25} />
+                                    </TouchableOpacity>
+                                )
+                            })} />
+                        <RootStack.Screen
+                            name='FollowRequest'
+                            component={FollowRequestScreen}
+                            options={({ navigation }) => ({
+                                headerShown: true,
+                                title: 'Follow Requests',
                                 headerLeft: () => (
                                     < TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
                                         <MaterialIcons name='arrow-back-ios' size={25} />

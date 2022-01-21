@@ -1,50 +1,53 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { fetchProfileById, fetchFollowingBetweenUsersIds, followUserById, unFollowUserById } from '../../api/profile';
+import { fetchProfileById, fetchFollowingBetweenUsersIds, followUserById, unFollowUserById, acceptFollowing, rejectFollowing } from '../../api/profile';
 import ProfilePicture from '../ProfilePicture';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-const FollowListItem = ({ authProfile, follow, routeName }) => {
+const FollowListItem = ({ authProfile, follow, routeName, removeItemFromList }) => {
 
     const navigation = useNavigation();
     const [profile, setProfile] = useState(null);
     const [isAuthProfile, setIsAuthProfile] = useState(false);
+    const [data, setData] = useState(null);
     const [following, setFollowing] = useState(null);
     const [isFollowing, setIsFollowing] = useState(false);
     const [isFollowed, setIsFollowed] = useState(false);
 
 
     useEffect(() => {
+        setData(follow)
         fetchFollow();
 
     }, [follow])
 
     const fetchFollow = async () => {
+
         try {
             let profile;
+            let responseFollowing;
             if (routeName === 'following') {
                 profile = await fetchProfileById(follow.following);
+                responseFollowing = await fetchFollowingBetweenUsersIds(authProfile.userId, profile.userId);
             } else {
                 profile = await fetchProfileById(follow.follower);
+                responseFollowing = await fetchFollowingBetweenUsersIds(profile.userId, authProfile.userId);
             }
 
-            const responseFollowing = await fetchFollowingBetweenUsersIds(authProfile.userId, profile.userId);
-
             setProfile(profile);
+
             //means found my profile in the list as a follower or following
             setIsAuthProfile(profile._id === authProfile._id);
-
-            const following = responseFollowing;
 
             if (responseFollowing) {
                 if (authProfile.userId === follow.follower) {
                     setIsFollowing(true);
-                } else {
+                }
+                else if (authProfile.userId === follow.following) {
                     setIsFollowed(true);
                 }
-                setFollowing(following);
+                setFollowing(responseFollowing);
             }
         } catch (error) {
             console.log(error);
@@ -78,11 +81,42 @@ const FollowListItem = ({ authProfile, follow, routeName }) => {
         const userId2 = follow.following;
         try {
 
-            const response = await unFollowUserById(userId2);
-            console.log('responseData', following)
-            if (response && response.data && response.status === 202) {
-                setIsFollowing(false);
+            let response;
+            let relation;
+            if (!routeName) {
+                console.log('unfollowing pending request')
+                response = await rejectFollowing(following._id);
             }
+            else {
+                const user = following.following === authProfile.userId ? following.follower : following.following;
+                relation = following.following === authProfile.userId ? 'following' : 'follower';
+                response = await unFollowUserById(user, relation);
+            }
+            if (response && response.data && response.status === 202) {
+                // setProfile(null);//hack to remove the item the list
+                removeItemFromList(follow, routeName);
+
+            } else if (!routeName) {
+                // setProfile(null);
+                removeItemFromList(follow);
+            }
+
+        } catch (error) {
+            console.log(error);
+            console.log(`FollowListItem: Failed to Unfollow`, error);
+        }
+    }
+
+    const handleAccept = async () => {
+        const userId1 = authProfile.userId;
+        const userId2 = follow.following;
+        try {
+
+            const response = await acceptFollowing(following._id);
+            if (response && response.data && response.status === 201) {
+                removeItemFromList(follow);
+            }
+
 
         } catch (error) {
             console.log(error);
@@ -107,23 +141,28 @@ const FollowListItem = ({ authProfile, follow, routeName }) => {
 
                     </View>
                 </TouchableWithoutFeedback>
+                {following ? (
+                    <View style={{ flexDirection: 'row' }}>
+                        {isFollowed && following.status === 'pending' && <TouchableOpacity onPress={() => { handleAccept() }}>
+                            <View style={[styles.buttonContainer, { backgroundColor: '#1992fb', borderColor: '#1992fb', }]}>
+                                {following.status === 'pending' && <Text style={[styles.button, { color: 'white', fontWeight: '500' }]}>Confirm</Text>}
+                            </View>
+                        </TouchableOpacity>}
+                        {(isFollowing || isFollowed || !routeName) && <TouchableOpacity onPress={() => { handleUnfollow() }}>
+                            <View style={[styles.buttonContainer, { backgroundColor: 'white', borderColor: 'grey', }]}>
+                                {(following.status === 'accepted' && isFollowing) ? <Text style={[styles.button]}>Following</Text> : <Text style={styles.button}>Remove</Text>}
+                            </View>
+                        </TouchableOpacity>}
 
-                {following && isFollowing ? <TouchableWithoutFeedback onPress={() => { handleUnfollow() }}>
-                    <View style={[styles.buttonContainer, { backgroundColor: 'white', borderColor: 'grey', }]}>
-                        {following.status === 'accepted' ? <Text style={[styles.button]}>Following</Text> : <Text style={styles.button}>Requested</Text>}
                     </View>
-                </TouchableWithoutFeedback>
-                    : (profile._id !== authProfile._id && <TouchableWithoutFeedback onPress={() => { handleFollow() }}>
+                )
+                    : (profile._id !== authProfile._id && <TouchableOpacity onPress={() => { handleFollow() }}>
                         <View style={[styles.buttonContainer, isFollowing ? { backgroundColor: 'white', borderColor: 'grey', } : { backgroundColor: '#1992fb', borderColor: '#1992fb', }]}>
                             <Text style={[styles.button, { color: 'white', fontWeight: '500' }]}>Follow</Text>
                         </View>
-                    </TouchableWithoutFeedback>)}
-
+                    </TouchableOpacity>)}
             </View>
-
-        </View >
-
-
+        </View>
     )
 }
 
@@ -143,14 +182,15 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         borderWidth: 1,
-        width: 100,
+        width: 80,
         height: 27,
         borderRadius: 3,
-        alignItems: 'center'
+        alignItems: 'center',
+        marginHorizontal: 2
     },
     button: {
         alignSelf: 'center',
-        paddingVertical: 4
+        paddingVertical: 4,
     },
     profileDetails: {
         marginLeft: 3

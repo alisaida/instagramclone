@@ -53,8 +53,10 @@ const StackNav = () => {
                     headerRight: () => (
                         <View style={{ flexDirection: 'row', marginRight: 20, width: 100, justifyContent: 'space-between', alignItems: 'center' }}>
                             <PostMenuItem />
-                            <Ionicons name='heart-outline' size={26} color={'#000'} />
-                            <TouchableOpacity onPress={() => navigation.push('ChatScreen')}>
+                            <TouchableOpacity onPress={() => navigation.push('FollowRequest')}>
+                                <Ionicons name='heart-outline' size={26} color={'#000'} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.push('FollowRequest')}>
                                 <Fontisto name='messenger' size={21} color={'#000'} />
                             </TouchableOpacity>
                         </View>

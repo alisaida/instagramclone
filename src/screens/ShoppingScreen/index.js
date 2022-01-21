@@ -33,14 +33,12 @@ const ShoppingScreen = () => {
         <View style={{ height: 1000 }} >
             <>
                 <Text style={{ marginTop: 200, fontSize: 30, textAlign: 'center', fontWeight: 'bold' }}>Shop</Text>
-                <CacheImage showProgress={true} style={{ width: 200, height: 200, marginHorizontal: 40 }}
-                    uri={'https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg'} />
-                <Button
+                {/* <Button
                     onPress={deleteFile}
                     title="Handle Notification"
                     color="#841584"
                     accessibilityLabel="Learn more about this purple button"
-                />
+                /> */}
             </>
         </View >
     );
