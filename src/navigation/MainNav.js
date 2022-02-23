@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets, CardStyleInterpolators } from '@react-navigation/stack';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
@@ -18,6 +18,7 @@ import BookmarkScreen from '../screens/BookmarkScreen';
 import PostScreen from '../screens/PostScreen';
 import FollowScreen from '../screens/FollowScreen';
 import FollowRequestScreen from '../screens/FollowRequestScreen';
+import EditProfileScreen from '../screens/EditProfileScreen'
 
 // import CallNav from './CallNav';
 
@@ -172,6 +173,21 @@ const MainNav = () => {
                                         <MaterialIcons name='arrow-back-ios' size={25} />
                                     </TouchableOpacity>
                                 )
+                            })} />
+                        <RootStack.Screen
+                            name='EditProfile'
+                            component={EditProfileScreen}
+                            options={({ navigation, route }) => ({
+                                cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid,
+                                // headerShown: true,
+                                headerShown: false,
+                                // title: 'Edit Profile',
+                                // headerLeft: () => (
+                                //     <Button title="Cancel" onPress={() => navigation.pop()} />
+                                // ),
+                                // headerRight: () => (
+                                //     <Button title="Done" onPress={() => navigation.pop()} />
+                                // )
                             })} />
                         <RootStack.Screen
                             name='ChatScreen'

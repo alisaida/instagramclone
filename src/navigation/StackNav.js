@@ -56,7 +56,7 @@ const StackNav = () => {
                             <TouchableOpacity onPress={() => navigation.push('FollowRequest')}>
                                 <Ionicons name='heart-outline' size={26} color={'#000'} />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => navigation.push('FollowRequest')}>
+                            <TouchableOpacity onPress={() => navigation.push('ChatScreen')}>
                                 <Fontisto name='messenger' size={21} color={'#000'} />
                             </TouchableOpacity>
                         </View>

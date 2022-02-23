@@ -247,7 +247,9 @@ const Profile = ({ userId, isAuthProfile, navigation }) => {
                     followingsCount={followingsCount}
                     isAuthorized={isAuthorized}
                 />
-                {!isAuthProfile && <View style={styles.buttonContainer}>
+                {isAuthProfile ? <View style={styles.buttonContainer}><TouchableOpacity onPress={() => navigation.push('EditProfile', { authProfile })} style={[styles.contactButtonContainer, { backgroundColor: 'white', borderColor: 'grey', }]}>
+                    <Text style={[styles.button, { backgroundColor: 'white', borderColor: 'grey' }]}>Edit Profile</Text>
+                </TouchableOpacity></View> : <View style={styles.buttonContainer}>
                     {(!following) ? <TouchableOpacity onPress={() => handleFollow()} style={[styles.contactButtonContainer, { backgroundColor: '#1992fb', borderColor: '#1992fb', }]}>
                         <Text style={[styles.button, { color: 'white', fontWeight: '500' }]}>Follow</Text>
                     </TouchableOpacity> :

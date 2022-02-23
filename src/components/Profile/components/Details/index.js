@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Text, View, SafeAreaView, ActivityIndicator, Alert, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, SafeAreaView, ActivityIndicator, ActionSheetIOS, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
 import ProfilePicture from '../../../ProfilePicture';
@@ -39,20 +39,23 @@ const Details = ({
         }, [profile])
     );
 
-    const showAlert = () => Alert.alert(
-        "Update profile picture",
-        "How would you like to update your profile picture?",
-        [{
-            text: "Camera",
-            onPress: () => openCamera(),
-            style: "default",
-        },
-        {
-            text: "Gallery",
-            onPress: () => openGallery(),
-            style: "default",
-        }]
-    );
+    const showActionSheet = () =>
+        ActionSheetIOS.showActionSheetWithOptions(
+            {
+                options: ["Cancel", "Camera", "Gallery"],
+                cancelButtonIndex: 0,
+                userInterfaceStyle: 'light'
+            },
+            buttonIndex => {
+                if (buttonIndex === 0) {
+                    // cancel action
+                } else if (buttonIndex === 1) {
+                    openCamera();
+                } else if (buttonIndex === 2) {
+                    openGallery();
+                }
+            }
+        );
 
     const openGallery = () => {
         setTimeout(() => {
@@ -121,15 +124,10 @@ const Details = ({
                     (<Header profile={profile} navigation={navigation} />)
             }
             <View style={styles.container}>
-                {isAuthProfile ?
-                    <TouchableOpacity onPress={showAlert}>
-                        <ProfilePicture uri={profilePicture} size={90} />
-                    </TouchableOpacity>
-                    :
-                    <View>
-                        <ProfilePicture uri={profilePicture} size={90} />
-                    </View>
-                }
+                <View>
+                    <ProfilePicture uri={profilePicture} size={90} />
+                    <Text style={styles.profileName}>{profile.name}</Text>
+                </View>
                 <View style={styles.stats}>
                     <Stat statName='Posts' statCount={postCount} isAuthorized={isAuthorized} />
                     <TouchableWithoutFeedback onPress={() => {
@@ -150,7 +148,6 @@ const Details = ({
                     </TouchableWithoutFeedback>
                 </View>
             </View>
-            <Text style={styles.profileName}>{profile.name}</Text>
         </View >
     )
 }

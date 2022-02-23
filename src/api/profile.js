@@ -117,6 +117,34 @@ export const createProfile = async (username, name, profilePicture, bio) => {
     }
 }
 
+export const updateProfile = async (username, name, profilePicture, bio, isPublic) => {
+    console.log('sending update profile request')
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'post',
+            url: `/api/profiles/update`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            },
+            data: {
+                username: username,
+                name: name,
+                profilePicture: profilePicture,
+                bio: bio,
+                isPublic: isPublic
+            }
+        })
+
+        return response;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
 export const updateProfileImage = async (imageUri) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 

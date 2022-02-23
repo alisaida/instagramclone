@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef, useContext } from 'react'
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, TextInput, Button, RefreshControl, KeyboardAvoidingView, FlatList, Alert, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, ScrollView, TextInput, Button, RefreshControl, KeyboardAvoidingView, FlatList, ActionSheetIOS, TouchableOpacity } from 'react-native'
 import { useNavigation, useRoute, NavigationAction } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
 
@@ -87,20 +87,23 @@ const ChatRoomScreen = () => {
         }
     };
 
-    const showAlert = () => Alert.alert(
-        "Upload",
-        "How would you like to upload photo?",
-        [{
-            text: "Camera",
-            onPress: () => openCamera(),
-            style: "default",
-        },
-        {
-            text: "Gallery",
-            onPress: () => openGallery(),
-            style: "default",
-        }]
-    );
+    const showActionSheet = () =>
+        ActionSheetIOS.showActionSheetWithOptions(
+            {
+                options: ["Cancel", "Camera", "Gallery"],
+                cancelButtonIndex: 0,
+                userInterfaceStyle: 'light'
+            },
+            buttonIndex => {
+                if (buttonIndex === 0) {
+                    // cancel action
+                } else if (buttonIndex === 1) {
+                    openCamera();
+                } else if (buttonIndex === 2) {
+                    openGallery();
+                }
+            }
+        );
 
     const openGallery = () => {
         setTimeout(() => {
@@ -209,7 +212,7 @@ const ChatRoomScreen = () => {
                     <View style={styles.bottomContainer}>
                         <View style={styles.inputContainer}>
                             <View style={styles.inputIcon}>
-                                <TouchableOpacity onPress={showAlert}>
+                                <TouchableOpacity onPress={showActionSheet}>
                                     <Ionicons name='ios-camera-outline' size={24} color={'white'} style={{ marginHorizontal: 3, marginVertical: 2, padding: 2 }} />
                                 </TouchableOpacity>
                             </View>

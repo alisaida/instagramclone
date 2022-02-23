@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     profileName: {
         marginVertical: 5,
         marginHorizontal: 15,
-        textAlign: 'justify',
+        textAlign: 'center',
         fontWeight: '500'
     }
 });
