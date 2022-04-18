@@ -1,55 +1,32 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import validator from 'validator';
-import axios from 'axios';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Alert, Button, KeyboardAvoidingView, Platform } from 'react-native';
 import logo from '../../assets/images/instagram-logo.png';
 
-import Loading from '../../components/Loading';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { forgotPassword } from '../../api/auth';
 
-import { login } from '../../redux/actions/authActions';
-
-import { useDispatch, useSelector } from "react-redux";
-import { AUTH_CLEAR_ERRORS } from '../../redux/constants/actionTypes';
-
-const LoginScreen = ({ navigation }) => {
-
-    useEffect(() => {
-        return () => { }
-    })
-
+const ForgotPasswordScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState(' ');
-    const [isLoading, setIsLoading] = useState(false);
-
-    const { auth } = useSelector((state) => state);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        updateState();
-    }, [auth]);
-
-    const updateState = () => {
-        if (auth) {
-            if (auth.error) {
-                setErrorMessage(auth.error.toString());
-            } else {
-                setErrorMessage(' ');
-            }
-            setIsLoading(auth.isLoading);
-            // console.log(auth.userId)
-        }
-    }
 
     const validate = async () => {
         if (!email) {
-            setErrorMessage('email field is mandatory');
-        } else if (!password) {
-            setErrorMessage('password field is mandatory');
+            setErrorMessage('enter email');
         } else if (!validator.isEmail(email)) {
             setErrorMessage('please enter valid email');
         } else {
-            dispatch(login(email, password));
+            makeRequest();
+            navigation.pop();
+        }
+    }
+
+    const makeRequest = async () => {
+        try {
+            await forgotPassword(email);
+        } catch (e) {
+            console.log(`ForgotPassword Screen: Failed to Send passowrd reset link to email`, e);
         }
     }
 
@@ -57,10 +34,12 @@ const LoginScreen = ({ navigation }) => {
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.outerContainer}>
             <View style={styles.container}>
-
+                <TouchableOpacity style={styles.closeIcon} onPress={() => navigation.pop()}>
+                    <Ionicons name='close-outline' size={35} />
+                </TouchableOpacity>
                 <Image source={logo} style={styles.logo} />
+                <Text style={styles.headerText}>Trouble with logging in?</Text>
                 {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
-
                 <View style={styles.inputView} >
                     <TextInput
                         style={styles.inputText}
@@ -73,41 +52,15 @@ const LoginScreen = ({ navigation }) => {
                         onChangeText={text => setEmail(text)}
                     />
                 </View>
-                <View style={styles.inputView} >
-                    <TextInput
-                        style={styles.inputText}
-                        placeholder="password..."
-                        placeholderTextColor="#808080"
-                        color='#808080'
-                        secureTextEntry={true}
-                        onChangeText={text => setPassword(text)}
-                    />
-                </View>
-                <TouchableOpacity style={[styles.loginBtn]} onPress={() => {
-                    validate();
-                }}>
-                    <Text style={styles.loginText}>log in</Text>
+                <TouchableOpacity style={[styles.loginBtn]} onPress={validate}>
+                    <Text style={styles.loginText}>Send Login Link</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {
-                    dispatch({ type: AUTH_CLEAR_ERRORS });
-                    navigation.navigate('ForgotPassword');
-                }}>
-                    <Text style={styles.link}>Forgot Password?</Text>
-                </TouchableOpacity>
-                <Text>or</Text>
-                <TouchableOpacity onPress={() => {
-                    dispatch({ type: AUTH_CLEAR_ERRORS });
-                    navigation.navigate('Register');
-                }}>
-                    <Text style={styles.link}>Sign up</Text>
-                </TouchableOpacity>
-                {isLoading && <Loading isLoading={true} />}
             </View >
         </KeyboardAvoidingView>
     );
 }
 
-export default LoginScreen;
+export default ForgotPasswordScreen;
 
 const styles = StyleSheet.create({
     outerContainer: {
@@ -119,13 +72,23 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    closeIcon: {
+        position: 'absolute',
+        right: 30,
+        top: 50
+    },
+    headerText: {
+        fontSize: 18,
+        marginTop: -15,
+        marginBottom: 10,
+        fontWeight: '400'
+    },
     logo: {
         width: 200,
         height: 100,
         resizeMode: 'contain'
     },
     errorText: {
-        marginTop: -10,
         marginBottom: 10,
         color: "red"
     },

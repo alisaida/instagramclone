@@ -171,6 +171,7 @@ const Profile = ({ userId, isAuthProfile, navigation }) => {
     }
 
     const togglePostMenu = () => {
+        // dispatch(logout())
         setIsMenu(true)
         setVisible(true);
     }

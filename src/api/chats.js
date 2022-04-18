@@ -20,7 +20,6 @@ export const retrieveMyChats = async () => {
         return response.data.chatRooms;
     }
     catch (error) {
-        console.log('wtf');
         return error;
     }
 }

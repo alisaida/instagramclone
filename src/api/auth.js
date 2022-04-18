@@ -1,155 +1,70 @@
-import axios from 'axios';
-import SecureStorage from 'react-native-secure-storage';
+import { axiosInstance } from '../utils/axiosIntance';
 
 import { BASE_URL } from '@env';
 
-export const currentAuthUser = async () => {
-    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
-
+export const forgotPassword = async (email) => {
     try {
-        const response = await axios({
-            method: 'get',
-            url: `${BASE_URL}/api/profiles/auth/me/`,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
-            },
-            mode: 'cors'
+        const response = await axiosInstance({
+            method: 'post',
+            url: `/api/auth/forgot-password`,
+            data: {
+                email: email
+            }
         })
 
-        return profile.data;
+        return response.data;
     }
     catch (error) {
-        console.log(error);
         return error;
     }
 }
 
-export const loginUser = async (email, password) => {
-    console.log(BASE_URL);
+export const forgotPasswordWithUserId = async (userId) => {
     try {
-        const response = await axios({
+        const response = await axiosInstance({
             method: 'post',
-            url: `${BASE_URL}/api/auth/login/`,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            mode: 'cors',
+            url: `/api/auth/forgot-pass`,
             data: {
-                email: email,
+                userId: userId
+            }
+        })
+
+        return response.data;
+    }
+    catch (error) {
+        return error;
+    }
+}
+
+export const resetPassword = async (userId, password, code) => {
+    try {
+        const response = await axiosInstance({
+            method: 'post',
+            url: `/api/auth/forgot-password/${userId}/${code}`,
+            data: {
                 password: password
             }
         })
 
-        //successfully logged in
-        if (response && response.status === 200) {
-            storeAccessToken(response.data.accessToken);
-            storeRefreshToken(response.data.accessToken);
-        }
-        return response;
-    } catch (error) {
-        console.log(error);
+        return response.data;
+    }
+    catch (error) {
+        console.log('error: ', error)
         return error;
     }
-
 }
 
-export const registerUser = async (email, name, username, password) => {
+export const verifyAccount = async (userId, code) => {
     try {
-        const response = await axios({
+        const response = await axiosInstance({
             method: 'post',
-            url: `${BASE_URL}/api/auth/register/`,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            mode: 'cors',
-            data: {
-                email: email,
-                name: name,
-                username: username,
-                password: password
-            }
+            url: `/api/auth/verify-account/${userId}/${code}`,
         })
 
-        //successfully logged in
-        if (response && response.status === 201) {
-            storeAccessToken(response.data.accessToken);
-            storeRefreshToken(response.data.accessToken);
-        }
-        return response;
-    } catch (error) {
-        console.log(error);
+        return response.data;
+    }
+    catch (error) {
+        console.log('error: ', error)
         return error;
     }
-
-}
-
-export const logoutUser = () => {
-    const refreshToken = fetchRefreshToken();
-    axios({
-        method: 'post',
-        url: `${BASE_URL}/api/auth/logout`,
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        mode: 'cors',
-        data: {
-            refreshToken: refreshToken
-        }
-    }).then(response => {
-        console.log(response.data);
-
-        //remove sensitive data
-        removeAccessToken();
-        removeRefreshToken();
-        return response;
-    }).catch(error => {
-        console.log(error)
-    })
-}
-
-export const register = (name, email, mobile, password) => {
-    axios({
-        method: 'post',
-        url: `${BASE_URL}/api/auth/register/`,
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        mode: 'cors',
-        data: {
-            name: name,
-            email: email,
-            mobile: mobile,
-            password: password
-        }
-    }).then(response => {
-        console.log(response.data);
-        storeAccessToken(response.data.accessToken);
-        storeRefreshToken(response.data.accessToken);
-        return response;
-    }).catch(error => {
-        console.log(error)
-    })
-}
-
-export const refreshToken = (refreshToken) => {
-
-    axios({
-        method: 'post',
-        url: `${BASE_URL}/api/auth/refresh-token/`,
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        mode: 'cors',
-        data: {
-            refreshToken: refreshToken
-        }
-    }).then(response => {
-        console.log(response.data);
-        storeAccessToken(response.data.accessToken);
-        storeRefreshToken(response.data.accessToken);
-        return response;
-    }).catch(error => {
-        console.log(error)
-    })
 }

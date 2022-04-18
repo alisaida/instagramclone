@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import MainNav from './MainNav';
 import AuthNav from './AuthNav';
 import CallScreen from '../screens/CallScreen';
-// import CallNav from './CallNav';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const AuthStack = createStackNavigator();
@@ -45,8 +44,30 @@ const Router = () => {
         },
     };
 
+    const config = {
+        screens: {
+            ResetPassword: {
+                path: 'reset-password/:id?',
+                parse: {
+                    id: (id: String) => `${id}`,
+                },
+            },
+            ConfirmAccount: {
+                path: 'verify-account/:id?',
+                parse: {
+                    id: (id: String) => `${id}`,
+                },
+            },
+        },
+    };
+
+    const linking = {
+        prefixes: ['instagramclone://'],
+        config,
+    };
+
     return (
-        <NavigationContainer theme={theme}>
+        <NavigationContainer linking={linking} theme={theme}>
 
             {(authUser)
                 ?

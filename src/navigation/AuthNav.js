@@ -4,7 +4,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import TabNav from './TabNav'
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
-import PasswordResetScreen from '../screens/PasswordResetScreen';
+import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
+import ConfirmAccountScreen from '../screens/ConfirmAccountScreen';
+import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 const AuthStack = createStackNavigator();
 
 const AuthNav = () => {
@@ -16,7 +18,9 @@ const AuthNav = () => {
             }}>
             <AuthStack.Screen name='Login' component={LoginScreen} />
             <AuthStack.Screen name='Register' component={RegisterScreen} />
-            <AuthStack.Screen name='PassordReset' component={PasswordResetScreen} />
+            <AuthStack.Screen name='ForgotPassword' component={ForgotPasswordScreen} />
+            <AuthStack.Screen name='ResetPassword' component={ResetPasswordScreen} />
+            <AuthStack.Screen name='ConfirmAccount' component={ConfirmAccountScreen} />
         </AuthStack.Navigator>
     )
 }
