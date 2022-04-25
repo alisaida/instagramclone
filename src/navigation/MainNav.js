@@ -18,7 +18,10 @@ import BookmarkScreen from '../screens/BookmarkScreen';
 import PostScreen from '../screens/PostScreen';
 import FollowScreen from '../screens/FollowScreen';
 import FollowRequestScreen from '../screens/FollowRequestScreen';
-import EditProfileScreen from '../screens/EditProfileScreen'
+import EditProfileScreen from '../screens/EditProfileScreen';
+import TagsScreen from '../screens/TagsScreen';
+import LocationsScreen from '../screens/LocationsScreen';
+import ContactScreen from '../screens/ContactScreen';
 
 // import CallNav from './CallNav';
 
@@ -145,6 +148,30 @@ const MainNav = () => {
                                 )
                             })} />
                         <RootStack.Screen
+                            name='Tags'
+                            component={TagsScreen}
+                            options={({ navigation }) => ({
+                                headerShown: true,
+                                title: 'Tags',
+                                headerLeft: () => (
+                                    < TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
+                                        <MaterialIcons name='arrow-back-ios' size={25} />
+                                    </TouchableOpacity>
+                                )
+                            })} />
+                        <RootStack.Screen
+                            name='Locations'
+                            component={LocationsScreen}
+                            options={({ navigation }) => ({
+                                headerShown: true,
+                                title: 'Locations',
+                                headerLeft: () => (
+                                    < TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
+                                        <MaterialIcons name='arrow-back-ios' size={25} />
+                                    </TouchableOpacity>
+                                )
+                            })} />
+                        <RootStack.Screen
                             name='FollowRequest'
                             component={FollowRequestScreen}
                             options={({ navigation }) => ({
@@ -226,6 +253,12 @@ const MainNav = () => {
                         <RootStack.Screen
                             name='CreatePost'
                             component={CreatePostScreen}
+                            options={{
+                                headerShown: false
+                            }} />
+                        <RootStack.Screen
+                            name='ContactScreen'
+                            component={ContactScreen}
                             options={{
                                 headerShown: false
                             }} />

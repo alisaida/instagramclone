@@ -38,10 +38,10 @@ const styles = StyleSheet.create({
     },
     username: {
         fontWeight: '500',
-        fontSize: 18
+        fontSize: 15
     },
     profileName: {
-        fontSize: 16,
+        fontSize: 14,
         color: '#8d8f91',
     }
 })

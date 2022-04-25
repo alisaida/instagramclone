@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TouchableWithoutFeedback, View } from 'react-native';
+import { Text, TouchableWithoutFeedback, View, Alert } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import moment from 'moment'
 import styles from './styles';
 import { retrievePostById, likePostById, unlikePostById } from '../../../../api/posts';
+import { fetchProfileByUsername } from '../../../../api/profile';
 
 const Footer = ({ navigation, authProfile, profile, post, likesCount, commentsCount, isBookmarked, isLiked, onBookmarkPressed, onLikePressed, toggleMenu }) => {
 
@@ -77,6 +78,44 @@ const Footer = ({ navigation, authProfile, profile, post, likesCount, commentsCo
         navigation.push('Root', { screen: 'Likes', params: { post: post } });
     }
 
+    const fetchAndNavigateToTaggedProfile = async (taggedProfile) => {
+        const username = taggedProfile.substring(1);
+        try {
+            const profiles = await fetchProfileByUsername(username);
+            if (profiles && profiles.length > 0)
+                navigation.push('Root', { screen: 'ProfileScreen', params: { otherProfile: profiles[0], isAuthProfile: false } });
+            else
+                createUserNotFoundAlert();
+        } catch (e) {
+            console.log(`Post: Failed to fetchAndNavigateToTaggedProfile for username ${username}`, e);
+        }
+    }
+
+    const createUserNotFoundAlert = () =>
+        Alert.alert(
+            "User not found",
+            [
+                {
+                    text: "Close",
+                    // onPress: () => closeScreen(),
+                    style: "cancel"
+                },
+            ]
+        );
+
+    const hashTagFormatter = (string) => {
+        return string.split(/((?:^|\s)(?:#[a-z\d-]+))/gi).filter(Boolean).map((v, i) => {
+            if (v.includes('#')) {
+                return <Text key={i} style={{ color: '#0d5780' }} onPress={() => navigation.navigate('Tags', { tag: v })}>{v}</Text> //console.log(v)
+            } else if (v.includes('@')) {
+                return <Text key={i} style={{ color: '#0d5780' }} onPress={() => fetchAndNavigateToTaggedProfile(v)}>{v}</Text> //console.log(v)
+
+            } else {
+                return <Text key={i}>{v}</Text>
+            }
+        })
+    };
+
     if (!duration)
         return null;
 
@@ -111,7 +150,7 @@ const Footer = ({ navigation, authProfile, profile, post, likesCount, commentsCo
             </TouchableWithoutFeedback>
             < View style={styles.postDetails}>
                 <Text style={styles.postUser} >{profile.name}</Text>
-                {post && !!post.caption && <Text style={styles.caption} >{post.caption}</Text>}
+                {post && !!post.caption && <Text style={styles.caption}>{hashTagFormatter(post.caption)}</Text>}
             </View>
             <TouchableWithoutFeedback onPress={navigateToCommentsScreen}>
                 <View>

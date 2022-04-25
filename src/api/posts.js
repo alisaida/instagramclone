@@ -293,7 +293,7 @@ export const createCommentByPostId = async (id, comment) => {
     }
 }
 
-export const createPost = async (imageUri, caption) => {
+export const createPost = async (imageUri, caption, people) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
     try {
@@ -305,11 +305,133 @@ export const createPost = async (imageUri, caption) => {
             },
             data: {
                 imageUri: imageUri,
-                caption: caption
+                caption: caption,
+                hashtags: hashtags,
+                people: people
             }
         })
 
         return response;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const getPostsByTagId = async (tagId, page, size) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'post',
+            url: `/api/posts/tags/${tagId}/?page=${page}&size=${size}`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const getTagByName = async (name, page, size) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'post',
+            url: `/api/posts/getTagByName?name=${name}&page=${page}&size=${size}`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const getTagsByNameLike = async (name, page, size) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'post',
+            url: `/api/posts/getTagsByNameLike?name=${name}&page=${page}&size=${size}`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const getLocationById = async (locationId) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'get',
+            url: `/api/posts/locations/${locationId}`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const getPostsByLocationId = async (locationId, page, size) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'post',
+            url: `/api/posts/getLocationsById/${locationId}/?page=${page}&size=${size}`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const getLocationsByNameLike = async (name, page, size) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'post',
+            url: `/api/posts/getLocationsByNameLike?name=${name}&page=${page}&size=${size}`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        return response.data;
     }
     catch (error) {
         console.log(error);

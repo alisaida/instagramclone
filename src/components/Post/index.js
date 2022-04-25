@@ -103,6 +103,7 @@ const Post = ({ postId, navigation, toggleMenu }) => {
         <View>
             <Header
                 profile={profile}
+                locationId={post.location}
             />
             <Body
                 imageUri={post.imageUri}

@@ -21,6 +21,7 @@ const PostLikeList = ({ postLike, navigation }) => {
     const fetchProfile = async () => {
         try {
             const profile = await fetchProfileById(postLike.userId);
+            console.log(profile)
             if (profile)
                 setProfile(profile);
         } catch (error) {

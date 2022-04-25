@@ -37,7 +37,7 @@ const ChatScreenHeader = ({ createNewChat }) => {
     return (
         <View style={styles.container}>
             <View style={styles.left}>
-                < TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
+                <TouchableOpacity style={styles.leftHeader} onPress={() => navigation.pop()}>
                     <MaterialIcons name='arrow-back-ios' size={26} />
                 </TouchableOpacity>
                 <Text style={styles.profileName}>{profile.username}</Text>
@@ -45,7 +45,7 @@ const ChatScreenHeader = ({ createNewChat }) => {
             </View>
             <View style={styles.right}>
                 <Ionicons name='videocam-outline' size={29} style={{ marginRight: 10 }} />
-                < TouchableOpacity style={styles.leftHeader} onPress={() => createNewChat()}>
+                <TouchableOpacity style={styles.leftHeader} onPress={() => createNewChat()}>
                     <Ionicons name='create-outline' size={26} />
                 </TouchableOpacity>
             </View>
@@ -53,8 +53,6 @@ const ChatScreenHeader = ({ createNewChat }) => {
 
     )
 }
-// if (profile)
-//     console.log(profile)
 
 export default ChatScreenHeader
 

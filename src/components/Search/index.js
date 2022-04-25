@@ -2,20 +2,17 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, FlatList, TextInput, ScrollView, Button, KeyboardAvoidingView, Keyboard } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { fetchProfileByName, fetchProfileByUsername } from '../../api/profile'
-
-import ProfileListItem from '../Profile/components/ProfileListItem'
-import ChatContactListItem from '../Chat/components/ChatContactListItem';
-
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Search = ({ isSearching, setIsSearching, isContactSearch }) => {
+import SearchResults from '../SearchResults';
+
+const Search = ({ isSearching, setIsSearching, isContactSearch, isResultTabbed }) => {
 
     const { auth } = useSelector((state) => state);
     const [authUser, setAuthUser] = useState(null);
+    const [userInput, setUserInput] = useState('');
     const [searchCriteria, setSearchCriteria] = useState('');
-    const [profiles, setProfiles] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
     const searchInput = useRef();
 
@@ -37,59 +34,27 @@ const Search = ({ isSearching, setIsSearching, isContactSearch }) => {
         }
     }
 
-    const search = async () => {
-        setRefreshing(true);
-        fetchProfiles();
-        setRefreshing(false);
-    }
-
-    const fetchProfiles = async () => {
-        try {
-            const searchByName = await fetchProfileByName(searchCriteria);
-            const searchByUsername = await fetchProfileByUsername(searchCriteria);
-            var results = searchByName.concat(searchByUsername)
-
-            if (isContactSearch) {
-                //filter out auth user for chat contact search
-                results = results.filter(profile => profile.userId !== authUser);
-            }
-
-            setProfiles(results)
-        } catch (error) {
-            console.log(`SearchScreen: Failed to fetchProfileBy[Name/Username] for id ${userId}`, error);
+    const search = async (value) => {
+        if (value === '') {
+            searchInput.current.clear();
+            setUserInput('');
+        } else {
+            setUserInput(value);
+            setIsSearching(true)
+            setSearchCriteria(value);
         }
     }
 
     const clearSearch = () => {
         searchInput.current.clear();
-        setSearchCriteria('');
-        setProfiles([]);
+        setUserInput('');
         Keyboard.dismiss();
         setIsSearching(false);
-    }
-
-    const onChangeText = (value) => {
-        if (value === '') {
-            searchInput.current.clear();
-            setSearchCriteria('');
-            setProfiles([]);
-        } else {
-            setSearchCriteria(value);
-            setIsSearching(true)
-        }
-    }
-
-    const renderItems = (item, index) => {
-        if (isContactSearch) {
-            return <ChatContactListItem profile={item} authUser={authUser} />
-        } else {
-            return <ProfileListItem profile={item} />
-        }
+        setSearchCriteria('');
     }
 
     return (
         <SafeAreaView >
-
             <View style={styles.container}>
                 <View style={styles.inputContainer}>
                     <View style={styles.iconContainer}>
@@ -100,8 +65,7 @@ const Search = ({ isSearching, setIsSearching, isContactSearch }) => {
                         style={styles.input}
                         placeholder="Search"
                         placeholderTextColor="#9e9e9e"
-                        onChange={(e) => onChangeText(e.nativeEvent.text)}
-                        onSubmitEditing={search}
+                        onSubmitEditing={(e) => search(e.nativeEvent.text)}
                         ref={searchInput}
                         backgroundColor={'#efefef'}
                     />
@@ -110,17 +74,7 @@ const Search = ({ isSearching, setIsSearching, isContactSearch }) => {
                     isSearching && <Button title="Cancel" onPress={() => { clearSearch() }} />
                 }
             </View>
-            {
-                profiles && profiles.length !== 0 &&
-                <View>
-                    <FlatList
-                        data={profiles}
-                        keyExtractor={(item) => item._id.toString()}
-                        renderItem={({ item, index }) => renderItems(item, index)}
-                        numColumns={1}
-                        contentContainerStyle={{ flexGrow: 1 }}
-                    />
-                </View>
+            {searchCriteria !== '' && <SearchResults authUser={authUser} searchCriteria={searchCriteria} isContactSearch={isContactSearch} isResultTabbed={isResultTabbed} />
             }
 
         </SafeAreaView >
