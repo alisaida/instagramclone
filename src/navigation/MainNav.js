@@ -22,6 +22,7 @@ import EditProfileScreen from '../screens/EditProfileScreen';
 import TagsScreen from '../screens/TagsScreen';
 import LocationsScreen from '../screens/LocationsScreen';
 import ContactScreen from '../screens/ContactScreen';
+import PlaceSearchScreen from '../screens/PlaceSearchScreen';
 
 // import CallNav from './CallNav';
 
@@ -259,6 +260,12 @@ const MainNav = () => {
                         <RootStack.Screen
                             name='ContactScreen'
                             component={ContactScreen}
+                            options={{
+                                headerShown: false
+                            }} />
+                        <RootStack.Screen
+                            name='PlaceSearchScreen'
+                            component={PlaceSearchScreen}
                             options={{
                                 headerShown: false
                             }} />

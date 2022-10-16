@@ -42,7 +42,7 @@ const CreatePostScreen = () => {
         })
 
         uploadToS3(route.params.image).then(data => {
-            // console.log('Uploading image', data)
+            console.log('Uploading image', data);
 
             if (data && data.Location) {
                 try {
@@ -62,7 +62,7 @@ const CreatePostScreen = () => {
     }
 
     const navigateToSearchLocation = () => {
-        navigation.navigate('PostLocationScreen', { image: route.params.image });
+        navigation.navigate('PlaceSearchScreen', { image: route.params.image, taggedProfiles: taggedProfiles });
     }
 
     const navigateToSearchContact = () => {

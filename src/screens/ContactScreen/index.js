@@ -19,6 +19,7 @@ const ContactScreen = () => {
     const searchInput = useRef();
     const [image, setImage] = useState({});
     const [selectedProfiles, setSelectedProfiles] = useState([]);
+    const [location, setLocation] = useState('');
 
     // Side-effect cleanup
     useEffect(() => {
@@ -31,6 +32,8 @@ const ContactScreen = () => {
 
         const selectedProfiles = route.params.taggedProfiles;
         setSelectedProfiles(selectedProfiles)
+        const location = route.params.location;
+        setLocation(location);
     }, []);
 
     const addToSelected = (item) => {
@@ -69,7 +72,7 @@ const ContactScreen = () => {
     }
 
     const saveContacts = () => {
-        navigation.navigate('CreatePost', { taggedProfiles: selectedProfiles, image: image });
+        navigation.navigate('CreatePost', { taggedProfiles: selectedProfiles, image: image, location: location });
     }
 
     const renderItems = (item, index) => {

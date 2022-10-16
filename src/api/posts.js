@@ -293,7 +293,7 @@ export const createCommentByPostId = async (id, comment) => {
     }
 }
 
-export const createPost = async (imageUri, caption, people) => {
+export const createPost = async (imageUri, caption, location, people) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 
     try {
@@ -306,7 +306,7 @@ export const createPost = async (imageUri, caption, people) => {
             data: {
                 imageUri: imageUri,
                 caption: caption,
-                hashtags: hashtags,
+                location: location,
                 people: people
             }
         })
