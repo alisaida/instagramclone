@@ -6,7 +6,7 @@ import validator from 'validator';
 import { useDispatch, useSelector } from "react-redux";
 import logo from '../../assets/images/instagram-logo.png';
 
-import { register } from '../../redux/actions/authActions'
+import { register, logout } from '../../redux/actions/authActions'
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Loading from '../../components/Loading';
@@ -32,17 +32,40 @@ const RegisterScreen = ({ navigation }) => {
         updateState();
     }, [auth]);
 
-    const updateState = () => {
+    const updateState = async () => {
         if (auth) {
             if (auth.error) {
                 setErrorMessage(auth.error.toString());
             } else {
                 setErrorMessage(' ');
+                const accessToken = await auth.accessToken;
+                if (accessToken) {
+                    console.log(accessToken);
+                    navigation.pop();
+                    dispatch(logout());
+                    createVerifyAccountAlert();
+                }
             }
             setIsLoading(auth.isLoading);
-            // console.log(auth)
         }
     }
+
+    const closeScreen = () => {
+        // navigation.pop();
+    }
+
+    const createVerifyAccountAlert = () =>
+        Alert.alert(
+            "Verify account",
+            "Please check you email to verify account",
+            [
+                {
+                    text: "Close",
+                    onPress: () => closeScreen(),
+                    style: "cancel"
+                }
+            ]
+        );
 
     const validate = async () => {
         if (!email) {

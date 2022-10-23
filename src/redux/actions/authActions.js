@@ -53,7 +53,7 @@ export const register = (email, name, username, password) => async (dispatch) =>
         if (res && res.status) {
             if (res.status === 201) {
                 dispatch({ type: AUTH_REGISTER_SUCCESS, payload: res });
-                dispatch(fetchCurrentProfile()); //only load profile after successfully api register
+                // dispatch(fetchCurrentProfile()); //only load profile after successfully api register
             }
             else {
                 dispatch({ type: AUTH_REGISTER_FAIL, payload: res.response });
@@ -72,8 +72,9 @@ export const register = (email, name, username, password) => async (dispatch) =>
 export const fetchCurrentProfile = () => async (dispatch) => {
     dispatch({ type: AUTH_PROFILE_REQUEST });
     try {
+        console.log('FETCHING NEW USER DATA');
         const res = await fetchAuthProfile();
-        // console.log(res.data)
+        console.log('RESPONSE DATA', res.data);
         if (res && res.status)
             if (res.status === 200)
                 dispatch({ type: AUTH_PROFILE_SUCCESS, payload: res });

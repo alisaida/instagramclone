@@ -3,6 +3,7 @@ import { Animated, Dimensions, Modal, PanResponder, StyleSheet, View, TouchableW
 
 const BottomDrawer = ({ setVisible, onDismiss, minHeight = 300, children }) => {
 
+    console.log('ffs')
     const screenHeight = Dimensions.get('screen').height;
     const panY = useRef(new Animated.Value(screenHeight)).current;
 
@@ -46,6 +47,8 @@ const BottomDrawer = ({ setVisible, onDismiss, minHeight = 300, children }) => {
             },
         }),
     ).current;
+
+    console.log('omg')
 
     return (
         <Modal

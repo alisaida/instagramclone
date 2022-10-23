@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 import DotIcon from 'react-native-vector-icons/Entypo'
+import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 
 import ProfilePicture from '../../../ProfilePicture';
 import { getLocationById } from '../../../../api/posts';
@@ -9,7 +11,14 @@ import { getLocationById } from '../../../../api/posts';
 const Header = ({ profile, locationId }) => {
 
     const navigation = useNavigation();
+    const { auth } = useSelector((state) => state);
+    const [authUser, setAuthUser] = useState(null);
     const [place, setPlace] = useState(null);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [isAuthor, setIsAuthor] = useState(false);
+
+    const hideMenu = () => setModalVisible(false);
+    const showMenu = () => setModalVisible(true);
 
     // Side-effect cleanup
     useEffect(() => {
@@ -17,12 +26,27 @@ const Header = ({ profile, locationId }) => {
     }, []);
 
     useEffect(() => {
+        setUser();
+    }, [auth]);
+
+    useEffect(() => {
         fetchLocation();
 
         return () => { };
     }, [])
 
+    const setUser = async () => {
+        const userId = await auth.userId;
+        if (userId && userId === profile.userId) {
+            setIsAuthor(true);
+        }
+    }
+
     const gotToStories = () => {
+        navigation.navigate("Story");
+    }
+
+    const deletePost = () => {
         navigation.navigate("Story");
     }
 
@@ -65,7 +89,29 @@ const Header = ({ profile, locationId }) => {
                 </View>
             </View>
             <View style={styles.rightHeader} >
-                <DotIcon name='dots-three-horizontal' size={18} style={styles.actionIcon} />
+
+                <Menu visible={modalVisible} anchor={<Text onPress={showMenu}>
+                    <DotIcon name='dots-three-horizontal' size={18} style={styles.actionIcon} /></Text>} onRequestClose={hideMenu}
+                >
+                    {
+                        isAuthor && <>
+                            <MenuItem onPress={() => {
+                                deletePost();
+                            }}>Edit</MenuItem>
+                            <MenuItem onPress={() => {
+                                deletePost();
+                            }}>Delete</MenuItem></>
+
+                    }
+                    <MenuDivider />
+                    <MenuItem onPress={() => {
+                        deletePost();
+                    }}>Hide</MenuItem>
+                    <MenuDivider />
+                    <MenuItem onPress={() => {
+                        deletePost();
+                    }}>Report</MenuItem>
+                </Menu>
             </View>
         </View >
     );

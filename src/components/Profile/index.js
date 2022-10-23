@@ -278,38 +278,38 @@ const Profile = ({ userId, isAuthProfile, navigation }) => {
                         numColumns={3}
                         contentContainerStyle={{ flexGrow: 1 }}
                     />
-                    {
-                        visible && <BottomDrawer onDismiss={dismissMenu} >
-                            <>
-                                {
-                                    isMenu && <View>
-                                        <View style={styles.itemContainer}>
-                                            <Text style={styles.drawerHeader}>Create</Text>
-                                        </View>
-                                        <MenuItem title='Post' icon={postIcon} />
-                                        <MenuItem title='Reel' icon={reelIcon} />
-                                        <MenuItem title='Story' icon={storyIcon} />
-                                        <MenuItem title='Story highlight' icon={storyHighlightIcon} />
-                                        <MenuItem title='Live' icon={liveIcon} />
-                                    </View>}{
-                                    isSettings && <View>
-                                        <MenuItem title='Settings' icon={settingsIcon} />
-                                        <MenuItem title='Archive' icon={archiveIcon} />
-                                        <MenuItem title='QR Code' icon={qrIcon} />
-                                        <MenuItem title='Saved' icon={saveIcon} iconSpacing={10} callback={() => {
-                                            dismissMenu();
-                                            navigation.navigate('Bookmarks', {});
-                                        }} />
-                                        <MenuItem title='Logout' icon={logoutIcon} callback={() => { dispatch(logout()) }} />
-                                    </View>
-                                }
-                            </>
-                        </BottomDrawer>
-                    }
                 </View>) :
                     <View style={{ backgroundColor: 'white', height: '100%', width: '100%', alignItems: 'center' }}>
                         <Image source={no_post} style={{ width: 250, height: 250, alignSelf: 'center', marginVertical: 80 }} />
                     </View>)}
+            {
+                visible && <BottomDrawer onDismiss={dismissMenu} >
+                    <>
+                        {
+                            isMenu && <View>
+                                <View style={styles.itemContainer}>
+                                    <Text style={styles.drawerHeader}>Create</Text>
+                                </View>
+                                <MenuItem title='Post' icon={postIcon} />
+                                <MenuItem title='Reel' icon={reelIcon} />
+                                <MenuItem title='Story' icon={storyIcon} />
+                                <MenuItem title='Story highlight' icon={storyHighlightIcon} />
+                                <MenuItem title='Live' icon={liveIcon} />
+                            </View>}{
+                            isSettings && <View>
+                                <MenuItem title='Settings' icon={settingsIcon} />
+                                <MenuItem title='Archive' icon={archiveIcon} />
+                                <MenuItem title='QR Code' icon={qrIcon} />
+                                <MenuItem title='Saved' icon={saveIcon} iconSpacing={10} callback={() => {
+                                    dismissMenu();
+                                    navigation.navigate('Bookmarks', {});
+                                }} />
+                                <MenuItem title='Logout' icon={logoutIcon} callback={() => { dispatch(logout()) }} />
+                            </View>
+                        }
+                    </>
+                </BottomDrawer>
+            }
             {isLoading && <ActivityIndicator isLoading={true} />}
         </View>
     )

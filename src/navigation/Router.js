@@ -8,14 +8,17 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const AuthStack = createStackNavigator();
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { ContextProvider } from '../contexts/SocketContext';
+import { logout } from '../redux/actions/authActions';
 
 
 const Router = () => {
 
     const { auth } = useSelector((state) => state);
     const [authUser, setAuthUser] = useState(null);
+    const dispatch = useDispatch();
+
 
     // Side-effect cleanup
     useEffect(() => {
@@ -32,6 +35,7 @@ const Router = () => {
         if (userId) {
             console.log('user logged in');
             setAuthUser(userId);
+            // dispatch(logout()); //force logout
         } else {
             console.log('user logged out');
             setAuthUser(null);

@@ -90,7 +90,14 @@ const SearchResults = ({ authUser, searchCriteria, isContactSearch, isResultTabb
         try {
             const searchByName = await fetchProfileByName(searchCriteria);
             const searchByUsername = await fetchProfileByUsername(searchCriteria);
-            var results = searchByName.concat(searchByUsername)
+            var results = searchByName.concat(searchByUsername);
+
+            //specail case to filter people with names/userid being the same
+            results = results.filter((value, index, self) =>
+                index === self.findIndex((t) => (
+                    t.userId === value.userId
+                ))
+            );
 
             if (isContactSearch) {
                 //filter out auth user for chat contact search
