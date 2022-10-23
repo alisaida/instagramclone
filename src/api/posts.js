@@ -110,6 +110,25 @@ export const retrievePostById = async (id) => {
     }
 }
 
+export const deletePostById = async (id) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'delete',
+            url: `/api/posts/${id}/`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        return response;
+    }
+    catch (error) {
+        return null;
+    }
+}
+
 export const likePostById = async (id) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
 

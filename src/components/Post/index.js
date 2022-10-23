@@ -10,7 +10,7 @@ import Footer from './components/Footer/index';
 import { fetchProfileById } from '../../api/profile';
 import { retrievePostById, checkIsLiked, likePostById, unlikePostById, bookmarkPostById, unBookmarkPostById, checkIsBookmarked } from '../../api/posts';
 
-const Post = ({ postId, navigation, toggleMenu }) => {
+const Post = ({ postId, navigation, toggleMenu, hidePost }) => {
 
     const [authProfile, setAuthProfile] = useState(null);
     const [profile, setProfile] = useState(null);
@@ -80,6 +80,10 @@ const Post = ({ postId, navigation, toggleMenu }) => {
         }
     }
 
+    const onHidePressed = (postId) => {
+        hidePost(postId);
+    }
+
     const onBookmarkPressed = async () => {
         let apiResponse;
         try {
@@ -102,8 +106,10 @@ const Post = ({ postId, navigation, toggleMenu }) => {
     return (
         <View>
             <Header
+                postId={post._id}
                 profile={profile}
                 locationId={post.location}
+                onHidePressed={onHidePressed}
             />
             <Body
                 imageUri={post.imageUri}

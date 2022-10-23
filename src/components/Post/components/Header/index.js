@@ -6,9 +6,9 @@ import DotIcon from 'react-native-vector-icons/Entypo'
 import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 
 import ProfilePicture from '../../../ProfilePicture';
-import { getLocationById } from '../../../../api/posts';
+import { deletePostById, getLocationById } from '../../../../api/posts';
 
-const Header = ({ profile, locationId }) => {
+const Header = ({ postId, profile, locationId, onHidePressed }) => {
 
     const navigation = useNavigation();
     const { auth } = useSelector((state) => state);
@@ -46,8 +46,23 @@ const Header = ({ profile, locationId }) => {
         navigation.navigate("Story");
     }
 
-    const deletePost = () => {
-        navigation.navigate("Story");
+    const toggleMenu = () => {
+        if (modalVisible)
+            hideMenu();
+        else
+            showMenu();
+    }
+
+    const deletePost = async () => {
+        try {
+            const response = await deletePostById(postId);
+
+            if (response && response.status && response.status === 200) {
+                onHidePressed(postId);
+            }
+        } catch (error) {
+            console.log(`Post: Failed to delete ${postId}`, error);
+        }
     }
 
     const navigateToProfileScreen = () => {
@@ -68,7 +83,7 @@ const Header = ({ profile, locationId }) => {
                 setPlace(response);
             }
         } catch (error) {
-            console.log(`SearchScreen: Failed to fetchLocations for searchCriteria ${searchCriteria}`, error);
+            console.log(`Post: Failed to fetch location _id ${locationId}`, error);
         }
     }
 
@@ -94,22 +109,20 @@ const Header = ({ profile, locationId }) => {
                     <DotIcon name='dots-three-horizontal' size={18} style={styles.actionIcon} /></Text>} onRequestClose={hideMenu}
                 >
                     {
-                        isAuthor && <>
-                            <MenuItem onPress={() => {
-                                deletePost();
-                            }}>Edit</MenuItem>
-                            <MenuItem onPress={() => {
-                                deletePost();
-                            }}>Delete</MenuItem></>
-
+                        isAuthor &&
+                        <MenuItem onPress={() => {
+                            deletePost();
+                            toggleMenu();
+                        }}>Delete</MenuItem>
                     }
                     <MenuDivider />
                     <MenuItem onPress={() => {
-                        deletePost();
+                        onHidePressed(postId);
+                        toggleMenu();
                     }}>Hide</MenuItem>
                     <MenuDivider />
                     <MenuItem onPress={() => {
-                        deletePost();
+                        // deletePost();
                     }}>Report</MenuItem>
                 </Menu>
             </View>

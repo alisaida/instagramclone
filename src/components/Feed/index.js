@@ -70,6 +70,11 @@ const Feed = ({ navigation }) => {
         setIsMenu(false);
     }
 
+    const hidePost = (postId) => {
+        const filteredPosts = posts.filter(id => id !== postId);
+        setPosts(filteredPosts);
+    }
+
     const toggleMenu = (postId) => {
         setSelectedPost(postId);
         setIsMenu(true)
@@ -82,7 +87,7 @@ const Feed = ({ navigation }) => {
                 data={posts}
                 ListHeaderComponent={<Stories />}
                 keyExtractor={(item, index) => String(item)}
-                renderItem={({ item }) => <Post postId={item} navigation={navigation} toggleMenu={toggleMenu} />}
+                renderItem={({ item }) => <Post postId={item} navigation={navigation} toggleMenu={toggleMenu} hidePost={hidePost} />}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                 onEndReached={() => { setScrollToEndReached(true) }}
                 onMomentumScrollEnd={() => {
