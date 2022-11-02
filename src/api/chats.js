@@ -70,7 +70,6 @@ export const retrieveChatsWithRecipient = async (userId) => {
 
 export const retrieveChatsByUserId = async (userId) => {
     const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
-
     try {
         const response = await axiosInstance({
             method: 'get',

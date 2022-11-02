@@ -53,7 +53,7 @@ export const fetchProfileByName = async (name) => {
     try {
         const response = await axiosInstance({
             method: 'get',
-            url: `/api/profiles/user?name=${name}`,
+            url: `/api/profiles/searchByName?name=${name}`,
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }
@@ -75,7 +75,28 @@ export const fetchProfileByUsername = async (username) => {
     try {
         const response = await axiosInstance({
             method: 'get',
-            url: `/api/profiles/user?username=${username}`,
+            url: `/api/profiles/searchByUsername?username=${username}`,
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+
+        const { profiles } = response.data;
+        return profiles;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    }
+}
+
+export const fetchProfileByNameOrUsername = async (name) => {
+    const accessToken = await SecureStorage.getItem('accessToken').catch(() => null);
+
+    try {
+        const response = await axiosInstance({
+            method: 'get',
+            url: `/api/profiles/search?name=${name}`,
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }

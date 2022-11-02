@@ -72,9 +72,7 @@ export const register = (email, name, username, password) => async (dispatch) =>
 export const fetchCurrentProfile = () => async (dispatch) => {
     dispatch({ type: AUTH_PROFILE_REQUEST });
     try {
-        console.log('FETCHING NEW USER DATA');
         const res = await fetchAuthProfile();
-        console.log('RESPONSE DATA', res.data);
         if (res && res.status)
             if (res.status === 200)
                 dispatch({ type: AUTH_PROFILE_SUCCESS, payload: res });
