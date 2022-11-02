@@ -1,0 +1,81 @@
+### login via the auth service for access and refresh token pairs
+POST  http://localhost:5000/api/auth/login
+content-type: application/json
+
+{
+    "email": "example@mail.com",
+    "password": "pass"
+}
+
+
+### homepage
+GET http://localhost:5000/api/chats
+content-type: application/json
+
+### my chats
+GET http://localhost:5000/api/chats/me
+content-type: application/json
+authorization: Bearer <JWT>
+
+### fetch chats between me and a recipient
+GET http://localhost:5000/api/chats/users/6134d1a50115bb002a6904c7/me/
+content-type: application/json
+authorization: Bearer <JWT>
+
+
+### create chatroom
+POST  http://localhost:5000/api/chats/new
+content-type: application/json
+authorization: Bearer <JWT>
+
+{
+    "email": "example@mail.com"
+}
+
+### fetch chatroom data by id
+GET  http://localhost:5000/api/chats/6153260e5d6bf70028c4cc81
+content-type: application/json
+authorization: Bearer <JWT>
+
+### update chatroom
+PATCH  http://localhost:5000/api/chats/611d06c05230a37396fa7281
+content-type: application/json
+authorization: Bearer <JWT>
+
+{
+    "name": "team",
+    "isGroupChat": true
+}
+
+### fetch user chat rooms
+GET  http://localhost:5000/api/chats/users/6146fc900115bb002a6905e2/chatrooms
+content-type: application/json
+authorization: Bearer <JWT>
+
+### fetch chatroom recipients
+GET  http://localhost:5000/api/chats/611d06c05230a37396fa7281/users
+content-type: application/json
+authorization: Bearer <JWT>
+
+### create new message
+POST  http://localhost:5000/api/chats/6153260e5d6bf70028c4cc81/messages/newMessage
+content-type: application/json
+authorization: Bearer <JWT>
+
+{
+    "content":"heyow!"
+}
+
+### create new message image
+POST  http://localhost:5000/api/chats/615326f45d6bf70028c4cc92/messages/newMessageImage
+content-type: application/json
+authorization: Bearer <JWT>
+
+{
+    "imageUri":"http://google.com"
+}
+
+### fetch chatroom messages
+GET  http://localhost:5000/api/chats/6153260e5d6bf70028c4cc81/messages?page=1&size=100
+content-type: application/json
+authorization: Bearer <JWT>

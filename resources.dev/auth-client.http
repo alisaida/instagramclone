@@ -1,0 +1,60 @@
+### homepage
+GET http://localhost:5000/api/auth/
+content-type: application/json
+
+### login
+POST  http://localhost:5000/api/auth/
+content-type: application/json
+
+{
+    "email": "example@mail.com",
+    "password": "pass"
+}
+
+### renew refresh token
+POST http://localhost:5000/api/auth/refresh-token
+content-type: application/json
+
+{
+    "refreshToken": "<JWT>"
+}
+
+### logout
+POST http://localhost:5000/api/auth/logout
+content-type: application/json
+
+{
+    "refreshToken": "<JWT>"
+}
+
+
+### register
+POST http://localhost:5000/api/auth/register
+content-type: application/json
+
+{
+    "name": "Said",
+    "username":"si3iid",
+    "email": "example@mail.com",
+    "password": "pass"
+}
+
+### forgot password
+POST http://localhost:5000/api/auth/forgot-password
+content-type: application/json
+
+{
+    "email": "example@mail.com"
+}
+
+
+### reset password
+POST http://localhost:5000/api/auth/forgot-password/<JWT>
+content-type: application/json
+
+{
+    "password": "heyyy"
+}
+
+### verify account
+GET http://localhost:5000/api/auth/verify-account/<JWT>

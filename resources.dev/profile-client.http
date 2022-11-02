@@ -1,0 +1,96 @@
+### login via the auth service for access and refresh token pairs
+POST  http://localhost:5000/api/auth/login
+content-type: application/json
+
+{
+    "email": "example@mail.com",
+    "password": "pass"
+}
+
+### homepage
+GET http://localhost:5000/api/chats
+content-type: application/json
+
+### create profile
+POST  http://localhost:5000/api/profiles/new
+content-type: application/json
+authorization: Bearer <JWT>
+
+{
+    "username":"si3iid",
+    "name":"said",
+    "profilePicture":"https://yt3.ggpht.com/yti/ANoDKi585jBh0-kAY3piX6ZiulL6_HbqQESafmkbnNnU-Q=s108-c-k-c0x00ffffff-no-rj",
+    "bio":""
+}
+###6127981a1ff836003a00ec3c
+### fetch profile data by userId
+GET  http://localhost:5000/api/profiles/users/612a6449b4f6710041cd0cd7
+content-type: application/json
+authorization: Bearer <JWT>
+
+### fetch profile me
+GET  http://localhost:5000/api/profiles/me/
+content-type: application/json
+authorization: Bearer <JWT>
+
+### fetch profile data by username
+GET  http://localhost:5000/api/profiles/user?username=si3iid
+content-type: application/json
+authorization: Bearer <JWT>
+
+### fetch profile data by name
+GET  http://localhost:5000/api/profiles/user?name=said
+content-type: application/json
+authorization: Bearer <JWT>
+
+### update profile
+PATCH  http://localhost:5000/api/profiles/update
+content-type: application/json
+authorization: Bearer <JWT>
+
+{
+    "username":"sayid",
+    "name":"Said",
+    "profilePicture":"https://yt3.ggpht.com/yti/ANoDKi585jBh0-kAY3piX6ZiulL6_HbqQESafmkbnNnU-Q=s108-c-k-c0x00ffffff-no-rj"
+}
+
+### fetch profile data by name
+GET  http://localhost:5000/api/profiles/me
+content-type: application/json
+authorization: Bearer <JWT>
+
+
+
+### create following
+POST  http://localhost:5000/api/profiles/6134d07f0115bb002a6904c3/follow
+content-type: application/json
+authorization: Bearer <JWT>
+
+### fetch profile following
+GET  http://localhost:5000/api/profiles/6134ce870115bb002a6904ba/follow/6134d07f0115bb002a6904c3
+content-type: application/json
+authorization: Bearer <JWT>
+
+### unfollow user
+DELETE  http://localhost:5000/api/profiles/6134d07f0115bb002a6904c3/follow
+content-type: application/json
+authorization: Bearer <JWT>
+
+### accept following
+PATCH  http://localhost:5000/api/follow/61e40e0c7a5d6a48fd384854/accept
+content-type: application/json
+authorization: Bearer <JWT>
+
+### fetch profile followers
+POST  http://localhost:5000/api/profiles/614da8780115bb002a69065e/followers?page=1&size=3
+content-type: application/json
+authorization: Bearer <JWT>
+
+### fetch profile followings
+POST  http://localhost:5000/api/profiles/614da8780115bb002a69065e/followings?page=1&size=3
+content-type: application/json
+authorization: Bearer <JWT>
+
+{
+    "status":"pending"
+}

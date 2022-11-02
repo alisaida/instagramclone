@@ -1,0 +1,99 @@
+### login via the auth service for access and refresh token pairs
+POST  http://localhost:5000/api/auth/login
+content-type: application/json
+
+{
+    "email": "example@mail.com",
+    "password": "pass"
+}
+
+### create post
+POST  http://localhost:5000/api/posts/new
+content-type: application/json
+authorization: Bearer <JWT>
+
+{
+    "caption": "civilwar #ironman vs #captainamerica", 
+    "imageUri": "https://static.wikia.nocookie.net/marveldatabase/images/5/55/Civil_War_Vol_1_1_Turner_Variant_Textless.jpg",
+    "location": "Brisbane, Australia"
+}
+
+### update post
+PATCH  http://localhost:5000/api/posts/6134d07f0115bb002a6904c3
+content-type: application/json
+authorization: Bearer <JWT>
+
+{
+    "imageUri":"https://lh3.googleusercontent.com/d/1JLZFgI4aipro3DDx3LCdVjmsE71_l-Le",
+    "caption": "hit 'em up"
+}
+
+### fetch feed
+GET  http://localhost:5000/api/posts/feed/all?page=1&size=100
+content-type: application/json
+authorization: Bearer <JWT>
+
+### fetch post data by id
+GET  http://localhost:5000/api/posts/6134cf334e323d00283af07a
+content-type: application/json
+authorization: Bearer <JWT>
+
+### create comment on a post by id
+POST  http://localhost:5000/api/posts/6134cf334e323d00283af07a/comment/new
+content-type: application/json
+authorization: Bearer <JWT>
+
+{
+    "comment":"tehe"
+}
+
+### fetch posts comments
+GET  http://localhost:5000/api/posts/6134cf334e323d00283af07a/comments?page=1&size=5
+content-type: application/json
+authorization: Bearer <JWT>
+
+### fetch user posts
+GET  http://localhost:5000/api/posts/users/6134d07f0115bb002a6904c3/fetchPosts?page=1&size=5
+content-type: application/json
+authorization: Bearer <JWT>
+
+
+### fetch posts liked by user
+GET  http://localhost:5000/api/posts/likes/me?page=2&size=2
+content-type: application/json
+authorization: Bearer <JWT>
+
+### fetch likes for post
+GET  http://localhost:5000/api/posts/6134cf334e323d00283af07a/likes?page=1&size=2
+content-type: application/json
+authorization: Bearer <JWT>
+
+### like a post by id
+POST  http://localhost:5000/api/posts/61c9c03be79549002fcf1ba7/like
+content-type: application/json
+authorization: Bearer <JWT>
+
+### unlike a post by id
+DELETE  http://localhost:5000/api/posts/612a11bdb325112ace2254ba/like
+content-type: application/json
+authorization: Bearer <JWT>
+
+### bookmark a post by id
+POST  http://localhost:5000/api/posts/6134d2a34e323d00283af090/bookmark
+content-type: application/json
+authorization: Bearer <JWT>
+
+### unbookmark post by id
+DELETE  http://localhost:5000/api/posts/612a11bdb325112ace2254ba/bookmark
+content-type: application/json
+authorization: Bearer <JWT>
+
+### fetch posts bookmarked authUser
+GET  http://localhost:5000/api/posts/bookmarks/me?page=1&size=2
+content-type: application/json
+authorization: Bearer <JWT>
+
+### fetch posts liked by user
+GET  http://localhost:5000/api/posts/likes/me?page=2&size=2
+content-type: application/json
+authorization: Bearer <JWT>
